@@ -10,4 +10,7 @@
 
 @interface InitialViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
+
+- (IBAction)logInWithFacebook:(UIButton *)sender;
 @end

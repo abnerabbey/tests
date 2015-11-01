@@ -7,14 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0754E2A61BE5272500D369BE /* CoreLocation.framework */; };
+		0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AA1BE57BD200D369BE /* CardViewController.m */; };
+		0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */; };
 		07E336A31BE43FBF0040CC90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A21BE43FBF0040CC90 /* main.m */; };
 		07E336A61BE43FBF0040CC90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A51BE43FBF0040CC90 /* AppDelegate.m */; };
-		07E336A91BE43FBF0040CC90 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A81BE43FBF0040CC90 /* ViewController.m */; };
 		07E336AC1BE43FBF0040CC90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E336AA1BE43FBF0040CC90 /* Main.storyboard */; };
 		07E336AE1BE43FBF0040CC90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E336AD1BE43FBF0040CC90 /* Assets.xcassets */; };
 		07E336B11BE43FBF0040CC90 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E336AF1BE43FBF0040CC90 /* LaunchScreen.storyboard */; };
 		07E336BC1BE43FBF0040CC90 /* MonkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336BB1BE43FBF0040CC90 /* MonkTests.m */; };
 		07E336C71BE43FBF0040CC90 /* MonkUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336C61BE43FBF0040CC90 /* MonkUITests.m */; };
+		07E336D61BE442920040CC90 /* InitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336D51BE442920040CC90 /* InitialViewController.m */; };
+		07E336D91BE44BB90040CC90 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E336D81BE44BB90040CC90 /* MapKit.framework */; };
+		07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336DE1BE457A00040CC90 /* MenuViewController.m */; };
+		07E336E21BE457B10040CC90 /* UbicacionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336E11BE457B10040CC90 /* UbicacionViewController.m */; };
+		07E336E51BE457B90040CC90 /* CuentaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336E41BE457B90040CC90 /* CuentaViewController.m */; };
+		07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336E71BE462CE0040CC90 /* AssistantsViewController.m */; };
+		07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336EA1BE468860040CC90 /* FriendsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,12 +44,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0754E2A61BE5272500D369BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		0754E2A91BE57BD100D369BE /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
+		0754E2AA1BE57BD200D369BE /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
+		0754E2AC1BE57C0A00D369BE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		07E3369E1BE43FBF0040CC90 /* Monk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E336A21BE43FBF0040CC90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07E336A41BE43FBF0040CC90 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07E336A51BE43FBF0040CC90 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		07E336A71BE43FBF0040CC90 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		07E336A81BE43FBF0040CC90 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		07E336AB1BE43FBF0040CC90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07E336AD1BE43FBF0040CC90 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07E336B01BE43FBF0040CC90 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +63,19 @@
 		07E336C21BE43FBF0040CC90 /* MonkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MonkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E336C61BE43FBF0040CC90 /* MonkUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MonkUITests.m; sourceTree = "<group>"; };
 		07E336C81BE43FBF0040CC90 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07E336D41BE442920040CC90 /* InitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitialViewController.h; sourceTree = "<group>"; };
+		07E336D51BE442920040CC90 /* InitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitialViewController.m; sourceTree = "<group>"; };
+		07E336D81BE44BB90040CC90 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		07E336DD1BE457A00040CC90 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		07E336DE1BE457A00040CC90 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		07E336E01BE457B10040CC90 /* UbicacionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UbicacionViewController.h; sourceTree = "<group>"; };
+		07E336E11BE457B10040CC90 /* UbicacionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UbicacionViewController.m; sourceTree = "<group>"; };
+		07E336E31BE457B90040CC90 /* CuentaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CuentaViewController.h; sourceTree = "<group>"; };
+		07E336E41BE457B90040CC90 /* CuentaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CuentaViewController.m; sourceTree = "<group>"; };
+		07E336E61BE462CE0040CC90 /* AssistantsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssistantsViewController.h; sourceTree = "<group>"; };
+		07E336E71BE462CE0040CC90 /* AssistantsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssistantsViewController.m; sourceTree = "<group>"; };
+		07E336E91BE468860040CC90 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
+		07E336EA1BE468860040CC90 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +83,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */,
+				07E336D91BE44BB90040CC90 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +110,7 @@
 			children = (
 				07E336A01BE43FBF0040CC90 /* Monk */,
 				07E336BA1BE43FBF0040CC90 /* MonkTests */,
+				07E336D71BE44BA60040CC90 /* Frameworks */,
 				07E336C51BE43FBF0040CC90 /* MonkUITests */,
 				07E3369F1BE43FBF0040CC90 /* Products */,
 			);
@@ -103,9 +131,12 @@
 			children = (
 				07E336A41BE43FBF0040CC90 /* AppDelegate.h */,
 				07E336A51BE43FBF0040CC90 /* AppDelegate.m */,
-				07E336A71BE43FBF0040CC90 /* ViewController.h */,
-				07E336A81BE43FBF0040CC90 /* ViewController.m */,
 				07E336AA1BE43FBF0040CC90 /* Main.storyboard */,
+				07E336D41BE442920040CC90 /* InitialViewController.h */,
+				07E336D51BE442920040CC90 /* InitialViewController.m */,
+				07E336DA1BE457590040CC90 /* Menu Section */,
+				07E336DB1BE457670040CC90 /* Ubicacion Section */,
+				07E336DC1BE457820040CC90 /* Cuenta Section */,
 				07E336AD1BE43FBF0040CC90 /* Assets.xcassets */,
 				07E336AF1BE43FBF0040CC90 /* LaunchScreen.storyboard */,
 				07E336B21BE43FBF0040CC90 /* Info.plist */,
@@ -138,6 +169,50 @@
 				07E336C81BE43FBF0040CC90 /* Info.plist */,
 			);
 			path = MonkUITests;
+			sourceTree = "<group>";
+		};
+		07E336D71BE44BA60040CC90 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0754E2A61BE5272500D369BE /* CoreLocation.framework */,
+				07E336D81BE44BB90040CC90 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		07E336DA1BE457590040CC90 /* Menu Section */ = {
+			isa = PBXGroup;
+			children = (
+				07E336DD1BE457A00040CC90 /* MenuViewController.h */,
+				07E336DE1BE457A00040CC90 /* MenuViewController.m */,
+				07E336E61BE462CE0040CC90 /* AssistantsViewController.h */,
+				07E336E71BE462CE0040CC90 /* AssistantsViewController.m */,
+				07E336E91BE468860040CC90 /* FriendsViewController.h */,
+				07E336EA1BE468860040CC90 /* FriendsViewController.m */,
+			);
+			name = "Menu Section";
+			sourceTree = "<group>";
+		};
+		07E336DB1BE457670040CC90 /* Ubicacion Section */ = {
+			isa = PBXGroup;
+			children = (
+				07E336E01BE457B10040CC90 /* UbicacionViewController.h */,
+				07E336E11BE457B10040CC90 /* UbicacionViewController.m */,
+			);
+			name = "Ubicacion Section";
+			sourceTree = "<group>";
+		};
+		07E336DC1BE457820040CC90 /* Cuenta Section */ = {
+			isa = PBXGroup;
+			children = (
+				07E336E31BE457B90040CC90 /* CuentaViewController.h */,
+				07E336E41BE457B90040CC90 /* CuentaViewController.m */,
+				0754E2A91BE57BD100D369BE /* CardViewController.h */,
+				0754E2AA1BE57BD200D369BE /* CardViewController.m */,
+				0754E2AC1BE57C0A00D369BE /* ProfileViewController.h */,
+				0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */,
+			);
+			name = "Cuenta Section";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,9 +345,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E336A91BE43FBF0040CC90 /* ViewController.m in Sources */,
+				07E336D61BE442920040CC90 /* InitialViewController.m in Sources */,
 				07E336A61BE43FBF0040CC90 /* AppDelegate.m in Sources */,
+				07E336E51BE457B90040CC90 /* CuentaViewController.m in Sources */,
 				07E336A31BE43FBF0040CC90 /* main.m in Sources */,
+				0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */,
+				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
+				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
+				07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */,
+				07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */,
+				07E336E21BE457B10040CC90 /* UbicacionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +494,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Monk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = abner.Monk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -423,6 +506,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Monk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = abner.Monk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -496,6 +580,7 @@
 				07E336CD1BE43FBF0040CC90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07E336CE1BE43FBF0040CC90 /* Build configuration list for PBXNativeTarget "MonkTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +589,7 @@
 				07E336D01BE43FBF0040CC90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07E336D11BE43FBF0040CC90 /* Build configuration list for PBXNativeTarget "MonkUITests" */ = {
 			isa = XCConfigurationList;
@@ -512,6 +598,7 @@
 				07E336D31BE43FBF0040CC90 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -10,4 +10,5 @@
 
 @interface CuentaViewController : UIViewController
 
+- (IBAction)showMoreOptions:(UIBarButtonItem *)sender;
 @end

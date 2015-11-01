@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface UbicacionViewController : UIViewController
+@interface UbicacionViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
 
+@property (weak, nonatomic) IBOutlet MKMapView *mapMonk;
+- (IBAction)updateRoute:(UIBarButtonItem *)sender;
 @end

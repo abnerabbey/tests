@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController
+@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableMenu;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedAssitance;
+
+- (IBAction)assistanceControl:(UISegmentedControl *)sender;
+- (IBAction)viewAssitants:(UIBarButtonItem *)sender;
+- (IBAction)shareMenu:(UIBarButtonItem *)sender;
 
 @end
