@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  CuentaViewController.h
 //  Monk
 //
 //  Created by Abner Castro Aguilar on 30/10/15.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CuentaViewController : UIViewController
 
 @end
-
