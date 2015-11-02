@@ -10,4 +10,11 @@
 
 @interface ProfileViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *labelMessage;
+@property (weak, nonatomic) IBOutlet UILabel *labelCode;
+@property (weak, nonatomic) IBOutlet UIButton *buttonShare;
+
+- (IBAction)sharePromoCode:(UIButton *)sender;
+
+
 @end

@@ -26,6 +26,13 @@
     self.buttonLogin.layer.borderColor = [[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0] CGColor];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    PFUser *user = [PFUser currentUser];
+    if(user)
+        [self performSegueWithIdentifier:@"logedIn" sender:self];
+}
+
 
 - (IBAction)logInWithFacebook:(UIButton *)sender
 {

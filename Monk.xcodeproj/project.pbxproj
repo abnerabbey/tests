@@ -24,6 +24,12 @@
 		0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0754E2A61BE5272500D369BE /* CoreLocation.framework */; };
 		0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AA1BE57BD200D369BE /* CardViewController.m */; };
 		0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */; };
+		07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A61BE7077600F3977D /* pinMonk@2x.png */; };
+		07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A81BE70D6200F3977D /* invitacion@2x.png */; };
+		07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AB1BE7230E00F3977D /* Cards@2x.png */; };
+		07A519AF1BE7230E00F3977D /* Food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AC1BE7230E00F3977D /* Food@2x.png */; };
+		07A519B01BE7230E00F3977D /* Location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AD1BE7230E00F3977D /* Location@2x.png */; };
+		07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A519B21BE7302F00F3977D /* AddCardViewController.m */; };
 		07E336A31BE43FBF0040CC90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A21BE43FBF0040CC90 /* main.m */; };
 		07E336A61BE43FBF0040CC90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A51BE43FBF0040CC90 /* AppDelegate.m */; };
 		07E336AC1BE43FBF0040CC90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E336AA1BE43FBF0040CC90 /* Main.storyboard */; };
@@ -77,6 +83,13 @@
 		0754E2AA1BE57BD200D369BE /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		0754E2AC1BE57C0A00D369BE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		07A519A61BE7077600F3977D /* pinMonk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinMonk@2x.png"; sourceTree = "<group>"; };
+		07A519A81BE70D6200F3977D /* invitacion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "invitacion@2x.png"; sourceTree = "<group>"; };
+		07A519AB1BE7230E00F3977D /* Cards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cards@2x.png"; sourceTree = "<group>"; };
+		07A519AC1BE7230E00F3977D /* Food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Food@2x.png"; sourceTree = "<group>"; };
+		07A519AD1BE7230E00F3977D /* Location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Location@2x.png"; sourceTree = "<group>"; };
+		07A519B11BE7302F00F3977D /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
+		07A519B21BE7302F00F3977D /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
 		07E3369E1BE43FBF0040CC90 /* Monk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E336A21BE43FBF0040CC90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07E336A41BE43FBF0040CC90 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -147,6 +160,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07A519A31BE7071A00F3977D /* Image Assets */ = {
+			isa = PBXGroup;
+			children = (
+				07A519A61BE7077600F3977D /* pinMonk@2x.png */,
+			);
+			name = "Image Assets";
+			sourceTree = "<group>";
+		};
+		07A519A41BE7072500F3977D /* Image Assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Image Assets";
+			sourceTree = "<group>";
+		};
+		07A519A51BE7072D00F3977D /* Image Assets */ = {
+			isa = PBXGroup;
+			children = (
+				07A519A81BE70D6200F3977D /* invitacion@2x.png */,
+			);
+			name = "Image Assets";
+			sourceTree = "<group>";
+		};
+		07A519AA1BE722D700F3977D /* Image Assets */ = {
+			isa = PBXGroup;
+			children = (
+				07A519AB1BE7230E00F3977D /* Cards@2x.png */,
+				07A519AC1BE7230E00F3977D /* Food@2x.png */,
+				07A519AD1BE7230E00F3977D /* Location@2x.png */,
+			);
+			name = "Image Assets";
+			sourceTree = "<group>";
+		};
 		07E336951BE43FBF0040CC90 = {
 			isa = PBXGroup;
 			children = (
@@ -171,6 +217,7 @@
 		07E336A01BE43FBF0040CC90 /* Monk */ = {
 			isa = PBXGroup;
 			children = (
+				07A519AA1BE722D700F3977D /* Image Assets */,
 				07E336A41BE43FBF0040CC90 /* AppDelegate.h */,
 				07E336A51BE43FBF0040CC90 /* AppDelegate.m */,
 				07E336AA1BE43FBF0040CC90 /* Main.storyboard */,
@@ -239,6 +286,7 @@
 		07E336DA1BE457590040CC90 /* Menu Section */ = {
 			isa = PBXGroup;
 			children = (
+				07A519A41BE7072500F3977D /* Image Assets */,
 				07E336DD1BE457A00040CC90 /* MenuViewController.h */,
 				07E336DE1BE457A00040CC90 /* MenuViewController.m */,
 				07E336E61BE462CE0040CC90 /* AssistantsViewController.h */,
@@ -252,6 +300,7 @@
 		07E336DB1BE457670040CC90 /* Ubicacion Section */ = {
 			isa = PBXGroup;
 			children = (
+				07A519A31BE7071A00F3977D /* Image Assets */,
 				07E336E01BE457B10040CC90 /* UbicacionViewController.h */,
 				07E336E11BE457B10040CC90 /* UbicacionViewController.m */,
 			);
@@ -261,12 +310,15 @@
 		07E336DC1BE457820040CC90 /* Cuenta Section */ = {
 			isa = PBXGroup;
 			children = (
+				07A519A51BE7072D00F3977D /* Image Assets */,
 				07E336E31BE457B90040CC90 /* CuentaViewController.h */,
 				07E336E41BE457B90040CC90 /* CuentaViewController.m */,
 				0754E2A91BE57BD100D369BE /* CardViewController.h */,
 				0754E2AA1BE57BD200D369BE /* CardViewController.m */,
 				0754E2AC1BE57C0A00D369BE /* ProfileViewController.h */,
 				0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */,
+				07A519B11BE7302F00F3977D /* AddCardViewController.h */,
+				07A519B21BE7302F00F3977D /* AddCardViewController.m */,
 			);
 			name = "Cuenta Section";
 			sourceTree = "<group>";
@@ -374,8 +426,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */,
+				07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */,
+				07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */,
 				07E336B11BE43FBF0040CC90 /* LaunchScreen.storyboard in Resources */,
 				07E336AE1BE43FBF0040CC90 /* Assets.xcassets in Resources */,
+				07A519B01BE7230E00F3977D /* Location@2x.png in Resources */,
+				07A519AF1BE7230E00F3977D /* Food@2x.png in Resources */,
 				07E336AC1BE43FBF0040CC90 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +462,7 @@
 				07E336A61BE43FBF0040CC90 /* AppDelegate.m in Sources */,
 				07E336E51BE457B90040CC90 /* CuentaViewController.m in Sources */,
 				07E336A31BE43FBF0040CC90 /* main.m in Sources */,
+				07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */,
 				0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */,
 				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,

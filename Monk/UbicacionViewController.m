@@ -71,6 +71,24 @@
         return nil;
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    if([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    static NSString *pinIdentifier = @"pinId";
+    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:pinIdentifier];
+    if(annotationView)
+        return annotationView;
+    else
+    {
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinIdentifier];
+        annotationView.image = [UIImage imageNamed:@"pinMonk.png"];
+        annotationView.canShowCallout = YES;
+        return annotationView;
+    }
+}
+
 - (void)getDirections
 {
     //Interface customizations
@@ -104,6 +122,7 @@
         {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ruta no encontrada" message:@"Hubo un inconveniente al encontrar la ruta. Inténtalo más tarde con el botón actualizar" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+            [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];

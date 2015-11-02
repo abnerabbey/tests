@@ -20,11 +20,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Parse setApplicationId:@"9PtBEWEZ5TlENMjLKqTWJBnzHAmjALMLh8FAVrAE" clientKey:@"qWitDIhfZWyxyx4ExGRlXf3xnztOkzWYFLGFQ8vl"];
+    [Parse setApplicationId:@"b05rGd5t1rFEXuik4NPgJJNzZW1CaUCQEvSlBPLw" clientKey:@"uKl1gIqrRdR2hqzjJRDUgyZQFqZapv0JZ9NOALNT"];
     
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    
     return YES;
 }
 
