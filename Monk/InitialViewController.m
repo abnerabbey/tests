@@ -33,7 +33,6 @@
         [self performSegueWithIdentifier:@"logedIn" sender:self];
 }
 
-
 - (IBAction)logInWithFacebook:(UIButton *)sender
 {
     NSArray *permissions = @[@"public_profile", @"email"];

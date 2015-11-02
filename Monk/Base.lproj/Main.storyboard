@@ -117,7 +117,7 @@
                                     <constraint firstAttribute="height" constant="35" id="Z8y-At-sZj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Este es tu código de amigo:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eif-Rn-y4o">
@@ -127,7 +127,7 @@
                                     <constraint firstAttribute="width" constant="207" id="sk1-3b-ES1"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxe-ka-NXC">
@@ -153,7 +153,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Código" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lh-7V-GAb">
                                 <rect key="frame" x="20" y="289" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -231,7 +231,7 @@
                                     <constraint firstAttribute="width" constant="156" id="j23-VY-aWk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CVV" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g5p-HH-H9s">
@@ -241,7 +241,7 @@
                                     <constraint firstAttribute="height" constant="21" id="Sh0-XT-zdc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vjg-Mh-w3e">
@@ -265,7 +265,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha de expiración" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KxE-Dk-MeX">
                                 <rect key="frame" x="403" y="110" width="154" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iz5-bg-hpt">
@@ -282,6 +282,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="BIk-Fa-1fU" firstAttribute="trailing" secondItem="0Et-t7-fkP" secondAttribute="trailingMargin" id="5Q3-RA-iK6"/>
                             <constraint firstItem="zGo-kT-lCc" firstAttribute="top" secondItem="uYM-Ea-0ZN" secondAttribute="bottom" constant="8" symbolic="YES" id="8Ou-2d-3cp"/>
@@ -305,9 +306,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="cwb-WX-hOp" secondAttribute="trailing" constant="60" id="xIt-L7-mh1"/>
                             <constraint firstItem="uYM-Ea-0ZN" firstAttribute="top" secondItem="j1s-SN-uib" secondAttribute="bottom" constant="15" id="zqG-2S-7oq"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="aq3-rI-W9u" appends="YES" id="IVa-kg-BvC"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="buttonAddCard" destination="Iz5-bg-hpt" id="Gvm-MZ-6op"/>
+                        <outlet property="labelCVV" destination="g5p-HH-H9s" id="U4j-YX-8gL"/>
+                        <outlet property="labelFechaExp" destination="KxE-Dk-MeX" id="6Wy-bK-gL8"/>
+                        <outlet property="labelNoTarjeta" destination="uYM-Ea-0ZN" id="JLq-yz-MvD"/>
                         <outlet property="textFieldCVV" destination="vjg-Mh-w3e" id="MXl-NX-U1y"/>
                         <outlet property="textFieldExpiration" destination="cwb-WX-hOp" id="vml-k0-k01"/>
                         <outlet property="textFieldNombre" destination="BIk-Fa-1fU" id="EEL-tE-ZDv"/>
@@ -315,6 +322,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brZ-e6-heU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="aq3-rI-W9u">
+                    <connections>
+                        <action selector="hideKeyboard:" destination="gOX-BI-19L" id="M9o-pW-vQq"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2630" y="1446"/>
         </scene>

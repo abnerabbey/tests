@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"Tu Tarjeta";
+    self.navigationItem.title = @"Tus Tarjetas";
     
     UIBarButtonItem *okButton = [[UIBarButtonItem alloc] initWithTitle:@"Listo" style:UIBarButtonItemStyleDone target:self action:@selector(okView)];
     okButton.tintColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];

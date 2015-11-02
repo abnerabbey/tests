@@ -27,7 +27,7 @@
 - (IBAction)showMoreOptions:(UIBarButtonItem *)sender
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Más Opciones" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Tu Tarjeta" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alert addAction:[UIAlertAction actionWithTitle:@"Tus Tarjetas" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         CardViewController *cardView = [[self storyboard] instantiateViewControllerWithIdentifier:@"cardView"];
         UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:cardView];
         [self presentViewController:nv animated:YES completion:nil];

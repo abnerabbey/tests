@@ -16,6 +16,11 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldNombre;
 @property (weak, nonatomic) IBOutlet UIButton *buttonAddCard;
 
+@property (weak, nonatomic) IBOutlet UILabel *labelNoTarjeta;
+@property (weak, nonatomic) IBOutlet UILabel *labelFechaExp;
+@property (weak, nonatomic) IBOutlet UILabel *labelCVV;
+
+- (IBAction)hideKeyboard:(UITapGestureRecognizer *)sender;
 - (IBAction)addCard:(UIButton *)sender;
 
 @end
