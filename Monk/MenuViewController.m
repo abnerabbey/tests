@@ -10,10 +10,14 @@
 #import "AssistantsViewController.h"
 #import "FriendsViewController.h"
 
+#import <Parse/Parse.h>
+
 @interface MenuViewController ()
 {
     NSArray *menu;
 }
+
+- (void)getAssistanceResponse;
 
 @end
 
@@ -27,8 +31,7 @@
     [[self tableMenu] setDelegate:self];
     [[self tableMenu] setDataSource:self];
     
-    self.segmentedAssitance.selectedSegmentIndex = 1;
-    
+    [self getAssistanceResponse];
 }
 
 #pragma mark Table View Delegates
@@ -45,7 +48,24 @@
 }
 
 #pragma mark IBActions
-- (IBAction)assistanceControl:(UISegmentedControl *)sender{
+- (IBAction)assistanceControl:(UISegmentedControl *)sender
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Asistencia"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(object)
+        {
+            [object setObject:[NSNumber numberWithInteger:sender.selectedSegmentIndex] forKey:@"response"];
+            [object saveInBackground];
+        }
+        else
+        {
+            PFObject *newObject = [PFObject objectWithClassName:@"Asistencia"];
+            [newObject setObject:[PFUser currentUser] forKey:@"user"];
+            [newObject setObject:[NSNumber numberWithInteger:sender.selectedSegmentIndex] forKey:@"response"];
+            [newObject saveInBackground];
+        }
+    }];
 }
 
 - (IBAction)viewAssitants:(UIBarButtonItem *)sender
@@ -81,6 +101,17 @@
     //Tint color method for iOS 8. For iOS 7 look for reference.
     [[controller view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark Other Methods
+- (void)getAssistanceResponse
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Asistencia"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(object)
+            [[self segmentedAssitance] setSelectedSegmentIndex:[[object objectForKey:@"response"] integerValue]];
+    }];
 }
 
 @end

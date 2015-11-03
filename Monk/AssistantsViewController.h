@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AssistantsViewController : UIViewController
+@interface AssistantsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tableAssistants;
 @end

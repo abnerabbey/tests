@@ -385,7 +385,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FD9-8L-kEy">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="FD9-8L-kEy">
                                 <rect key="frame" x="150" y="515" width="300" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="fmP-F4-cuE"/>
@@ -459,6 +459,9 @@
                             <constraint firstItem="hRa-x7-VZS" firstAttribute="bottom" secondItem="HxS-CT-wKs" secondAttribute="top" id="wY7-h9-giS"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableFriends" destination="hRa-x7-VZS" id="fog-hm-HHP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4n-lY-3sr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -489,6 +492,9 @@
                             <constraint firstItem="Tu3-aP-dhT" firstAttribute="leading" secondItem="jwf-sV-pQl" secondAttribute="leading" id="Xlg-kl-RJY"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableAssistants" destination="Tu3-aP-dhT" id="ash-3U-qdf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zwe-c5-DuB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

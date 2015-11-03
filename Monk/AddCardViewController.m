@@ -31,7 +31,7 @@
     self.textFieldExpiration.delegate = self;
     self.textFieldNombre.delegate = self;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Atención!" message:@"Tus tarjetas se guardarán de manera segura en el servidor, nunca en tu dispositivo!" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Atención!" message:@"Tus tarjetas se guardarán de manera SEGURA en el servidor, nunca en tu dispositivo!" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:alert animated:YES completion:nil];

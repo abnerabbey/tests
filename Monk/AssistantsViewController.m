@@ -7,19 +7,33 @@
 //
 
 #import "AssistantsViewController.h"
+#import <Parse/Parse.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AssistantsViewController ()
+
+- (void)requestForFriends;
 
 @end
 
 @implementation AssistantsViewController
 {
     UISegmentedControl *assistantFilter;
+    
+    NSMutableArray *arrayAttending;
+    NSMutableArray *arrayMaybe;
+    NSArray *arrayfriends;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[self tableAssistants] setDelegate:self];
+    [[self tableAssistants] setDataSource:self];
+    
+    arrayAttending = [[NSMutableArray alloc] init];
+    arrayMaybe = [[NSMutableArray alloc] init];
     
     assistantFilter = [[UISegmentedControl alloc] initWithItems:@[@"Asistirán", @"Tal Vez"]];
     assistantFilter.tintColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
@@ -31,8 +45,35 @@
     self.navigationItem.titleView = assistantFilter;
     assistantFilter.selectedSegmentIndex = 0;
     self.navigationItem.rightBarButtonItem = okButton;
+    
+    [self requestForFriends];
 }
 
+#pragma mark TableView Delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if(assistantFilter.selectedSegmentIndex == 0)
+        return [arrayAttending count];
+    else
+        return [arrayMaybe count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellId = @"cellId";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if(!cell)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    
+    if(assistantFilter.selectedSegmentIndex == 0)
+        cell.textLabel.text = [arrayAttending objectAtIndex:indexPath.row];
+    else if(assistantFilter.selectedSegmentIndex == 1)
+        cell.textLabel.text = [arrayMaybe objectAtIndex:indexPath.row];
+    
+    return cell;
+}
+
+#pragma mark Other Methods
 - (void)okView
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -40,16 +81,57 @@
 
 - (void)filterAssistants
 {
-    switch(assistantFilter.selectedSegmentIndex)
+    [[self tableAssistants] reloadData];
+}
+
+- (void)requestForFriends
+{
+    FBSDKGraphRequest *friendsRequest = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:@{@"fields":@"friends"}];
+    [friendsRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        if(!error)
+        {
+            NSDictionary *dictionary = (NSDictionary *)result;
+            arrayfriends = (NSArray *)[dictionary objectForKey:@"data"];
+            [self filterFriends:arrayfriends];
+        }
+        else
+        {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Hubo un error al verificar los asistentes. Inténtalo de nuevo." preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+            [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
+}
+
+- (void)filterFriends:(NSArray *)friends
+{
+    [arrayAttending removeAllObjects];
+    [arrayMaybe removeAllObjects];
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"Asistencia"];
+    for(int i = 0; i < [friends count]; i++)
     {
-        case 0:
-            NSLog(@"Segmento 0");
-            break;
-        case 1:
-            NSLog(@"Segmento 1");
-            break;
-        default:
-            break;
+        [query includeKey:@"user"];
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if(object)
+            {
+                if([[object objectForKey:@"response"] intValue] == 0)
+                    [arrayAttending addObject:[friends objectAtIndex:i]];
+                else if([[object objectForKey:@"response"] intValue] == 1)
+                    [arrayMaybe addObject:[friends objectAtIndex:i]];
+            }
+        }];
+    }
+    [[self tableAssistants] reloadData];
+    if(arrayAttending.count == 0 || arrayMaybe.count == 0)
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No hay asistentes" message:@"Aún no tienes amigos que puedan asistir a Monk.\nInvítalos a la app por redes sociales :)" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
