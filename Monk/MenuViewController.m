@@ -32,12 +32,8 @@
     [[self tableMenu] setDelegate:self];
     [[self tableMenu] setDataSource:self];
     
-    [self getAssistanceResponse];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
     [self showCodeAlertForNewUser];
+    [self getAssistanceResponse];
 }
 
 #pragma mark Table View Delegates
@@ -133,22 +129,41 @@
     if(!exists)
     {
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"newUser"];
+        [defaults synchronize];
+        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"¡Bienvenido a MonK!" message:@"Si tienes un código de promoción, ¡introdúcelo!\nPuedes hacerlo en cualquier otro momento sólo una vez." preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"Verificar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             UITextField *textField = (UITextField *)alert.textFields[0];
             NSString *textFromTextField = textField.text;
-            [self verifyPromoCode:textFromTextField];
+            
+            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+            [activityIndicator startAnimating];
+            [[self view] addSubview:activityIndicator];
+            self.navigationItem.title = @"Verificando código...";
+            
+            if([self isPromoCodeValid:textFromTextField]){
+                
+            }
+            else{
+                
+            }
+            
+            [activityIndicator removeFromSuperview];
+            self.navigationItem.title = @"Menú del día";
+            
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"Más Tarde" style:UIAlertActionStyleDefault handler:nil]];
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         }];
+        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
         [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
-- (void)verifyPromoCode:(NSString *)promoCode
+- (BOOL)isPromoCodeValid:(NSString *)promoCode
 {
-    NSLog(@"promoCode: %@", promoCode);
+    return YES;
 }
 
 @end

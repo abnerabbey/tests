@@ -94,10 +94,16 @@
             arrayfriends = (NSArray *)[dictionary objectForKey:@"data"];
             [self filterFriends:arrayfriends];
         }
+        else if([[error localizedDescription] isEqualToString:@"The Internet connection appears to be offline."])
+        {
+            [self showLabelFeedback:@"Sin conexión. Verifica tu conexión a Internet e inténtalo de nuevo."];
+        }
         else
         {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Hubo un error al verificar los asistentes. Inténtalo de nuevo." preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self showLabelFeedback:@"Hubo un inconveniente al verificar los asistentes. Inténtalo de nuevo."];
+            }]];
             [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
             [self presentViewController:alert animated:YES completion:nil];
         }
@@ -126,13 +132,20 @@
     [[self tableAssistants] reloadData];
     if(arrayAttending.count == 0 || arrayMaybe.count == 0)
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No hay asistentes" message:@"Aún no tienes amigos que puedan asistir a Monk.\nInvítalos a la app por redes sociales :)" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }]];
-        [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a Monk. Invítalos a la app por redes sociales :)"];
     }
+}
+
+- (void)showLabelFeedback:(NSString *)feedbackString
+{
+    UILabel *labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
+    labelFeedback.textColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
+    labelFeedback.text = feedbackString;
+    labelFeedback.textAlignment = NSTextAlignmentCenter;
+    labelFeedback.font = [UIFont systemFontOfSize:14.0];
+    labelFeedback.numberOfLines = 2;
+    labelFeedback.alpha = 0.6;
+    [[self tableAssistants] addSubview:labelFeedback];
 }
 
 @end

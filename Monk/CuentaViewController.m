@@ -13,6 +13,8 @@
 
 @interface CuentaViewController ()
 
+- (void)showAlertPromoCode;
+
 @end
 
 @implementation CuentaViewController
@@ -37,7 +39,9 @@
         UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:profileView];
         [self presentViewController:nv animated:YES completion:nil];
     }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Introduce Un Código" style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Introduce Un Código" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self showAlertPromoCode];
+    }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"Cerrar Sesión" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [PFUser logOut];
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -46,6 +50,43 @@
     [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:alert animated:YES completion:nil];
 }
+
+- (void)showAlertPromoCode
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Introduce Un Código" message:@"Introduce tu código de promoción :)\nPuedes hacerlo en cualquier otro momento" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Verificar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = (UITextField *)alert.textFields[0];
+        NSString *textFromTextField = textField.text;
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+        [activityIndicator startAnimating];
+        [[self view] addSubview:activityIndicator];
+        self.navigationItem.title = @"Verificando código...";
+        
+        if([self isPromoCodeValid:textFromTextField]){
+            
+        }
+        else{
+            
+        }
+        [activityIndicator removeFromSuperview];
+        self.navigationItem.title = @"Tu Cuenta";
+        
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    }];
+    [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (BOOL)isPromoCodeValid:(NSString *)promoCode
+{
+    NSLog(@"Pasó con el promo code: %@", promoCode);
+    return YES;
+}
+
 @end
 
 
