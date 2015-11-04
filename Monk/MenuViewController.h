@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableMenu;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedAssitance;

@@ -18,6 +18,7 @@
 }
 
 - (void)getAssistanceResponse;
+- (void)showCodeAlertForNewUser;
 
 @end
 
@@ -34,6 +35,11 @@
     [self getAssistanceResponse];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self showCodeAlertForNewUser];
+}
+
 #pragma mark Table View Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -45,6 +51,12 @@
     static NSString *cellID = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     return cell;
+}
+
+#pragma mark TextField Delegate
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSLog(@"text: %@", textField.text);
 }
 
 #pragma mark IBActions
@@ -112,6 +124,31 @@
         if(object)
             [[self segmentedAssitance] setSelectedSegmentIndex:[[object objectForKey:@"response"] integerValue]];
     }];
+}
+
+- (void)showCodeAlertForNewUser
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL exists = [[defaults objectForKey:@"newUser"] boolValue];
+    if(!exists)
+    {
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"newUser"];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"¡Bienvenido a MonK!" message:@"Si tienes un código de promoción, ¡introdúcelo!\nPuedes hacerlo en cualquier otro momento sólo una vez." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Verificar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            UITextField *textField = (UITextField *)alert.textFields[0];
+            NSString *textFromTextField = textField.text;
+            [self verifyPromoCode:textFromTextField];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Más Tarde" style:UIAlertActionStyleDefault handler:nil]];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        }];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (void)verifyPromoCode:(NSString *)promoCode
+{
+    NSLog(@"promoCode: %@", promoCode);
 }
 
 @end
