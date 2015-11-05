@@ -24,6 +24,7 @@
     //Interface customization
     self.buttonLogin.layer.borderWidth = 1.0;
     self.buttonLogin.layer.borderColor = [[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0] CGColor];
+    self.buttonLogin.layer.cornerRadius = 3.0;
 }
 
 - (void)viewDidAppear:(BOOL)animated

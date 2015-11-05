@@ -14,18 +14,27 @@
 @interface CuentaViewController ()
 
 - (void)showAlertPromoCode;
+- (BOOL)accountIsOpen;
+- (void)openAccount;
 
 @end
 
 @implementation CuentaViewController
+{
+    UIButton *buttonStart;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.buttonPay.layer.cornerRadius = 3.0;
     
+    //Verificar primero si la cuenta está abierta
+    [self setFirstViewInterface];
 }
 
 
+#pragma mark IBActions
 - (IBAction)showMoreOptions:(UIBarButtonItem *)sender
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Más Opciones" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -51,6 +60,7 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+#pragma mark Other Methods
 - (void)showAlertPromoCode
 {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Introduce Un Código" message:@"Introduce tu código de promoción :)\nPuedes hacerlo en cualquier otro momento" preferredStyle:UIAlertControllerStyleAlert];
@@ -81,10 +91,39 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)setFirstViewInterface{
+    self.tableAccount.hidden = YES;
+    self.buttonPay.hidden = YES;
+    self.buttonRefresh.enabled = NO;
+    
+    buttonStart = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    buttonStart.frame = CGRectMake(self.view.frame.size.width/2 - self.view.frame.size.width/2 + 10.0, self.view.frame.size.height/2 - 22.0, self.view.frame.size.width - 20.0, 44.0);
+    [buttonStart addTarget:self action:@selector(openAccount) forControlEvents:UIControlEventAllTouchEvents];
+    [buttonStart setTitle:@"Abrir Cuenta" forState:UIControlStateNormal];
+    [buttonStart setTintColor:[UIColor whiteColor]];
+    [buttonStart setBackgroundColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    buttonStart.layer.cornerRadius = 3.0;
+    [self.view addSubview:buttonStart];
+    
+}
+
 - (BOOL)isPromoCodeValid:(NSString *)promoCode
 {
     NSLog(@"Pasó con el promo code: %@", promoCode);
     return YES;
+}
+
+- (BOOL)accountIsOpen
+{
+    return YES;
+}
+
+- (void)openAccount
+{
+    buttonStart.hidden = YES;
+    self.tableAccount.hidden = NO;
+    self.buttonPay.hidden = NO;
+    self.buttonRefresh.enabled = YES;
 }
 
 @end

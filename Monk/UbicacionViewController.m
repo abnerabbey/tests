@@ -150,6 +150,9 @@
 
 - (IBAction)updateRoute:(UIBarButtonItem *)sender
 {
+    MKCoordinateSpan span = MKCoordinateSpanMake(self.mapMonk.region.span.latitudeDelta + 0.02, self.mapMonk.region.span.longitudeDelta + 0.02);
+    MKCoordinateRegion region = MKCoordinateRegionMake(self.mapMonk.userLocation.coordinate, span);
+    [[self mapMonk] setRegion:region];
     [self tryAndGetDirections];
 }
 

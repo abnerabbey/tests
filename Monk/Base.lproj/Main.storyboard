@@ -94,6 +94,11 @@
                             <color key="tintColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="buttonPay" destination="tsZ-O1-rmO" id="UNy-IB-pYU"/>
+                        <outlet property="buttonRefresh" destination="HAr-Wm-kSC" id="Ff7-SL-l5w"/>
+                        <outlet property="tableAccount" destination="gHV-kP-BkS" id="O5m-Uk-MEd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oqb-Z1-72e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

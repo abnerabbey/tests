@@ -10,5 +10,8 @@
 
 @interface CuentaViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonRefresh;
+@property (weak, nonatomic) IBOutlet UITableView *tableAccount;
+@property (weak, nonatomic) IBOutlet UIButton *buttonPay;
 - (IBAction)showMoreOptions:(UIBarButtonItem *)sender;
 @end

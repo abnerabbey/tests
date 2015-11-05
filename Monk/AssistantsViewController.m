@@ -86,8 +86,15 @@
 
 - (void)requestForFriends
 {
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+    [activityIndicator startAnimating];
+    [[self view] addSubview:activityIndicator];
+    
     FBSDKGraphRequest *friendsRequest = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:@{@"fields":@"friends"}];
     [friendsRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        [activityIndicator stopAnimating];
+        [activityIndicator removeFromSuperview];
         if(!error)
         {
             NSDictionary *dictionary = (NSDictionary *)result;
@@ -132,7 +139,7 @@
     [[self tableAssistants] reloadData];
     if(arrayAttending.count == 0 || arrayMaybe.count == 0)
     {
-        [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a Monk. Invítalos a la app por redes sociales :)"];
+        [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
     }
 }
 
@@ -144,7 +151,7 @@
     labelFeedback.textAlignment = NSTextAlignmentCenter;
     labelFeedback.font = [UIFont systemFontOfSize:14.0];
     labelFeedback.numberOfLines = 2;
-    labelFeedback.alpha = 0.6;
+    labelFeedback.alpha = 1.0;
     [[self tableAssistants] addSubview:labelFeedback];
 }
 

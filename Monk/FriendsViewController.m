@@ -64,10 +64,20 @@
     [self presentViewController:alertSheet animated:YES completion:nil];
 }
 
+#pragma mark Other Methods
 - (void)getFriends
 {
+    self.navigationItem.title = @"Cargando amigos...";
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+    [activityIndicator startAnimating];
+    [[self view] addSubview:activityIndicator];
+    
     FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:@{@"fields":@"friends"}];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+        self.navigationItem.title = @"Tus Amigos";
+        [activityIndicator stopAnimating];
+        [activityIndicator removeFromSuperview];
         if(!error)
         {
             NSDictionary *dictionary = (NSDictionary *)result;
@@ -75,20 +85,19 @@
             [[self tableFriends] reloadData];
             if(arrayFriends.count == 0)
             {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Aún no hay amigos" message:@"Aún no tienes amigos que puedan asistir a Monk.\nInvítalos a la app por redes sociales :)" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }]];
-                [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-                [self presentViewController:alert animated:YES completion:nil];
+                [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
             }
         }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Hubo un error al cargar tus amigos. Inténtalo de nuevo." preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-            [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-            [self presentViewController:alert animated:YES completion:nil];
+            if([[error localizedDescription] isEqualToString:@"The Internet connection appears to be offline."])
+                [self showLabelFeedback:@"Sin conexión. Verifica tu conexión a Internet e inténtalo de nuevo."];
+            else{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Hubo un error al cargar tus amigos. Inténtalo de nuevo." preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
         }
     }];
 }
@@ -97,6 +106,18 @@
 - (void)okView
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showLabelFeedback:(NSString *)feedbackString
+{
+    UILabel *labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
+    labelFeedback.textColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
+    labelFeedback.text = feedbackString;
+    labelFeedback.textAlignment = NSTextAlignmentCenter;
+    labelFeedback.font = [UIFont systemFontOfSize:14.0];
+    labelFeedback.numberOfLines = 2;
+    labelFeedback.alpha = 1.0;
+    [[self tableFriends] addSubview:labelFeedback];
 }
 
 @end
