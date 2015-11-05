@@ -19,7 +19,7 @@
 
 - (void)getAssistanceResponse;
 - (void)showCodeAlertForNewUser;
-
+- (void)getMenu;
 @end
 
 @implementation MenuViewController
@@ -33,6 +33,7 @@
     [[self tableMenu] setDataSource:self];
     
     [self showCodeAlertForNewUser];
+    [self getMenu];
     [self getAssistanceResponse];
 }
 
@@ -49,10 +50,9 @@
     return cell;
 }
 
-#pragma mark TextField Delegate
-- (void)textFieldDidEndEditing:(UITextField *)textField
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"text: %@", textField.text);
+    return self.view.frame.size.height/5.0;
 }
 
 #pragma mark IBActions
@@ -161,12 +161,129 @@
     }
 }
 
+- (void)getMenu
+{
+    self.tableMenu.hidden = YES;
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+    [activityIndicator startAnimating];
+    [[self view] addSubview:activityIndicator];
+    
+    NSURL *url = [NSURL URLWithString:@"https://monkapp.herokuapp.com/menus"];
+    
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    [sessionConfig setAllowsCellularAccess:YES];
+    [sessionConfig setTimeoutIntervalForRequest:30.0];
+    [sessionConfig setTimeoutIntervalForResource:60.0];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:self delegateQueue:nil];
+    [[session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        [activityIndicator stopAnimating];
+        [activityIndicator removeFromSuperview];
+        
+        if(!error){
+            if(data){
+                
+                self.tableMenu.hidden = NO;
+                
+                NSError *jsonError;
+                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+                NSLog(@"dictionary: %@", dictionary);
+                NSArray *resultArray = [dictionary objectForKey:@"menus"];
+                [self fillMenuArray:resultArray];
+            }
+            else{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error de servidor" message:@"Hubo un error al obtener el menú de los servidores de MonK. Inténtalo más tarde" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Intentar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    [self refreshMenu];
+                }]];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil]];
+                [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }
+        else
+            [self makeButtonRefresh];
+    }] resume];
+}
+
+#pragma mark Auxiliar Methods
 - (BOOL)isPromoCodeValid:(NSString *)promoCode
 {
     return YES;
 }
 
+-(void)fillMenuArray:(NSArray *)result
+{
+    
+}
+
+- (void)makeButtonRefresh
+{
+    
+}
+
+- (void)refreshMenu
+{
+    [self getMenu];
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
