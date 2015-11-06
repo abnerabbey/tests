@@ -178,13 +178,10 @@
                 [self fillMenuArray:jsonArray];
             });
         }
+        else
+            [self showLabelFeedback:@"Hubo un error al cargar el menú. Inténtalo más tarde"];
     }];
     [task resume];
-}
-
-- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
-{
-    NSLog(@"Error");
 }
 
 #pragma mark Auxiliar Methods
@@ -196,6 +193,18 @@
 -(void)fillMenuArray:(NSArray *)result
 {
     
+}
+
+- (void)showLabelFeedback:(NSString *)feedbackString
+{
+    UILabel *labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
+    labelFeedback.textColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
+    labelFeedback.text = feedbackString;
+    labelFeedback.textAlignment = NSTextAlignmentCenter;
+    labelFeedback.font = [UIFont systemFontOfSize:14.0];
+    labelFeedback.numberOfLines = 2;
+    labelFeedback.alpha = 1.0;
+    [[self tableMenu] addSubview:labelFeedback];
 }
 @end
 
