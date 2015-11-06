@@ -120,6 +120,7 @@
 
 - (void)openAccount
 {
+    //Verificar primero si hay tarjeta asociada
     buttonStart.hidden = YES;
     self.tableAccount.hidden = NO;
     self.buttonPay.hidden = NO;
