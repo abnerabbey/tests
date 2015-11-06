@@ -21,6 +21,12 @@
 		070002681BE5C5FF00CD7F21 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */; };
 		0700026A1BE5C69C00CD7F21 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */; };
 		0700026E1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */; };
+		0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */; };
+		0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */; };
+		0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */; };
+		0753B6E41BECF22300B18C4F /* RateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E31BECF22300B18C4F /* RateViewController.m */; };
+		0753B6E71BECFC7700B18C4F /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */; };
+		0753B6EA1BED0C0100B18C4F /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E91BED0C0100B18C4F /* DescriptionViewController.m */; };
 		0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0754E2A61BE5272500D369BE /* CoreLocation.framework */; };
 		0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AA1BE57BD200D369BE /* CardViewController.m */; };
 		0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */; };
@@ -78,6 +84,16 @@
 		070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		0753B6DB1BECF1F900B18C4F /* DXStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXStarRatingView.h; sourceTree = "<group>"; };
+		0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXStarRatingView.m; sourceTree = "<group>"; };
+		0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-off@2x.png"; sourceTree = "<group>"; };
+		0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-on@2x.png"; sourceTree = "<group>"; };
+		0753B6E21BECF22300B18C4F /* RateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateViewController.h; sourceTree = "<group>"; };
+		0753B6E31BECF22300B18C4F /* RateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateViewController.m; sourceTree = "<group>"; };
+		0753B6E51BECFC7700B18C4F /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		0753B6E81BED0C0100B18C4F /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
+		0753B6E91BED0C0100B18C4F /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		0754E2A61BE5272500D369BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0754E2A91BE57BD100D369BE /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		0754E2AA1BE57BD200D369BE /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
@@ -160,6 +176,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0753B6DA1BECF00700B18C4F /* FeedbackViews */ = {
+			isa = PBXGroup;
+			children = (
+				0753B6DB1BECF1F900B18C4F /* DXStarRatingView.h */,
+				0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */,
+				0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */,
+				0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */,
+				0753B6E21BECF22300B18C4F /* RateViewController.h */,
+				0753B6E31BECF22300B18C4F /* RateViewController.m */,
+				0753B6E51BECFC7700B18C4F /* FeedbackViewController.h */,
+				0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */,
+			);
+			name = FeedbackViews;
+			sourceTree = "<group>";
+		};
 		07A519A31BE7071A00F3977D /* Image Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -293,6 +324,8 @@
 				07E336E71BE462CE0040CC90 /* AssistantsViewController.m */,
 				07E336E91BE468860040CC90 /* FriendsViewController.h */,
 				07E336EA1BE468860040CC90 /* FriendsViewController.m */,
+				0753B6E81BED0C0100B18C4F /* DescriptionViewController.h */,
+				0753B6E91BED0C0100B18C4F /* DescriptionViewController.m */,
 			);
 			name = "Menu Section";
 			sourceTree = "<group>";
@@ -310,6 +343,7 @@
 		07E336DC1BE457820040CC90 /* Cuenta Section */ = {
 			isa = PBXGroup;
 			children = (
+				0753B6DA1BECF00700B18C4F /* FeedbackViews */,
 				07A519A51BE7072D00F3977D /* Image Assets */,
 				07E336E31BE457B90040CC90 /* CuentaViewController.h */,
 				07E336E41BE457B90040CC90 /* CuentaViewController.m */,
@@ -428,7 +462,9 @@
 			files = (
 				07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */,
 				07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */,
+				0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */,
 				07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */,
+				0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */,
 				07E336B11BE43FBF0040CC90 /* LaunchScreen.storyboard in Resources */,
 				07E336AE1BE43FBF0040CC90 /* Assets.xcassets in Resources */,
 				07A519B01BE7230E00F3977D /* Location@2x.png in Resources */,
@@ -461,14 +497,18 @@
 				07E336D61BE442920040CC90 /* InitialViewController.m in Sources */,
 				07E336A61BE43FBF0040CC90 /* AppDelegate.m in Sources */,
 				07E336E51BE457B90040CC90 /* CuentaViewController.m in Sources */,
+				0753B6E71BECFC7700B18C4F /* FeedbackViewController.m in Sources */,
 				07E336A31BE43FBF0040CC90 /* main.m in Sources */,
+				0753B6EA1BED0C0100B18C4F /* DescriptionViewController.m in Sources */,
 				07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */,
 				0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */,
 				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
+				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
 				07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */,
 				07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */,
 				07E336E21BE457B10040CC90 /* UbicacionViewController.m in Sources */,
+				0753B6E41BECF22300B18C4F /* RateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

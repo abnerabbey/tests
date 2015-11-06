@@ -209,6 +209,77 @@
             </objects>
             <point key="canvasLocation" x="1932" y="1446"/>
         </scene>
+        <!--Rate View Controller-->
+        <scene sceneID="v1Z-hB-SUE">
+            <objects>
+                <viewController storyboardIdentifier="rateView" id="5XU-f1-33v" customClass="RateViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9oc-09-gUE"/>
+                        <viewControllerLayoutGuide type="bottom" id="am1-zr-Kyg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8JD-7g-00m">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Qué tal te pareció el servicio en MonK?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIr-ox-FZJ">
+                                <rect key="frame" x="140" y="40" width="320" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="Mye-mC-F7N"/>
+                                    <constraint firstAttribute="height" constant="21" id="kWh-Kz-8YG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHo-Qb-3Lx">
+                                <rect key="frame" x="200" y="390" width="200" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="jG7-z8-L8I"/>
+                                    <constraint firstAttribute="width" constant="200" id="yDL-ME-eFx"/>
+                                </constraints>
+                                <state key="normal" title="Calificar">
+                                    <color key="titleColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="rateMonk:" destination="5XU-f1-33v" eventType="touchUpInside" id="dx4-Hd-Eml"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QHo-Qb-3Lx" firstAttribute="centerX" secondItem="jIr-ox-FZJ" secondAttribute="centerX" id="A4e-q9-5Ae"/>
+                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="centerX" secondItem="8JD-7g-00m" secondAttribute="centerX" id="AAp-m9-wns"/>
+                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="top" secondItem="9oc-09-gUE" secondAttribute="bottom" constant="20" id="jFo-QU-Qsw"/>
+                            <constraint firstItem="am1-zr-Kyg" firstAttribute="top" secondItem="QHo-Qb-3Lx" secondAttribute="bottom" constant="166" id="l28-G5-bWx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonRate" destination="QHo-Qb-3Lx" id="rCV-FE-wFa"/>
+                        <segue destination="9Ix-ou-ilB" kind="show" identifier="feedback" id="0Ob-kK-7Zq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OTp-Ug-CxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1978" y="2130"/>
+        </scene>
+        <!--Feedback View Controller-->
+        <scene sceneID="8eh-wv-a0y">
+            <objects>
+                <viewController id="9Ix-ou-ilB" customClass="FeedbackViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="D8r-jC-fWG"/>
+                        <viewControllerLayoutGuide type="bottom" id="wsp-lU-jSD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="o0c-wz-UqH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pZ6-fJ-BaZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2636" y="2130"/>
+        </scene>
         <!--Add Card View Controller-->
         <scene sceneID="5z6-VA-q13">
             <objects>
@@ -335,6 +406,24 @@
             </objects>
             <point key="canvasLocation" x="2630" y="1446"/>
         </scene>
+        <!--Description View Controller-->
+        <scene sceneID="jAT-0v-X6l">
+            <objects>
+                <viewController id="ZUj-Fw-Smc" customClass="DescriptionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7iM-Ex-bwc"/>
+                        <viewControllerLayoutGuide type="bottom" id="DBj-TP-esG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BcV-SA-O1W">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rfA-d0-rtf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1273" y="-560"/>
+        </scene>
         <!--Menú del día-->
         <scene sceneID="MKh-mD-RFb">
             <objects>
@@ -433,6 +522,7 @@
                     <connections>
                         <outlet property="segmentedAssitance" destination="FD9-8L-kEy" id="BJ0-o3-QtR"/>
                         <outlet property="tableMenu" destination="FGk-GI-ipd" id="ytp-on-C0y"/>
+                        <segue destination="ZUj-Fw-Smc" kind="show" identifier="detailFood" id="0GP-aw-PKc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4o-wh-dNP" userLabel="First Responder" sceneMemberID="firstResponder"/>

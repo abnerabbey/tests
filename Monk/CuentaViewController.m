@@ -9,6 +9,7 @@
 #import "CuentaViewController.h"
 #import "ProfileViewController.h"
 #import "CardViewController.h"
+#import "RateViewController.h"
 #import <Parse/Parse.h>
 
 @interface CuentaViewController ()
@@ -16,6 +17,7 @@
 - (void)showAlertPromoCode;
 - (BOOL)accountIsOpen;
 - (void)openAccount;
+- (void)showFeedbackView;
 
 @end
 
@@ -31,6 +33,7 @@
     
     //Verificar primero si la cuenta está abierta
     [self setFirstViewInterface];
+    [self performSelector:@selector(showFeedbackView) withObject:nil afterDelay:1.0];
 }
 
 
@@ -91,6 +94,30 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+
+
+- (BOOL)accountIsOpen
+{
+    return YES;
+}
+
+- (void)openAccount
+{
+    //Verificar primero si hay tarjeta asociada
+    buttonStart.hidden = YES;
+    self.tableAccount.hidden = NO;
+    self.buttonPay.hidden = NO;
+    self.buttonRefresh.enabled = YES;
+}
+
+- (void)showFeedbackView
+{
+    RateViewController *rateView = [[self storyboard] instantiateViewControllerWithIdentifier:@"rateView"];
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:rateView];
+    [self presentViewController:nv animated:YES completion:nil];
+}
+
+#pragma mark Auxiliar Methods
 - (void)setFirstViewInterface{
     self.tableAccount.hidden = YES;
     self.buttonPay.hidden = YES;
@@ -111,20 +138,6 @@
 {
     NSLog(@"Pasó con el promo code: %@", promoCode);
     return YES;
-}
-
-- (BOOL)accountIsOpen
-{
-    return YES;
-}
-
-- (void)openAccount
-{
-    //Verificar primero si hay tarjeta asociada
-    buttonStart.hidden = YES;
-    self.tableAccount.hidden = NO;
-    self.buttonPay.hidden = NO;
-    self.buttonRefresh.enabled = YES;
 }
 
 @end
