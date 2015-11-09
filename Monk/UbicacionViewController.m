@@ -36,8 +36,8 @@
     [[self mapMonk] setDelegate:self];
     
     //Monk coordinates and its pin on map
-    monkCoordinate.latitude = 19.41443;
-    monkCoordinate.longitude = -99.17723;
+    monkCoordinate.latitude = 19.4314067;
+    monkCoordinate.longitude = -99.1984317;
     
     MKPointAnnotation *pinMonk = [[MKPointAnnotation alloc] init];
     pinMonk.coordinate = monkCoordinate;

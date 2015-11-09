@@ -10,9 +10,15 @@
 
 @interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate>
 
+//UI Properties
 @property (weak, nonatomic) IBOutlet UITableView *tableMenu;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedAssitance;
 
+//arraysMenus
+@property (nonatomic, strong)NSMutableArray *arrayMenuNames;
+@property (nonatomic, strong)NSMutableArray *arrayPlatillos;
+
+//IBActions
 - (IBAction)assistanceControl:(UISegmentedControl *)sender;
 - (IBAction)viewAssitants:(UIBarButtonItem *)sender;
 - (IBAction)shareMenu:(UIBarButtonItem *)sender;

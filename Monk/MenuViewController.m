@@ -16,8 +16,12 @@
 {
     NSURLSession *session;
     NSURL *menuURL;
-    NSArray *menu;
+    
+    dispatch_queue_t imageQue;
+    
 }
+
+@property (nonatomic, strong)NSMutableArray *arrayRows;
 
 - (void)getAssistanceResponse;
 - (void)showCodeAlertForNewUser;
@@ -36,6 +40,7 @@
     
     menuURL = [NSURL URLWithString:@"https://monkapp.herokuapp.com/menus"];
     session = [NSURLSession sharedSession];
+    imageQue = dispatch_queue_create("Image Que", NULL);
     
     [self showCodeAlertForNewUser];
     [self getMenu];
@@ -45,13 +50,47 @@
 #pragma mark Table View Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [menu count];
+    return [[self.arrayRows objectAtIndex:section]integerValue];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [[self arrayMenuNames] count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return [self.arrayMenuNames objectAtIndex:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellID = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if(!cell)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    
+    NSMutableArray *arrayForSection = [[NSMutableArray alloc] init];
+    
+    NSDictionary *dictionary = [self.arrayPlatillos objectAtIndex:indexPath.section];
+    NSArray *arrayComplementos = [dictionary objectForKey:@"complementos"];
+    [arrayForSection addObject:[dictionary objectForKey:@"nombre"]];
+    if(arrayComplementos.count > 0)
+        for (NSDictionary *dictionaryComplentos in arrayComplementos)
+            [arrayForSection addObject:[dictionaryComplentos objectForKey:@"nombre"]];
+    
+    UILabel *labelName = (UILabel *)[cell viewWithTag:2];
+    labelName.text = [arrayForSection objectAtIndex:indexPath.row];
+    
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
+    
+    NSDictionary *photoDictionary = [dictionary objectForKey:@"photo"];
+    dispatch_async(imageQue, ^{
+        UIImage *image = [self getImageMenu:photoDictionary];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            imageView.image = image;
+        });
+    });
     return cell;
 }
 
@@ -61,10 +100,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return self.view.frame.size.height/5.0;
-}
+
 
 #pragma mark IBActions
 - (IBAction)assistanceControl:(UISegmentedControl *)sender
@@ -174,14 +210,25 @@
 
 - (void)getMenu
 {
+    self.navigationItem.title = @"Cargando Menú...";
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+    [activityIndicator startAnimating];
+    [[self view] addSubview:activityIndicator];
+    
     //NSURL Session
     NSURLSessionTask *task = [session dataTaskWithURL:menuURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+            self.navigationItem.title = @"Menú del día";
+        });
         NSError *jsonError;
         NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
         if(!jsonError){
             NSArray *jsonArray = (NSArray *)[jsonDictionary objectForKey:@"menus"];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self fillMenuArray:jsonArray];
+                [self prepareInfoToShow:jsonArray];
             });
         }
         else
@@ -196,9 +243,26 @@
     return YES;
 }
 
--(void)fillMenuArray:(NSArray *)result
+-(void)prepareInfoToShow:(NSArray *)result
 {
+    self.arrayMenuNames = [[NSMutableArray alloc] init];
+    self.arrayPlatillos = [[NSMutableArray alloc] init];
     
+    NSMutableArray *arrayForPlatillos = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *dictionary in result) {
+        [[self arrayMenuNames] addObject:[dictionary objectForKey:@"nombre"]];
+        [arrayForPlatillos addObject:[dictionary objectForKey:@"platillos"]];
+    }
+    for(int i = 0; i < arrayForPlatillos.count; i++){
+        NSArray *array = [arrayForPlatillos objectAtIndex:i];
+        NSDictionary *diction = [array objectAtIndex:0];
+        [self.arrayPlatillos addObject:diction];
+        
+        //NSLog(@"array Platillos: %@\n\n\n\n\n\n\n\n\n\n\n\n", self.arrayPlatillos);
+    }
+    [self determineRowsPerSection:arrayForPlatillos];
+    [[self tableMenu] reloadData];
 }
 
 - (void)showLabelFeedback:(NSString *)feedbackString
@@ -211,6 +275,25 @@
     labelFeedback.numberOfLines = 2;
     labelFeedback.alpha = 1.0;
     [[self tableMenu] addSubview:labelFeedback];
+}
+
+- (void)determineRowsPerSection:(NSMutableArray *)arrayPlatillos
+{
+    NSDictionary *dictionary;
+    self.arrayRows = [[NSMutableArray alloc] init];
+    for (NSArray *array in arrayPlatillos) {
+        dictionary = [array objectAtIndex:0];
+        NSArray *arrayForRows = [dictionary objectForKey:@"complementos"];
+        [self.arrayRows addObject:[NSNumber numberWithInteger:1 + arrayForRows.count]];
+    }
+}
+
+- (UIImage *)getImageMenu:(NSDictionary *)photoDict
+{
+    NSURL *url = [NSURL URLWithString:[photoDict objectForKey:@"url"]];
+    NSData *imageData = [NSData dataWithContentsOfURL:url];
+    UIImage *image = [UIImage imageWithData:imageData];
+    return image;
 }
 @end
 
