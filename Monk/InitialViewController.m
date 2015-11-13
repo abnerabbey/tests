@@ -11,6 +11,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/ParseFacebookUtilsV4.h>
 
+#define kMonkRegistrationDirection @"https://monkapp.herokuapp.com/user/registrar"
+
 @interface InitialViewController ()
 
 @end
@@ -57,7 +59,6 @@
                     if(!error)
                     {
                         NSDictionary *userData = (NSDictionary *)result;
-                        NSLog(@"userData: %@", userData);
                         NSString *firstName = userData[@"first_name"];
                         NSString *lastName = userData[@"last_name"];
                         NSString *username = [NSString stringWithFormat:@"%@ %@", firstName, lastName];
@@ -69,15 +70,15 @@
                         user[@"facebookId"] = facebookId;
                         user[@"firstName"] = firstName;
                         user[@"lastName"] = lastName;
-                        [user saveInBackground];
-                        
-                        //Notifications registrations and permissions
-                        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeNone);
-                        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
-                        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-                        [[UIApplication sharedApplication] registerForRemoteNotifications];
-                        
-                        [self performSegueWithIdentifier:@"logedIn" sender:self];
+                        [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                            //Notifications registrations and permissions
+                            UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeNone);
+                            UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+                            [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+                            [[UIApplication sharedApplication] registerForRemoteNotifications];
+                            
+                            [self performSegueWithIdentifier:@"logedIn" sender:self];
+                        }];
                         
                     }
                     else
@@ -114,7 +115,6 @@
     
     [UIView transitionWithView:self.imageView duration:2.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         int random = arc4random() % 3;
-        NSLog(@"random: %d", random);
         self.imageView.image = [arrayImages objectAtIndex:random];
     } completion:nil];
     

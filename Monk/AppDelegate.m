@@ -32,6 +32,24 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
+    NSString *tokenDevice = [[[[deviceToken description]
+                               stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                              stringByReplacingOccurrencesOfString: @">" withString: @""]
+                             stringByReplacingOccurrencesOfString: @" " withString: @""];
+    PFUser *user = [PFUser currentUser];
+    NSString *email = [user email];
+    NSString *password = [user objectForKey:@"facebookId"];
+    NSString *objectId = [user objectId];
+    NSLog(@"%@ %@ %@ %@", email, password, objectId, tokenDevice);
+    NSMutableDictionary *userElements = [[NSMutableDictionary alloc] init];
+    [userElements setObject:email forKey:@"email"];
+    [userElements setObject:password forKey:@"password"];
+    [userElements setObject:objectId forKey:@"objectId"];
+    [userElements setObject:tokenDevice forKey:@"token"];
+    NSDictionary *userDictionary = @{@"user": userElements};
+    NSLog(@"userDictionary: %@", userDictionary);
+    [self postJSONToServer:userDictionary];
+    
     PFInstallation *installation = [PFInstallation currentInstallation];
     [installation setDeviceTokenFromData:deviceToken];
     installation.channels = @[@"global"];
@@ -74,6 +92,29 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark Other Methods
+- (void)postJSONToServer:(NSDictionary *)dictionary
+{
+    NSString *monkURL = @"https://monkapp.herokuapp.com";
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar", monkURL]]];
+    NSURLSession *sessionPost = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error]];
+    if(!error){
+        NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if(!error){
+                NSError *errorJSON;
+                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&errorJSON];
+                NSLog(@"dictResponse: %@", dictResponse);
+            }
+        }];
+        [task resume];
+    }
+    
 }
 
 @end

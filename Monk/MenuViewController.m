@@ -9,8 +9,9 @@
 #import "MenuViewController.h"
 #import "AssistantsViewController.h"
 #import "FriendsViewController.h"
-
 #import <Parse/Parse.h>
+
+
 
 @interface MenuViewController ()
 {
@@ -24,11 +25,16 @@
 @property (nonatomic, strong)NSMutableArray *arrayRows;
 
 - (void)getAssistanceResponse;
-- (void)showCodeAlertForNewUser;
+- (void)showContentForNewUser;
 - (void)getMenu;
+- (void)postJSONToServer:(NSDictionary *)dictionary;
+
 @end
 
 @implementation MenuViewController
+{
+    NSString *monkURL;
+}
 
 - (void)viewDidLoad
 {
@@ -38,11 +44,13 @@
     [[self tableMenu] setDelegate:self];
     [[self tableMenu] setDataSource:self];
     
-    menuURL = [NSURL URLWithString:@"https://monkapp.herokuapp.com/menus"];
+    monkURL = @"https://monkapp.herokuapp.com";
+    
+    menuURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/menus", monkURL]];
     session = [NSURLSession sharedSession];
     imageQue = dispatch_queue_create("Image Que", NULL);
     
-    [self showCodeAlertForNewUser];
+    [self showContentForNewUser];
     [self getMenu];
     [self getAssistanceResponse];
 }
@@ -160,7 +168,7 @@
     }];
 }
 
-- (void)showCodeAlertForNewUser
+- (void)showContentForNewUser
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL exists = [[defaults objectForKey:@"newUser"] boolValue];
@@ -242,6 +250,27 @@
     [task resume];
 }
 
+- (void)postJSONToServer:(NSDictionary *)dictionary
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/register", monkURL]]];
+    NSURLSession *sessionPost = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error]];
+    if(!error){
+        NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if(!error){
+                NSError *errorJSON;
+                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&errorJSON];
+                NSLog(@"dictResponse: %@", dictResponse);
+            }
+        }];
+        [task resume];
+    }
+    
+}
+
 #pragma mark Auxiliar Methods
 - (BOOL)isPromoCodeValid:(NSString *)promoCode
 {
@@ -309,6 +338,7 @@
     });
     
 }
+
 @end
 
 
