@@ -24,11 +24,6 @@
     
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
-    UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeNone);
-    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
-    [application registerUserNotificationSettings:notificationSettings];
-    [application registerForRemoteNotifications];
-    
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     
@@ -37,7 +32,6 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSLog(@"pasa");
     PFInstallation *installation = [PFInstallation currentInstallation];
     [installation setDeviceTokenFromData:deviceToken];
     installation.channels = @[@"global"];

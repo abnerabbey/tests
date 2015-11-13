@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, NSURLSessionDelegate, NSURLSessionTaskDelegate>
+@interface MenuViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,NSURLSessionDelegate, NSURLSessionTaskDelegate>
 
 //UI Properties
 @property (weak, nonatomic) IBOutlet UITableView *tableMenu;
@@ -17,6 +17,7 @@
 //arraysMenus
 @property (nonatomic, strong)NSMutableArray *arrayMenuNames;
 @property (nonatomic, strong)NSMutableArray *arrayPlatillos;
+@property (nonatomic, strong)NSMutableArray *imagesData;
 
 //IBActions
 - (IBAction)assistanceControl:(UISegmentedControl *)sender;

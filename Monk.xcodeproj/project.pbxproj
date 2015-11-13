@@ -30,6 +30,9 @@
 		0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0754E2A61BE5272500D369BE /* CoreLocation.framework */; };
 		0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AA1BE57BD200D369BE /* CardViewController.m */; };
 		0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */; };
+		0765130D1BF4FA050077F6BE /* monkP1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130A1BF4FA050077F6BE /* monkP1.jpg */; };
+		0765130E1BF4FA050077F6BE /* monkP2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130B1BF4FA050077F6BE /* monkP2.jpg */; };
+		0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130C1BF4FA050077F6BE /* monkP3.jpg */; };
 		07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A61BE7077600F3977D /* pinMonk@2x.png */; };
 		07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A81BE70D6200F3977D /* invitacion@2x.png */; };
 		07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AB1BE7230E00F3977D /* Cards@2x.png */; };
@@ -99,6 +102,9 @@
 		0754E2AA1BE57BD200D369BE /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		0754E2AC1BE57C0A00D369BE /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		0765130A1BF4FA050077F6BE /* monkP1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP1.jpg; sourceTree = "<group>"; };
+		0765130B1BF4FA050077F6BE /* monkP2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP2.jpg; sourceTree = "<group>"; };
+		0765130C1BF4FA050077F6BE /* monkP3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP3.jpg; sourceTree = "<group>"; };
 		07A519A61BE7077600F3977D /* pinMonk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinMonk@2x.png"; sourceTree = "<group>"; };
 		07A519A81BE70D6200F3977D /* invitacion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "invitacion@2x.png"; sourceTree = "<group>"; };
 		07A519AB1BE7230E00F3977D /* Cards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cards@2x.png"; sourceTree = "<group>"; };
@@ -191,6 +197,16 @@
 			name = FeedbackViews;
 			sourceTree = "<group>";
 		};
+		076513091BF4F9F60077F6BE /* Initial View */ = {
+			isa = PBXGroup;
+			children = (
+				0765130A1BF4FA050077F6BE /* monkP1.jpg */,
+				0765130B1BF4FA050077F6BE /* monkP2.jpg */,
+				0765130C1BF4FA050077F6BE /* monkP3.jpg */,
+			);
+			name = "Initial View";
+			sourceTree = "<group>";
+		};
 		07A519A31BE7071A00F3977D /* Image Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +233,7 @@
 		07A519AA1BE722D700F3977D /* Image Assets */ = {
 			isa = PBXGroup;
 			children = (
+				076513091BF4F9F60077F6BE /* Initial View */,
 				07A519AB1BE7230E00F3977D /* Cards@2x.png */,
 				07A519AC1BE7230E00F3977D /* Food@2x.png */,
 				07A519AD1BE7230E00F3977D /* Location@2x.png */,
@@ -460,9 +477,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0765130D1BF4FA050077F6BE /* monkP1.jpg in Resources */,
+				0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */,
 				07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */,
 				07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */,
 				0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */,
+				0765130E1BF4FA050077F6BE /* monkP2.jpg in Resources */,
 				07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */,
 				0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */,
 				07E336B11BE43FBF0040CC90 /* LaunchScreen.storyboard in Resources */,

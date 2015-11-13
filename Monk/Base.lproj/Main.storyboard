@@ -436,44 +436,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FGk-GI-ipd">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="140" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FGk-GI-ipd">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="507"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="80" id="GLI-Cz-HAW">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="80"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="140" id="GLI-Cz-HAW">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GLI-Cz-HAW" id="E1f-1S-K0p">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="139"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BnR-lf-aBG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="139"/>
                                                 </imageView>
-                                                <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJL-5a-p16">
-                                                    <rect key="frame" x="0.0" y="50" width="600" height="29"/>
+                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJL-5a-p16">
+                                                    <rect key="frame" x="0.0" y="110" width="600" height="29"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nombre del platillo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Afn-cW-sbd">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre del platillo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Afn-cW-sbd">
-                                                    <rect key="frame" x="0.0" y="50" width="600" height="29"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="leading" secondItem="Afn-cW-sbd" secondAttribute="leading" id="0F8-HX-eJb"/>
-                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="trailing" secondItem="HJL-5a-p16" secondAttribute="trailing" id="1Yl-bB-uxG"/>
-                                                <constraint firstItem="HJL-5a-p16" firstAttribute="bottom" secondItem="Afn-cW-sbd" secondAttribute="bottom" id="DwT-fm-mfc"/>
+                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="bottom" secondItem="HJL-5a-p16" secondAttribute="bottom" id="4dL-PW-6gS"/>
+                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="top" secondItem="E1f-1S-K0p" secondAttribute="top" id="851-CF-E9F"/>
+                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="leading" secondItem="HJL-5a-p16" secondAttribute="leading" id="BTV-Ye-WXM"/>
+                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="trailing" secondItem="HJL-5a-p16" secondAttribute="trailing" id="EPv-IO-SwN"/>
+                                                <constraint firstAttribute="bottom" secondItem="BnR-lf-aBG" secondAttribute="bottom" id="Egv-Yd-ur4"/>
                                                 <constraint firstAttribute="trailing" secondItem="HJL-5a-p16" secondAttribute="trailing" id="KCi-eA-nAV"/>
-                                                <constraint firstItem="HJL-5a-p16" firstAttribute="top" secondItem="Afn-cW-sbd" secondAttribute="top" id="NBH-6G-cbz"/>
-                                                <constraint firstAttribute="bottom" secondItem="Afn-cW-sbd" secondAttribute="bottom" id="OP9-rI-tlF"/>
-                                                <constraint firstItem="Afn-cW-sbd" firstAttribute="leading" secondItem="E1f-1S-K0p" secondAttribute="leading" id="Sqk-oU-Jnv"/>
-                                                <constraint firstItem="HJL-5a-p16" firstAttribute="top" secondItem="E1f-1S-K0p" secondAttribute="topMargin" constant="42" id="ZnE-Ua-L2A"/>
-                                                <constraint firstItem="Afn-cW-sbd" firstAttribute="trailing" secondItem="HJL-5a-p16" secondAttribute="trailing" id="asP-h3-ncg"/>
-                                                <constraint firstItem="Afn-cW-sbd" firstAttribute="leading" secondItem="HJL-5a-p16" secondAttribute="leading" id="fu2-6d-D6Q"/>
-                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="top" secondItem="E1f-1S-K0p" secondAttribute="top" id="gWj-7F-8vz"/>
-                                                <constraint firstItem="Afn-cW-sbd" firstAttribute="bottom" secondItem="BnR-lf-aBG" secondAttribute="bottom" id="y0d-wi-k4p"/>
+                                                <constraint firstItem="HJL-5a-p16" firstAttribute="top" secondItem="E1f-1S-K0p" secondAttribute="topMargin" constant="102" id="ZnE-Ua-L2A"/>
+                                                <constraint firstItem="BnR-lf-aBG" firstAttribute="leading" secondItem="E1f-1S-K0p" secondAttribute="leading" id="aUo-rA-Hzl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -482,7 +480,7 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="FD9-8L-kEy">
                                 <rect key="frame" x="150" y="515" width="300" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="fmP-F4-cuE"/>
+                                    <constraint firstAttribute="width" constant="300" id="8UL-KI-rOO"/>
                                 </constraints>
                                 <segments>
                                     <segment title="No Asistiré"/>
@@ -497,12 +495,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2Ru-of-JS9" firstAttribute="top" secondItem="FGk-GI-ipd" secondAttribute="bottom" constant="44" id="6pE-NG-4hB"/>
-                            <constraint firstItem="FGk-GI-ipd" firstAttribute="top" secondItem="FOv-7f-wf2" secondAttribute="top" id="K3x-4N-ylN"/>
-                            <constraint firstItem="FGk-GI-ipd" firstAttribute="leading" secondItem="FOv-7f-wf2" secondAttribute="leading" id="KC6-Eq-evR"/>
-                            <constraint firstItem="FD9-8L-kEy" firstAttribute="top" secondItem="FGk-GI-ipd" secondAttribute="bottom" constant="8" symbolic="YES" id="sBY-Xq-c79"/>
-                            <constraint firstAttribute="trailing" secondItem="FGk-GI-ipd" secondAttribute="trailing" id="uhd-F3-Zut"/>
-                            <constraint firstItem="FD9-8L-kEy" firstAttribute="centerX" secondItem="FGk-GI-ipd" secondAttribute="centerX" id="wO8-km-Obo"/>
+                            <constraint firstItem="FGk-GI-ipd" firstAttribute="centerX" secondItem="FD9-8L-kEy" secondAttribute="centerX" id="HN1-hZ-PiZ"/>
+                            <constraint firstItem="FD9-8L-kEy" firstAttribute="top" secondItem="FGk-GI-ipd" secondAttribute="bottom" constant="8" symbolic="YES" id="S32-f9-38o"/>
+                            <constraint firstItem="FGk-GI-ipd" firstAttribute="leading" secondItem="FOv-7f-wf2" secondAttribute="leading" id="YO9-jH-rbk"/>
+                            <constraint firstItem="FGk-GI-ipd" firstAttribute="top" secondItem="FOv-7f-wf2" secondAttribute="top" id="ejM-I8-Xdr"/>
+                            <constraint firstItem="2Ru-of-JS9" firstAttribute="top" secondItem="FD9-8L-kEy" secondAttribute="bottom" constant="8" symbolic="YES" id="hxg-TB-g9S"/>
+                            <constraint firstAttribute="trailing" secondItem="FGk-GI-ipd" secondAttribute="trailing" id="zCk-o5-1n2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Menú del día" id="IQb-3N-PzG">
@@ -648,17 +646,27 @@
                                     <action selector="logInWithFacebook:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aG0-9y-HhX"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w94-wG-c3Q">
+                                <rect key="frame" x="0.0" y="132" width="600" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="pVm-kh-fCh"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dFd-20-7el" secondAttribute="bottom" constant="147" id="8pH-GQ-Sb7"/>
                             <constraint firstItem="q4G-Ou-18R" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="L7K-0Z-ckf"/>
                             <constraint firstItem="dFd-20-7el" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ODk-9P-YUH"/>
+                            <constraint firstItem="w94-wG-c3Q" firstAttribute="top" secondItem="q4G-Ou-18R" secondAttribute="bottom" constant="44" id="aiC-Ml-l3i"/>
+                            <constraint firstItem="w94-wG-c3Q" firstAttribute="centerX" secondItem="q4G-Ou-18R" secondAttribute="centerX" id="gZz-LB-xXK"/>
                             <constraint firstItem="dFd-20-7el" firstAttribute="centerX" secondItem="q4G-Ou-18R" secondAttribute="centerX" id="iZZ-zc-DBu"/>
+                            <constraint firstItem="w94-wG-c3Q" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tWW-8q-uIo"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonLogin" destination="dFd-20-7el" id="iBk-Wg-1Be"/>
+                        <outlet property="imageView" destination="w94-wG-c3Q" id="VFe-Tg-WZ3"/>
                         <segue destination="I5r-GR-GfY" kind="presentation" identifier="logedIn" modalTransitionStyle="flipHorizontal" id="ekk-Dg-4oJ"/>
                     </connections>
                 </viewController>

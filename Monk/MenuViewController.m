@@ -83,14 +83,8 @@
     labelName.text = [arrayForSection objectAtIndex:indexPath.row];
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
+    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.section]];
     
-    NSDictionary *photoDictionary = [dictionary objectForKey:@"photo"];
-    dispatch_async(imageQue, ^{
-        UIImage *image = [self getImageMenu:photoDictionary];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            imageView.image = image;
-        });
-    });
     return cell;
 }
 
@@ -99,8 +93,6 @@
     [self performSegueWithIdentifier:@"detailFood" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
-
 
 #pragma mark IBActions
 - (IBAction)assistanceControl:(UISegmentedControl *)sender
@@ -153,7 +145,6 @@
         [self presentViewController:activityView animated:YES completion:nil];
     }]];
     [controller addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
-    //Tint color method for iOS 8. For iOS 7 look for reference.
     [[controller view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:controller animated:YES completion:nil];
 }
@@ -218,21 +209,35 @@
     
     //NSURL Session
     NSURLSessionTask *task = [session dataTaskWithURL:menuURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        //Whatever it happens, We remove the from the interface the activity indicator and we change the navigation bar title
         dispatch_async(dispatch_get_main_queue(), ^{
             [activityIndicator stopAnimating];
             [activityIndicator removeFromSuperview];
             self.navigationItem.title = @"Menú del día";
         });
-        NSError *jsonError;
-        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-        if(!jsonError){
-            NSArray *jsonArray = (NSArray *)[jsonDictionary objectForKey:@"menus"];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self prepareInfoToShow:jsonArray];
-            });
+        //If there's no error (Internet connection error) we get the JSON form the data downloaded
+        if(!error){
+            NSError *jsonError;
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            //If there's no error while parsing the data to json format,
+            if(!jsonError){
+                NSArray *jsonArray = (NSArray *)[jsonDictionary objectForKey:@"menus"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self prepareInfoToShow:jsonArray];
+                });
+            }
+            //If there's an error with the json downloaded, we show a label to feedback the user
+            else
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showLabelFeedback:@"Hubo un error al cargar el menú. Inténtalo más tarde"];
+                });
         }
-        else
-            [self showLabelFeedback:@"Hubo un error al cargar el menú. Inténtalo más tarde"];
+        //If there's no connection we shoe the label feedback for the users
+        else{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showLabelFeedback:@"No hay conexión a Internet. Inténtalo más tarde"];
+        });
+        }
     }];
     [task resume];
 }
@@ -258,11 +263,11 @@
         NSArray *array = [arrayForPlatillos objectAtIndex:i];
         NSDictionary *diction = [array objectAtIndex:0];
         [self.arrayPlatillos addObject:diction];
-        
-        //NSLog(@"array Platillos: %@\n\n\n\n\n\n\n\n\n\n\n\n", self.arrayPlatillos);
     }
     [self determineRowsPerSection:arrayForPlatillos];
-    [[self tableMenu] reloadData];
+    //Let's load images asynchrounously
+    [self getImageMenu:self.arrayPlatillos];
+    //[[self tableMenu] reloadData];
 }
 
 - (void)showLabelFeedback:(NSString *)feedbackString
@@ -288,12 +293,21 @@
     }
 }
 
-- (UIImage *)getImageMenu:(NSDictionary *)photoDict
+- (void)getImageMenu:(NSMutableArray *)arrayPlatillos
 {
-    NSURL *url = [NSURL URLWithString:[photoDict objectForKey:@"url"]];
-    NSData *imageData = [NSData dataWithContentsOfURL:url];
-    UIImage *image = [UIImage imageWithData:imageData];
-    return image;
+    self.imagesData = [[NSMutableArray alloc] init];
+    dispatch_async(imageQue, ^{
+        for (NSDictionary *dictionary in arrayPlatillos) {
+            NSDictionary *photoDict = [dictionary objectForKey:@"photo"];
+            NSURL *url = [NSURL URLWithString:[photoDict objectForKey:@"url"]];
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+            [[self imagesData] addObject:imageData];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[self tableMenu] reloadData];
+        });
+    });
+    
 }
 @end
 

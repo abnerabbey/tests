@@ -29,9 +29,12 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [self animateInitialImages];
+    
     PFUser *user = [PFUser currentUser];
     if(user)
         [self performSegueWithIdentifier:@"logedIn" sender:self];
+    
 }
 
 - (IBAction)logInWithFacebook:(UIButton *)sender
@@ -68,7 +71,14 @@
                         user[@"lastName"] = lastName;
                         [user saveInBackground];
                         
+                        //Notifications registrations and permissions
+                        UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeNone);
+                        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:userNotificationTypes categories:nil];
+                        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+                        [[UIApplication sharedApplication] registerForRemoteNotifications];
+                        
                         [self performSegueWithIdentifier:@"logedIn" sender:self];
+                        
                     }
                     else
                     {
@@ -94,6 +104,22 @@
         }
     }];
 }
+
+- (void)animateInitialImages
+{
+    UIImage *image1 = [UIImage imageNamed:@"monkP1.jpg"];
+    UIImage *image2 = [UIImage imageNamed:@"monkP2.jpg"];
+    UIImage *image3 = [UIImage imageNamed:@"monkP3.jpg"];
+    NSArray *arrayImages = [NSArray arrayWithObjects:image1, image2, image3, nil];
+    
+    [UIView transitionWithView:self.imageView duration:2.5f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        int random = arc4random() % 3;
+        NSLog(@"random: %d", random);
+        self.imageView.image = [arrayImages objectAtIndex:random];
+    } completion:nil];
+    
+}
+
 @end
 
 
