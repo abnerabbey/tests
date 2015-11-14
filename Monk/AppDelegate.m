@@ -45,8 +45,8 @@
     [userElements setObject:password forKey:@"password"];
     [userElements setObject:objectId forKey:@"objectId"];
     [userElements setObject:tokenDevice forKey:@"token"];
-    NSDictionary *userDictionary = @{@"user": userElements};
-    [self postJSONToServer:userDictionary];
+    //NSDictionary *userDictionary = @{@"user": userElements};
+    [self postJSONToServer:(NSDictionary *)userElements];
     
     PFInstallation *installation = [PFInstallation currentInstallation];
     [installation setDeviceTokenFromData:deviceToken];
@@ -100,19 +100,14 @@
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
     
-    NSError *error;
-    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error]];
-    if(!error){
-        NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            if(!error){
-                NSError *errorJSON;
-                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&errorJSON];
-                NSLog(@"dictResponse: %@", dictResponse);
-            }
-        }];
-        [task resume];
-    }
-    
+    NSString *params = [NSString stringWithFormat:@"email=%@&password=%@&objectId=%@&token=%@",[dictionary objectForKey:@"email"], [dictionary objectForKey:@"password"], [dictionary objectForKey:@"objectId"], [dictionary objectForKey:@"token"]] ;
+    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSLog(@"data: %@", data);
+        }
+    }];
+    [task resume];
 }
 
 @end

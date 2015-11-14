@@ -250,7 +250,7 @@
     [task resume];
 }
 
-- (void)postJSONToServer:(NSDictionary *)dictionary
+/*- (void)postJSONToServer:(NSDictionary *)dictionary
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/register", monkURL]]];
     NSURLSession *sessionPost = [NSURLSession sharedSession];
@@ -269,7 +269,7 @@
         [task resume];
     }
     
-}
+}*/
 
 #pragma mark Auxiliar Methods
 - (BOOL)isPromoCodeValid:(NSString *)promoCode

@@ -21,6 +21,7 @@
 		070002681BE5C5FF00CD7F21 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */; };
 		0700026A1BE5C69C00CD7F21 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */; };
 		0700026E1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */; };
+		07526E771BF6D6D2003FD1D6 /* Conekta in Resources */ = {isa = PBXBuildFile; fileRef = 07526E761BF6D6D2003FD1D6 /* Conekta */; };
 		0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */; };
 		0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */; };
 		0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */; };
@@ -87,6 +88,7 @@
 		070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		07526E761BF6D6D2003FD1D6 /* Conekta */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Conekta; sourceTree = "<group>"; };
 		0753B6DB1BECF1F900B18C4F /* DXStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXStarRatingView.h; sourceTree = "<group>"; };
 		0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXStarRatingView.m; sourceTree = "<group>"; };
 		0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-off@2x.png"; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 		07E336D71BE44BA60040CC90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07526E761BF6D6D2003FD1D6 /* Conekta */,
 				070002651BE5C3E300CD7F21 /* libsqlite3.0.tbd */,
 				0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */,
 				070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */,
@@ -477,6 +480,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07526E771BF6D6D2003FD1D6 /* Conekta in Resources */,
 				0765130D1BF4FA050077F6BE /* monkP1.jpg in Resources */,
 				0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */,
 				07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */,
