@@ -40,19 +40,17 @@
     NSString *email = [user email];
     NSString *password = [user objectForKey:@"facebookId"];
     NSString *objectId = [user objectId];
-    NSLog(@"%@ %@ %@ %@", email, password, objectId, tokenDevice);
     NSMutableDictionary *userElements = [[NSMutableDictionary alloc] init];
     [userElements setObject:email forKey:@"email"];
     [userElements setObject:password forKey:@"password"];
     [userElements setObject:objectId forKey:@"objectId"];
     [userElements setObject:tokenDevice forKey:@"token"];
     NSDictionary *userDictionary = @{@"user": userElements};
-    NSLog(@"userDictionary: %@", userDictionary);
     [self postJSONToServer:userDictionary];
     
     PFInstallation *installation = [PFInstallation currentInstallation];
     [installation setDeviceTokenFromData:deviceToken];
-    installation.channels = @[@"global"];
+    installation.channels = @[@"global", [NSString stringWithFormat:@"user_%@", objectId]];
     [installation saveInBackground];
 }
 

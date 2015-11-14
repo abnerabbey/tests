@@ -12,6 +12,8 @@
 
 @interface FriendsViewController ()
 
+- (void)sendPushNotificationToFriend:(NSInteger)indexPathRow;
+
 @end
 
 @implementation FriendsViewController
@@ -55,6 +57,7 @@
 {
     UIAlertController *alertSheet = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Invitar a %@", [arrayFriends objectAtIndex:indexPath.row]] message:@"Invítalo a comer a MonK hoy :)" preferredStyle:UIAlertControllerStyleActionSheet];
     [alertSheet addAction:[UIAlertAction actionWithTitle:@"Invitar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self sendPushNotificationToFriend:indexPath.row];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }]];
     [alertSheet addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -98,6 +101,23 @@
                 [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
                 [self presentViewController:alert animated:YES completion:nil];
             }
+        }
+    }];
+}
+
+- (void)sendPushNotificationToFriend:(NSInteger)indexPathRow
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    [query whereKey:@"username" equalTo:arrayFriends[indexPathRow]];
+    PFUser *currentUser = [PFUser currentUser];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+        if(!error){
+            [PFPush sendPushDataToChannelInBackground:[NSString stringWithFormat:@"user_%@", [object objectId]] withData:@{@"alert": [NSString stringWithFormat:@"%@ te invita a comer hoy a MonK :)", currentUser.username]} block:^(BOOL succeeded, NSError * _Nullable error) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"¡Listo!" message:[NSString stringWithFormat:@"Has invitado a %@ a comer hoy a MonK", [object objectForKey:@"username"]] preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }];
         }
     }];
 }
