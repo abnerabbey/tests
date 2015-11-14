@@ -17,6 +17,7 @@
 {
     NSURLSession *session;
     NSURL *menuURL;
+    NSURL *cuponURL;
     
     dispatch_queue_t imageQue;
     
@@ -27,7 +28,7 @@
 - (void)getAssistanceResponse;
 - (void)showContentForNewUser;
 - (void)getMenu;
-- (void)postJSONToServer:(NSDictionary *)dictionary;
+- (void)verifyPromoCode:(NSString *)promoCode;
 
 @end
 
@@ -47,6 +48,7 @@
     monkURL = @"https://monkapp.herokuapp.com";
     
     menuURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/menus", monkURL]];
+    cuponURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar", monkURL]];
     session = [NSURLSession sharedSession];
     imageQue = dispatch_queue_create("Image Que", NULL);
     
@@ -188,13 +190,9 @@
             [[self view] addSubview:activityIndicator];
             self.navigationItem.title = @"Verificando código...";
             
-            if([self isPromoCodeValid:textFromTextField]){
-                
-            }
-            else{
-                
-            }
+            [self verifyPromoCode:textFromTextField];
             
+            [activityIndicator stopAnimating];
             [activityIndicator removeFromSuperview];
             self.navigationItem.title = @"Menú del día";
             
@@ -250,19 +248,54 @@
     [task resume];
 }
 
-/*- (void)postJSONToServer:(NSDictionary *)dictionary
+- (void)verifyPromoCode:(NSString *)promoCode
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/register", monkURL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:cuponURL];
+    NSURLSession *sessionPost = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[promoCode dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSError *jsonError;
+            NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if([[dictResponse objectForKey:@"status"] isEqualToString:@"ok"])
+                {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Código Verificado" message:@"Código verificado con éxito. Puedes ver tu promoción al momento de pagar la cuenta :)" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                    [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                else
+                {
+                    UIAlertController *secondAlert = [UIAlertController alertControllerWithTitle:@"Código Incorrecto" message:@"Intenta introducir un código correcto más tarde" preferredStyle:UIAlertControllerStyleAlert];
+                    [secondAlert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                    [secondAlert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                    [self presentViewController:secondAlert animated:YES completion:nil];
+                }
+            });
+        }
+    }];
+    [task resume];
+}
+
+/*- (void)postJSONToServer:(NSDictionary *)dictionary withURL:(NSURL *)url
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
     
+    //Modificar aquí
+    NSString *postString = [NSString stringWithFormat:@"cupon=%@", [dictionary objectForKey:@"cupon"]];
+    
     NSError *error;
-    [request setHTTPBody:[NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error]];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     if(!error){
         NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if(!error){
                 NSError *errorJSON;
-                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&errorJSON];
+                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&errorJSON];
                 NSLog(@"dictResponse: %@", dictResponse);
             }
         }];
