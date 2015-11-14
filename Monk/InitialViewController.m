@@ -41,7 +41,7 @@
 
 - (IBAction)logInWithFacebook:(UIButton *)sender
 {
-    NSArray *permissions = @[@"public_profile", @"email"];
+    NSArray *permissions = @[@"public_profile", @"email", @"user_friends"];
     [PFFacebookUtils logInInBackgroundWithReadPermissions:permissions block:^(PFUser * _Nullable user, NSError * _Nullable error) {
         if(!error)
         {
@@ -54,7 +54,7 @@
             }
             else if(user.isNew)
             {
-                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields" : @"id,email,first_name,last_name,friends"}];
+                FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields" : @"id,email,first_name,last_name, friends"}];
                 [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                     if(!error)
                     {

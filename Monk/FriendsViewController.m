@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+
 @interface FriendsViewController ()
 
 - (void)sendPushNotificationToFriend:(NSInteger)indexPathRow;
@@ -76,7 +77,7 @@
     [activityIndicator startAnimating];
     [[self view] addSubview:activityIndicator];
     
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:@{@"fields":@"friends"}];
+    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/friends" parameters:@{@"fields": @"friends"} HTTPMethod:@"GET"];
     [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         self.navigationItem.title = @"Tus Amigos";
         [activityIndicator stopAnimating];
@@ -84,7 +85,9 @@
         if(!error)
         {
             NSDictionary *dictionary = (NSDictionary *)result;
-            arrayFriends = [dictionary objectForKey:@"data"];
+            NSLog(@"dictionary: %@", dictionary);
+            
+            //arrayFriends = [dictionary objectForKey:@"data"];
             [[self tableFriends] reloadData];
             if(arrayFriends.count == 0)
             {
