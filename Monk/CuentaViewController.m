@@ -36,7 +36,6 @@
     
     //Verificar primero si la cuenta está abierta
     [self setFirstViewInterface];
-    [self performSelector:@selector(showFeedbackView) withObject:nil afterDelay:1.0];
     
     monkURL = @"https://monkapp.herokuapp.com";
     cuponURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar", monkURL]];
@@ -67,6 +66,11 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
     [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (IBAction)payBill:(UIButton *)sender
+{
+    [self showFeedbackView];
 }
 
 #pragma mark Other Methods

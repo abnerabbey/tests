@@ -33,6 +33,7 @@
 		0765130D1BF4FA050077F6BE /* monkP1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130A1BF4FA050077F6BE /* monkP1.jpg */; };
 		0765130E1BF4FA050077F6BE /* monkP2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130B1BF4FA050077F6BE /* monkP2.jpg */; };
 		0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130C1BF4FA050077F6BE /* monkP3.jpg */; };
+		079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079D3EAD1BF9989A00E3DC09 /* TestViewController.m */; };
 		07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A61BE7077600F3977D /* pinMonk@2x.png */; };
 		07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A81BE70D6200F3977D /* invitacion@2x.png */; };
 		07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AB1BE7230E00F3977D /* Cards@2x.png */; };
@@ -109,6 +110,8 @@
 		0765130A1BF4FA050077F6BE /* monkP1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP1.jpg; sourceTree = "<group>"; };
 		0765130B1BF4FA050077F6BE /* monkP2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP2.jpg; sourceTree = "<group>"; };
 		0765130C1BF4FA050077F6BE /* monkP3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP3.jpg; sourceTree = "<group>"; };
+		079D3EAC1BF9989A00E3DC09 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		079D3EAD1BF9989A00E3DC09 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		07A519A61BE7077600F3977D /* pinMonk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinMonk@2x.png"; sourceTree = "<group>"; };
 		07A519A81BE70D6200F3977D /* invitacion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "invitacion@2x.png"; sourceTree = "<group>"; };
 		07A519AB1BE7230E00F3977D /* Cards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cards@2x.png"; sourceTree = "<group>"; };
@@ -296,6 +299,8 @@
 				07E336A41BE43FBF0040CC90 /* AppDelegate.h */,
 				07E336A51BE43FBF0040CC90 /* AppDelegate.m */,
 				07E336AA1BE43FBF0040CC90 /* Main.storyboard */,
+				079D3EAC1BF9989A00E3DC09 /* TestViewController.h */,
+				079D3EAD1BF9989A00E3DC09 /* TestViewController.m */,
 				07E336D41BE442920040CC90 /* InitialViewController.h */,
 				07E336D51BE442920040CC90 /* InitialViewController.m */,
 				07E336DA1BE457590040CC90 /* Menu Section */,
@@ -556,6 +561,7 @@
 				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
 				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
+				079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */,
 				07D45A691BF7D1CD00E9D8C5 /* Card.m in Sources */,
 				07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */,
 				07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */,
