@@ -26,7 +26,7 @@
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar", monkURL]];
     
     NSURLSession *session = [NSURLSession sharedSession];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar?user[nombre]=AbnerAbbey&user[email]=abner@hotmail.com&user[password]=1223344&user[objectId]=234234&user[token]=34534553&user[device]=iOS", monkURL]]];
     [request setHTTPMethod:@"POST"];
     
     //OPCIÓN 1
@@ -38,9 +38,9 @@
     NSString *params = @"email=prueba@hotmail.com&password=12345678&objectId=12389hdsj2&token=asdoijqo3093u4";
     
     NSData *data = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
-    NSLog(@"%@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding]);
+    //NSLog(@"%@", [[NSString alloc] initWithBytes:[data bytes] length:[data length] encoding:NSUTF8StringEncoding]);
     
-    [request setHTTPBody:data];
+    //[request setHTTPBody:data];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

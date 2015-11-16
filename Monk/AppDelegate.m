@@ -41,6 +41,7 @@
     NSString *password = [user objectForKey:@"facebookId"];
     NSString *objectId = [user objectId];
     NSMutableDictionary *userElements = [[NSMutableDictionary alloc] init];
+    [userElements setObject:[user username] forKey:@"username"];
     [userElements setObject:email forKey:@"email"];
     [userElements setObject:password forKey:@"password"];
     [userElements setObject:objectId forKey:@"objectId"];
@@ -95,15 +96,21 @@
 #pragma mark Other Methods
 - (void)postJSONToServer:(NSDictionary *)dictionary
 {
+    NSLog(@"pasa");
     NSString *monkURL = @"https://monkapp.herokuapp.com";
+    NSString *nombre = [dictionary objectForKey:@"username"];
+    NSString *email = [dictionary objectForKey:@"email"];
+    NSString *password = [dictionary objectForKey:@"password"];
+    NSString *objectId = [dictionary objectForKey:@"objectId"];
+    NSString *token = [dictionary objectForKey:@"token"];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar", monkURL]]];
+    //NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token]]];
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
     
     NSDictionary *userDictionary = @{@"user":dictionary};
     NSLog(@"%@", userDictionary);
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
-    
     [request setHTTPBody:jsonData];
     NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
@@ -111,6 +118,8 @@
             NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
             NSLog(@"Response: %@", dictResponse);
         }
+        else
+            NSLog(@"error description: %@", [error description]);
     }];
     [task resume];
 }
