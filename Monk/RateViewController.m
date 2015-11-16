@@ -8,6 +8,7 @@
 
 #import "RateViewController.h"
 #import "DXStarRatingView.h"
+#import "FeedbackViewController.h"
 
 @interface RateViewController ()
 
@@ -47,6 +48,15 @@
         [self performSegueWithIdentifier:@"feedback" sender:self];
     else
         [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"feedback"])
+    {
+        FeedbackViewController *feedView = [segue destinationViewController];
+        feedView.numberOfStars = rating;
+    }
 }
 
 - (void)cancelRateView

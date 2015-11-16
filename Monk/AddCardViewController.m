@@ -7,12 +7,16 @@
 //
 
 #import "AddCardViewController.h"
+#import "Conekta.h"
 
 @interface AddCardViewController ()
 
 @end
 
 @implementation AddCardViewController
+{
+    Conekta *conekta;
+}
 
 - (void)viewDidLoad
 {
@@ -31,14 +35,13 @@
     self.textFieldExpiration.delegate = self;
     self.textFieldNombre.delegate = self;
     
-    NSUserDefaults *defualts = [NSUserDefaults standardUserDefaults];
-    BOOL exists = [[defualts objectForKey:@"newUser"]boolValue];
-    if(!exists){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Atención!" message:@"Tus tarjetas se guardarán de manera SEGURA en el servidor, nunca en tu dispositivo!" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-        [self presentViewController:alert animated:YES completion:nil];
-    }
+    conekta = [[Conekta alloc] init];
+    [conekta setDelegate:self];
+    [conekta setPublicKey:@"key_Dffvvfy47F1oLLmYCrrDz7A"];
+    [conekta collectDevice];
+    
+    
+    
 }
 
 #pragma mark TextField Delegate
@@ -53,8 +56,38 @@
     [[self view] endEditing:YES];
 }
 
-- (IBAction)addCard:(UIButton *)sender {
+- (IBAction)addCard:(UIButton *)sender
+{
+    if([self.textFieldTarjeta.text isEqualToString:@""] || [self.textFieldCVV.text isEqualToString:@""] || ([self.textFieldExpiration.text isEqualToString:@""] || self.textFieldExpiration.text.length < 6) || [self.textFieldNombre.text isEqualToString:@""])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Asegúrate de llenar los campos correctamente" preferredStyle:UIAlertControllerStyleAlert];
+        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else{
+        NSString *monthExpiration = [self.textFieldExpiration.text substringWithRange:NSMakeRange(0, 2)];
+        NSLog(@"month: %@", monthExpiration);
+        NSString *yearExpiration = [self.textFieldExpiration.text substringWithRange:NSMakeRange(2, 4)];
+        NSLog(@"year: %@", yearExpiration);
+        Card *card = [conekta.Card initWithNumber:self.textFieldTarjeta.text name:self.textFieldNombre.text cvc:self.textFieldCVV.text expMonth:monthExpiration expYear:yearExpiration];
+        Token *token = [conekta.Token initWithCard:card];
+        [token createWithSuccess:^(NSDictionary *data) {
+            [self showAlertResponse:[data objectForKey:@"message"]];
+        } andError:^(NSError *error) {
+            NSLog(@"error: %@", error.description);
+        }];
+    }
 }
+
+- (void)showAlertResponse:(NSString *)message
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Respuesta" message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+    [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 @end
 
 

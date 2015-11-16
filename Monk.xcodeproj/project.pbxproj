@@ -21,7 +21,6 @@
 		070002681BE5C5FF00CD7F21 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */; };
 		0700026A1BE5C69C00CD7F21 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */; };
 		0700026E1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */; };
-		07526E771BF6D6D2003FD1D6 /* Conekta in Resources */ = {isa = PBXBuildFile; fileRef = 07526E761BF6D6D2003FD1D6 /* Conekta */; };
 		0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */; };
 		0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */; };
 		0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */; };
@@ -40,6 +39,10 @@
 		07A519AF1BE7230E00F3977D /* Food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AC1BE7230E00F3977D /* Food@2x.png */; };
 		07A519B01BE7230E00F3977D /* Location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AD1BE7230E00F3977D /* Location@2x.png */; };
 		07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A519B21BE7302F00F3977D /* AddCardViewController.m */; };
+		07D45A691BF7D1CD00E9D8C5 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A5F1BF7D1CD00E9D8C5 /* Card.m */; };
+		07D45A6A1BF7D1CD00E9D8C5 /* Conekta.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A611BF7D1CD00E9D8C5 /* Conekta.m */; };
+		07D45A6B1BF7D1CD00E9D8C5 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A661BF7D1CD00E9D8C5 /* Connection.m */; };
+		07D45A6C1BF7D1CD00E9D8C5 /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A681BF7D1CD00E9D8C5 /* Token.m */; };
 		07E336A31BE43FBF0040CC90 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A21BE43FBF0040CC90 /* main.m */; };
 		07E336A61BE43FBF0040CC90 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07E336A51BE43FBF0040CC90 /* AppDelegate.m */; };
 		07E336AC1BE43FBF0040CC90 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E336AA1BE43FBF0040CC90 /* Main.storyboard */; };
@@ -88,7 +91,6 @@
 		070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
-		07526E761BF6D6D2003FD1D6 /* Conekta */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Conekta; sourceTree = "<group>"; };
 		0753B6DB1BECF1F900B18C4F /* DXStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXStarRatingView.h; sourceTree = "<group>"; };
 		0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXStarRatingView.m; sourceTree = "<group>"; };
 		0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-off@2x.png"; sourceTree = "<group>"; };
@@ -114,6 +116,14 @@
 		07A519AD1BE7230E00F3977D /* Location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Location@2x.png"; sourceTree = "<group>"; };
 		07A519B11BE7302F00F3977D /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
 		07A519B21BE7302F00F3977D /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
+		07D45A5E1BF7D1CD00E9D8C5 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
+		07D45A5F1BF7D1CD00E9D8C5 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
+		07D45A601BF7D1CD00E9D8C5 /* Conekta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conekta.h; sourceTree = "<group>"; };
+		07D45A611BF7D1CD00E9D8C5 /* Conekta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conekta.m; sourceTree = "<group>"; };
+		07D45A651BF7D1CD00E9D8C5 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
+		07D45A661BF7D1CD00E9D8C5 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
+		07D45A671BF7D1CD00E9D8C5 /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		07D45A681BF7D1CD00E9D8C5 /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
 		07E3369E1BE43FBF0040CC90 /* Monk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Monk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E336A21BE43FBF0040CC90 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07E336A41BE43FBF0040CC90 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -243,6 +253,21 @@
 			name = "Image Assets";
 			sourceTree = "<group>";
 		};
+		07D45A5D1BF7D1CD00E9D8C5 /* Conekta */ = {
+			isa = PBXGroup;
+			children = (
+				07D45A5E1BF7D1CD00E9D8C5 /* Card.h */,
+				07D45A5F1BF7D1CD00E9D8C5 /* Card.m */,
+				07D45A601BF7D1CD00E9D8C5 /* Conekta.h */,
+				07D45A611BF7D1CD00E9D8C5 /* Conekta.m */,
+				07D45A651BF7D1CD00E9D8C5 /* Connection.h */,
+				07D45A661BF7D1CD00E9D8C5 /* Connection.m */,
+				07D45A671BF7D1CD00E9D8C5 /* Token.h */,
+				07D45A681BF7D1CD00E9D8C5 /* Token.m */,
+			);
+			path = Conekta;
+			sourceTree = "<group>";
+		};
 		07E336951BE43FBF0040CC90 = {
 			isa = PBXGroup;
 			children = (
@@ -313,7 +338,7 @@
 		07E336D71BE44BA60040CC90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				07526E761BF6D6D2003FD1D6 /* Conekta */,
+				07D45A5D1BF7D1CD00E9D8C5 /* Conekta */,
 				070002651BE5C3E300CD7F21 /* libsqlite3.0.tbd */,
 				0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */,
 				070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */,
@@ -480,7 +505,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07526E771BF6D6D2003FD1D6 /* Conekta in Resources */,
 				0765130D1BF4FA050077F6BE /* monkP1.jpg in Resources */,
 				0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */,
 				07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */,
@@ -523,12 +547,16 @@
 				07E336E51BE457B90040CC90 /* CuentaViewController.m in Sources */,
 				0753B6E71BECFC7700B18C4F /* FeedbackViewController.m in Sources */,
 				07E336A31BE43FBF0040CC90 /* main.m in Sources */,
+				07D45A6B1BF7D1CD00E9D8C5 /* Connection.m in Sources */,
 				0753B6EA1BED0C0100B18C4F /* DescriptionViewController.m in Sources */,
 				07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */,
 				0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */,
+				07D45A6C1BF7D1CD00E9D8C5 /* Token.m in Sources */,
+				07D45A6A1BF7D1CD00E9D8C5 /* Conekta.m in Sources */,
 				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
 				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
+				07D45A691BF7D1CD00E9D8C5 /* Card.m in Sources */,
 				07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */,
 				07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */,
 				07E336E21BE457B10040CC90 /* UbicacionViewController.m in Sources */,

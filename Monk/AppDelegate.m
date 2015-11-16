@@ -100,11 +100,16 @@
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
     
-    NSString *params = [NSString stringWithFormat:@"email=%@&password=%@&objectId=%@&token=%@",[dictionary objectForKey:@"email"], [dictionary objectForKey:@"password"], [dictionary objectForKey:@"objectId"], [dictionary objectForKey:@"token"]] ;
-    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *userDictionary = @{@"user":dictionary};
+    NSLog(@"%@", userDictionary);
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    
+    [request setHTTPBody:jsonData];
     NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
-            NSLog(@"data: %@", data);
+            NSError *jsonError;
+            NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+            NSLog(@"Response: %@", dictResponse);
         }
     }];
     [task resume];
