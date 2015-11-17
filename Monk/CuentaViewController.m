@@ -151,7 +151,8 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:cuponURL];
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[promoCode dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString *promoCodeReady = [NSString stringWithFormat:@"cupon=%@",promoCode];
+    [request setHTTPBody:[promoCodeReady dataUsingEncoding:NSUTF8StringEncoding]];
     
     NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){

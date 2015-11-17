@@ -32,6 +32,9 @@
     
     [[self labelMessage] setText:[NSString stringWithFormat:@"%@, invita a tus nuevos amigos y gana $50 MXN por cada uno que se registre y compre.", user[@"firstName"]]];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.labelCode.text = [defaults objectForKey:@"userCode"];
+    
 }
 
 - (void)okView
@@ -42,29 +45,19 @@
 
 - (IBAction)sharePromoCode:(UIButton *)sender
 {
-    if(![self.labelCode.text isEqualToString:@"Código"])
-    {
-        NSString *codigo = self.labelCode.text;
-        NSString *texto = [NSString stringWithFormat:@"Ven, conoce el restaurante MonK y obtén un descuento como primer usuario con este código de promoción: %@", codigo];
-        NSArray *array = [NSArray arrayWithObject:texto];
-        UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:array applicationActivities:nil];
-        NSArray *excludeActivities = @[UIActivityTypeAirDrop,
-                                       UIActivityTypePrint,
-                                       UIActivityTypeAssignToContact,
-                                       UIActivityTypeSaveToCameraRoll,
-                                       UIActivityTypeAddToReadingList,
-                                       UIActivityTypePostToFlickr,
-                                       UIActivityTypePostToVimeo];
-        activityView.excludedActivityTypes = excludeActivities;
-        [self presentViewController:activityView animated:YES completion:nil];
-    }
-    else
-    {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Comprueba tu conexión a Internet para poder compartir tu código e inténtalo más tarde" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-        [self presentViewController:alert animated:YES completion:nil];
-    }
+    NSString *codigo = self.labelCode.text;
+    NSString *texto = [NSString stringWithFormat:@"Ven, conoce el restaurante MonK y obtén un descuento como primer usuario con mi código de promoción: %@", codigo];
+    NSArray *array = [NSArray arrayWithObject:texto];
+    UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:array applicationActivities:nil];
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    activityView.excludedActivityTypes = excludeActivities;
+    [self presentViewController:activityView animated:YES completion:nil];
 }
 @end
 

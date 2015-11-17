@@ -22,7 +22,9 @@
     
     NSMutableArray *arrayAttending;
     NSMutableArray *arrayMaybe;
-    NSArray *arrayfriends;
+    NSMutableArray *arrayfriends;
+    
+    dispatch_queue_t dipastchUser;
 }
 
 - (void)viewDidLoad
@@ -34,6 +36,7 @@
     
     arrayAttending = [[NSMutableArray alloc] init];
     arrayMaybe = [[NSMutableArray alloc] init];
+    arrayfriends = [[NSMutableArray alloc] init];
     
     assistantFilter = [[UISegmentedControl alloc] initWithItems:@[@"Asistirán", @"Tal Vez"]];
     assistantFilter.tintColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
@@ -98,8 +101,17 @@
         if(!error)
         {
             NSDictionary *dictionary = (NSDictionary *)result;
-            arrayfriends = (NSArray *)[dictionary objectForKey:@"data"];
-            [self filterFriends:arrayfriends];
+            NSArray *arrayData = [dictionary objectForKey:@"data"];
+            NSDictionary *dataDict = [arrayData objectAtIndex:0];
+            NSDictionary *friendsDictionary = [dataDict objectForKey:@"friends"];
+            NSArray *lastArray = [friendsDictionary objectForKey:@"data"];
+            NSMutableArray *arrayWithFriends = [[NSMutableArray alloc] initWithCapacity:lastArray.count];
+            for (NSDictionary *dict in lastArray) {
+                [arrayWithFriends addObject:[dict objectForKey:@"id"]];
+            }
+            NSArray *friendsData = [NSArray arrayWithArray:(NSArray *)arrayWithFriends];
+            NSLog(@"\n\n\n\n\n\n\n\n\n\n\narrayFriends:%@", friendsData);
+            [self filterFriends:friendsData];
         }
         else if([[error localizedDescription] isEqualToString:@"The Internet connection appears to be offline."])
         {
@@ -119,28 +131,22 @@
 
 - (void)filterFriends:(NSArray *)friends
 {
-    [arrayAttending removeAllObjects];
-    [arrayMaybe removeAllObjects];
+    /*[arrayAttending removeAllObjects];
+    [arrayMaybe removeAllObjects];*/
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Asistencia"];
-    for(int i = 0; i < [friends count]; i++)
-    {
-        [query includeKey:@"user"];
-        [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
-            if(object)
-            {
-                if([[object objectForKey:@"response"] intValue] == 0)
-                    [arrayAttending addObject:[friends objectAtIndex:i]];
-                else if([[object objectForKey:@"response"] intValue] == 1)
-                    [arrayMaybe addObject:[friends objectAtIndex:i]];
-            }
-        }];
+    PFQuery *friendQuery = [PFUser query];
+    [friendQuery whereKey:@"facebookId" containedIn:friends];
+    NSArray *friendUsers = [friendQuery findObjects];
+    for (PFUser *user in friendUsers) {
+        NSLog(@"\n\n\n\n\n\n\n\n\n\n\nfriendUser:%@", user.username);
+        [arrayfriends addObject:user.username];
     }
     [[self tableAssistants] reloadData];
     if(arrayAttending.count == 0 || arrayMaybe.count == 0)
     {
         [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
     }
+    
 }
 
 - (void)showLabelFeedback:(NSString *)feedbackString

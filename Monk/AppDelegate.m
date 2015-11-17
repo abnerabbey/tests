@@ -98,24 +98,30 @@
 {
     NSLog(@"pasa");
     NSString *monkURL = @"https://monkapp.herokuapp.com";
-    NSString *nombre = [dictionary objectForKey:@"username"];
+    NSString *nombre = [[dictionary objectForKey:@"username"] stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *email = [dictionary objectForKey:@"email"];
     NSString *password = [dictionary objectForKey:@"password"];
     NSString *objectId = [dictionary objectForKey:@"objectId"];
     NSString *token = [dictionary objectForKey:@"token"];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar", monkURL]]];
-    //NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token]]];
+    
     NSURLSession *sessionPost = [NSURLSession sharedSession];
+    //NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar", monkURL]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[device_token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token]]];
+    NSString *string = [NSString stringWithFormat:@"%@/user/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[device_token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token];
+    NSLog(@"%@", string);
     [request setHTTPMethod:@"POST"];
     
-    NSDictionary *userDictionary = @{@"user":dictionary};
-    NSLog(@"%@", userDictionary);
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
-    [request setHTTPBody:jsonData];
+    //NSDictionary *userDictionary = @{@"user":dictionary};
+    //NSLog(@"%@", userDictionary);
+    //NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    //[request setHTTPBody:jsonData];
     NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
             NSError *jsonError;
             NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:[dictResponse objectForKey:@"codigo"] forKey:@"userCode"];
+            [defaults synchronize];
             NSLog(@"Response: %@", dictResponse);
         }
         else

@@ -19,7 +19,7 @@
 
 @implementation FriendsViewController
 {
-    NSArray *arrayFriends;
+    NSMutableArray *arrayFriends;
 }
 
 - (void)viewDidLoad
@@ -28,6 +28,8 @@
     
     self.tableFriends.delegate = self;
     self.tableFriends.dataSource = self;
+    
+    arrayFriends = [[NSMutableArray alloc] init];
 
     self.navigationItem.title = @"Tus Amigos";
     
@@ -77,40 +79,44 @@
     [activityIndicator startAnimating];
     [[self view] addSubview:activityIndicator];
     
-    FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"/me/friends" parameters:@{@"fields": @"friends"} HTTPMethod:@"GET"];
-    [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+    FBSDKGraphRequest *friendsRequest = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/friends" parameters:@{@"fields":@"friends"}];
+    [friendsRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
         self.navigationItem.title = @"Tus Amigos";
         [activityIndicator stopAnimating];
         [activityIndicator removeFromSuperview];
         if(!error)
         {
             NSDictionary *dictionary = (NSDictionary *)result;
-            NSLog(@"dictionary: %@", dictionary);
-            
-            //arrayFriends = [dictionary objectForKey:@"data"];
-            [[self tableFriends] reloadData];
-            if(arrayFriends.count == 0)
-            {
-                [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
+            NSArray *arrayData = [dictionary objectForKey:@"data"];
+            NSDictionary *dataDict = [arrayData objectAtIndex:0];
+            NSDictionary *friendsDictionary = [dataDict objectForKey:@"friends"];
+            NSArray *lastArray = [friendsDictionary objectForKey:@"data"];
+            NSMutableArray *arrayWithFriends = [[NSMutableArray alloc] initWithCapacity:lastArray.count];
+            for (NSDictionary *dict in lastArray) {
+                [arrayWithFriends addObject:[dict objectForKey:@"id"]];
             }
+            NSArray *friendsData = [NSArray arrayWithArray:(NSArray *)arrayWithFriends];
+            [self filterFriends:friendsData];
+        }
+        else if([[error localizedDescription] isEqualToString:@"The Internet connection appears to be offline."])
+        {
+            [self showLabelFeedback:@"Sin conexión. Verifica tu conexión a Internet e inténtalo de nuevo."];
         }
         else
         {
-            if([[error localizedDescription] isEqualToString:@"The Internet connection appears to be offline."])
-                [self showLabelFeedback:@"Sin conexión. Verifica tu conexión a Internet e inténtalo de nuevo."];
-            else{
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Hubo un error al cargar tus amigos. Inténtalo de nuevo." preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-                [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Hubo un error al verificar los asistentes. Inténtalo de nuevo." preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self showLabelFeedback:@"Hubo un inconveniente al verificar los asistentes. Inténtalo de nuevo."];
+            }]];
+            [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
 }
 
 - (void)sendPushNotificationToFriend:(NSInteger)indexPathRow
 {
-    PFQuery *query = [PFQuery queryWithClassName:@"_User"];
+    PFQuery *query = [PFUser query];
     [query whereKey:@"username" equalTo:arrayFriends[indexPathRow]];
     PFUser *currentUser = [PFUser currentUser];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
@@ -121,6 +127,20 @@
                 [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
                 [self presentViewController:alert animated:YES completion:nil];
             }];
+        }
+    }];
+}
+
+- (void)filterFriends:(NSArray *)friends
+{
+    PFQuery *friendQuery = [PFUser query];
+    [friendQuery whereKey:@"facebookId" containedIn:friends];
+    [friendQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        if(!error){
+            for (PFUser *user in objects) {
+                [arrayFriends addObject:user.username];
+            }
+            [[self tableFriends] reloadData];
         }
     }];
 }
