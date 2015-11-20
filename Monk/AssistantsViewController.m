@@ -13,6 +13,7 @@
 @interface AssistantsViewController ()
 
 - (void)requestForFriends;
+- (void)requestForAssistants;
 
 @end
 
@@ -110,7 +111,6 @@
                 [arrayWithFriends addObject:[dict objectForKey:@"id"]];
             }
             NSArray *friendsData = [NSArray arrayWithArray:(NSArray *)arrayWithFriends];
-            NSLog(@"\n\n\n\n\n\n\n\n\n\n\narrayFriends:%@", friendsData);
             [self filterFriends:friendsData];
         }
         else if([[error localizedDescription] isEqualToString:@"The Internet connection appears to be offline."])
@@ -129,23 +129,41 @@
     }];
 }
 
+- (void)requestForAssistants
+{
+    
+}
+
 - (void)filterFriends:(NSArray *)friends
 {
-    /*[arrayAttending removeAllObjects];
-    [arrayMaybe removeAllObjects];*/
+    [arrayAttending removeAllObjects];
+    [arrayMaybe removeAllObjects];
     
     PFQuery *friendQuery = [PFUser query];
     [friendQuery whereKey:@"facebookId" containedIn:friends];
-    NSArray *friendUsers = [friendQuery findObjects];
-    for (PFUser *user in friendUsers) {
-        NSLog(@"\n\n\n\n\n\n\n\n\n\n\nfriendUser:%@", user.username);
-        [arrayfriends addObject:user.username];
-    }
-    [[self tableAssistants] reloadData];
-    if(arrayAttending.count == 0 || arrayMaybe.count == 0)
-    {
-        [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
-    }
+    [friendQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error){
+        if(!error){
+            
+            PFQuery *query = [PFQuery queryWithClassName:@"Asistencia"];
+            for (PFUser *user in objects) {
+                [query whereKey:@"user" equalTo:user];
+                PFObject *object = [query getFirstObject];
+                if([[object objectForKey:@"response"] integerValue] == 1)
+                    [arrayAttending addObject:user.username];
+                else if([[object objectForKey:@"response"] integerValue] == 2)
+                    [arrayMaybe addObject:user.username];
+            }
+            [[self tableAssistants] reloadData];
+            if(arrayAttending.count == 0 && arrayMaybe.count == 0)
+            {
+                [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
+            }
+        }
+        
+    }];
+    
+    
+    
     
 }
 
