@@ -205,7 +205,7 @@
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
     
-    //Modificar aquí
+    
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:nil];
     
     

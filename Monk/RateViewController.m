@@ -18,11 +18,15 @@
 {
     DXStarRatingView *ratingView;
     int rating;
+    
+    NSString *monkURL;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    monkURL = @"https://monkapp.herokuapp.com";
     
     self.navigationItem.title = @"Califícanos";
     self.buttonRate.layer.borderWidth = 1.0;
@@ -41,13 +45,15 @@
 }
 
 
-
+#pragma mark IBActions
 - (IBAction)rateMonk:(UIButton *)sender
 {
     if(rating <= 3)
         [self performSegueWithIdentifier:@"feedback" sender:self];
-    else
-        [self dismissViewControllerAnimated:YES completion:nil];
+    else{
+        [self showAbonoAlert];
+        [self sendFeedBackToServer];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -59,10 +65,44 @@
     }
 }
 
+#pragma mark Other Methods
 - (void)cancelRateView
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)showAbonoAlert
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"¡Gracias por tu Feedback!" message:@"Es importante para nosotros poder mejorar.\nTe hemos abonado $15.00 MXN para tu siguiente compra." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }]];
+    [[alert view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)sendFeedBackToServer
+{
+    NSURL *feedbackURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback", monkURL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:feedbackURL];
+    [request setHTTPMethod:@"POST"];
+    NSURLSession *session = [NSURLSession sharedSession];
+    
+    NSString *stringfFeedback = [NSString stringWithFormat:@"preguntum_id=1&secciones=general&estrellas=%d", rating];
+    NSData *dataFeedback = [stringfFeedback dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:dataFeedback];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"dictResponse: %@", dictResponse);
+        }
+    }];
+    [task resume];
+}
+
 @end
 
 

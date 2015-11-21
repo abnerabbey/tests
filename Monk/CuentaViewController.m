@@ -70,7 +70,14 @@
 
 - (IBAction)payBill:(UIButton *)sender
 {
-    [self showFeedbackView];
+    UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
+    [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self showFeedbackView];
+        [self setFirstViewInterface];
+    }]];
+    [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+    [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:alertPay animated:YES completion:nil];
 }
 
 #pragma mark Other Methods
@@ -132,7 +139,7 @@
     buttonStart = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     buttonStart.frame = CGRectMake(self.view.frame.size.width/2 - self.view.frame.size.width/2 + 10.0, self.view.frame.size.height/2 - 22.0, self.view.frame.size.width - 20.0, 44.0);
     [buttonStart addTarget:self action:@selector(openAccount) forControlEvents:UIControlEventAllTouchEvents];
-    [buttonStart setTitle:@"Abrir Cuenta" forState:UIControlStateNormal];
+    [buttonStart setTitle:@"Llamar a mesaro/a" forState:UIControlStateNormal];
     [buttonStart setTintColor:[UIColor whiteColor]];
     [buttonStart setBackgroundColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     buttonStart.layer.cornerRadius = 3.0;

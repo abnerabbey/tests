@@ -100,7 +100,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"detailFood" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

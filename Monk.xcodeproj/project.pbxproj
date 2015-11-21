@@ -26,7 +26,6 @@
 		0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */; };
 		0753B6E41BECF22300B18C4F /* RateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E31BECF22300B18C4F /* RateViewController.m */; };
 		0753B6E71BECFC7700B18C4F /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */; };
-		0753B6EA1BED0C0100B18C4F /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E91BED0C0100B18C4F /* DescriptionViewController.m */; };
 		0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0754E2A61BE5272500D369BE /* CoreLocation.framework */; };
 		0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AA1BE57BD200D369BE /* CardViewController.m */; };
 		0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */; };
@@ -100,8 +99,6 @@
 		0753B6E31BECF22300B18C4F /* RateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateViewController.m; sourceTree = "<group>"; };
 		0753B6E51BECFC7700B18C4F /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		0753B6E81BED0C0100B18C4F /* DescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionViewController.h; sourceTree = "<group>"; };
-		0753B6E91BED0C0100B18C4F /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		0754E2A61BE5272500D369BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0754E2A91BE57BD100D369BE /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		0754E2AA1BE57BD200D369BE /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
@@ -374,8 +371,6 @@
 				07E336E71BE462CE0040CC90 /* AssistantsViewController.m */,
 				07E336E91BE468860040CC90 /* FriendsViewController.h */,
 				07E336EA1BE468860040CC90 /* FriendsViewController.m */,
-				0753B6E81BED0C0100B18C4F /* DescriptionViewController.h */,
-				0753B6E91BED0C0100B18C4F /* DescriptionViewController.m */,
 			);
 			name = "Menu Section";
 			sourceTree = "<group>";
@@ -553,7 +548,6 @@
 				0753B6E71BECFC7700B18C4F /* FeedbackViewController.m in Sources */,
 				07E336A31BE43FBF0040CC90 /* main.m in Sources */,
 				07D45A6B1BF7D1CD00E9D8C5 /* Connection.m in Sources */,
-				0753B6EA1BED0C0100B18C4F /* DescriptionViewController.m in Sources */,
 				07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */,
 				0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */,
 				07D45A6C1BF7D1CD00E9D8C5 /* Token.m in Sources */,

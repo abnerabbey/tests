@@ -118,15 +118,16 @@
 {
     PFQuery *query = [PFUser query];
     [query whereKey:@"username" equalTo:arrayFriends[indexPathRow]];
-    PFUser *currentUser = [PFUser currentUser];
+    PFUser *myUser = [PFUser currentUser];
     [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
         if(!error){
-            [PFPush sendPushDataToChannelInBackground:[NSString stringWithFormat:@"user_%@", [object objectId]] withData:@{@"alert": [NSString stringWithFormat:@"%@ te invita a comer hoy a MonK :)", currentUser.username]} block:^(BOOL succeeded, NSError * _Nullable error) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"¡Listo!" message:[NSString stringWithFormat:@"Has invitado a %@ a comer hoy a MonK", [object objectForKey:@"username"]] preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-                [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-                [self presentViewController:alert animated:YES completion:nil];
-            }];
+            PFUser *userSelected = (PFUser *)object;
+            NSString *userChannel = [NSString stringWithFormat:@"user_%@", [userSelected objectId]];
+            //Create a push notification
+            PFPush *push = [[PFPush alloc] init];
+            [push setChannel:userChannel];
+            [push setMessage:[NSString stringWithFormat:@"%@, te invita a comer hoy a MonK. Checa el menú :)", [myUser username]]];
+            [push sendPushInBackground];
         }
     }];
 }
