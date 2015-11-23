@@ -55,6 +55,9 @@
     [self showContentForNewUser];
     [self getMenu];
     [self getAssistanceResponse];
+    
+    //For push notifications codes
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushCodeReceived) name:@"pushCode" object:nil];
 }
 
 #pragma mark Table View Delegates
@@ -370,6 +373,31 @@
         });
     });
     
+}
+
+-(void)pushCodeReceived
+{
+    UIAlertController *alertPromoPush = [UIAlertController alertControllerWithTitle:@"Promoción!" message:@"Introduce el código de promoción recibido en la notificación para hacerla válida! :)" preferredStyle:UIAlertControllerStyleAlert];
+    [alertPromoPush addAction:[UIAlertAction actionWithTitle:@"Verificar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *textField = (UITextField *)alertPromoPush.textFields[0];
+        NSString *textFromTextField = textField.text;
+        
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+        [activityIndicator startAnimating];
+        [[self view] addSubview:activityIndicator];
+        self.navigationItem.title = @"Verificando código...";
+        
+        [self verifyPromoCode:textFromTextField];
+        
+        [activityIndicator stopAnimating];
+        [activityIndicator removeFromSuperview];
+        self.navigationItem.title = @"Menú del día";
+    }]];
+    [alertPromoPush addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+    [alertPromoPush.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [alertPromoPush addTextFieldWithConfigurationHandler:nil];
+    [self presentViewController:alertPromoPush animated:YES completion:nil];
 }
 
 @end

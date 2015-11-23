@@ -57,6 +57,8 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
+    //Verify what kind of notification is. We've got to have pushCode notifications
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushCode" object:nil userInfo:userInfo];
     [PFPush handlePush:userInfo];
 }
 

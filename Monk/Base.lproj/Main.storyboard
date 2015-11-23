@@ -202,9 +202,22 @@
                     <view key="view" contentMode="scaleToFill" id="ovA-il-83J">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YfR-7M-4nP">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YfR-7M-4nP" firstAttribute="leading" secondItem="ovA-il-83J" secondAttribute="leading" id="Ajz-PL-gJz"/>
+                            <constraint firstItem="YfR-7M-4nP" firstAttribute="top" secondItem="ovA-il-83J" secondAttribute="top" id="EGH-9r-JnJ"/>
+                            <constraint firstItem="YfR-7M-4nP" firstAttribute="bottom" secondItem="IPQ-cK-OF9" secondAttribute="top" id="L6r-PP-INq"/>
+                            <constraint firstAttribute="trailing" secondItem="YfR-7M-4nP" secondAttribute="trailing" id="Ppx-kE-tmf"/>
+                        </constraints>
                     </view>
                     <connections>
+                        <outlet property="tableViewCards" destination="YfR-7M-4nP" id="LFD-J1-8nV"/>
                         <segue destination="gOX-BI-19L" kind="show" identifier="addCard" id="quD-g8-AtC"/>
                     </connections>
                 </viewController>

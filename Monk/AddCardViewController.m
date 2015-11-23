@@ -16,6 +16,8 @@
 @implementation AddCardViewController
 {
     Conekta *conekta;
+    
+    NSString *monkURL;
 }
 
 - (void)viewDidLoad
@@ -40,6 +42,7 @@
     [conekta setPublicKey:@"key_Dffvvfy47F1oLLmYCrrDz7A"];
     [conekta collectDevice];
     
+    monkURL = @"https://monkapp.herokuapp.com";
     
     
 }
@@ -67,15 +70,14 @@
     }
     else{
         NSString *monthExpiration = [self.textFieldExpiration.text substringWithRange:NSMakeRange(0, 2)];
-        NSLog(@"month: %@", monthExpiration);
         NSString *yearExpiration = [self.textFieldExpiration.text substringWithRange:NSMakeRange(2, 4)];
-        NSLog(@"year: %@", yearExpiration);
         Card *card = [conekta.Card initWithNumber:self.textFieldTarjeta.text name:self.textFieldNombre.text cvc:self.textFieldCVV.text expMonth:monthExpiration expYear:yearExpiration];
         Token *token = [conekta.Token initWithCard:card];
         [token createWithSuccess:^(NSDictionary *data) {
             [self showAlertResponse:[data objectForKey:@"message"]];
+            NSLog(@"data.%@", data);
+            [self sendTokenToServer:[data objectForKey:@"code"]];
         } andError:^(NSError *error) {
-            NSLog(@"error: %@", error.description);
         }];
     }
 }
@@ -86,6 +88,24 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)sendTokenToServer:(NSString *)token
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/tarjeta/registrar", monkURL]];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *stringToken = [NSString stringWithFormat:@"conektaTokenId=%@&nombre=%@&telefono=""", token, self.textFieldNombre.text];
+    NSData *tokenData = [stringToken dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:tokenData];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"dictResponse: %@", dictResponse);
+        }
+    }];
+    [task resume];
 }
 
 @end

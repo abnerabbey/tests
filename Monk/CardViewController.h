@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CardViewController : UIViewController
+@interface CardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+//Interface properties
+@property (weak, nonatomic) IBOutlet UITableView *tableViewCards;
+
+//Properties
+@property (nonatomic, strong)NSMutableArray *arrayCards;
+
 
 @end
