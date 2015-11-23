@@ -143,7 +143,7 @@
         [self presentViewController:nv animated:YES completion:nil];
     }]];
     [controller addAction:[UIAlertAction actionWithTitle:@"Amigos en las redes sociales" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *texto = @"Échale un ojo al menú de MonK :)";
+        NSString *texto = @"Échale un ojo al menú de MonK :)\nhttps://www.facebook.com/MonkPolanco";
         NSArray *array = [NSArray arrayWithObject:texto];
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:array applicationActivities:nil];
         NSArray *excludeActivities = @[UIActivityTypeAirDrop,
@@ -282,30 +282,6 @@
     }];
     [task resume];
 }
-
-/*- (void)postJSONToServer:(NSDictionary *)dictionary withURL:(NSURL *)url
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSURLSession *sessionPost = [NSURLSession sharedSession];
-    [request setHTTPMethod:@"POST"];
-    
-    //Modificar aquí
-    NSString *postString = [NSString stringWithFormat:@"cupon=%@", [dictionary objectForKey:@"cupon"]];
-    
-    NSError *error;
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    if(!error){
-        NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            if(!error){
-                NSError *errorJSON;
-                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&errorJSON];
-                NSLog(@"dictResponse: %@", dictResponse);
-            }
-        }];
-        [task resume];
-    }
-    
-}*/
 
 #pragma mark Auxiliar Methods
 - (BOOL)isPromoCodeValid:(NSString *)promoCode

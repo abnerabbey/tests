@@ -44,6 +44,11 @@
     pinMonk.title = @"MonK";
     [[self mapMonk] addAnnotation:pinMonk];
     
+    //Monk region
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.02, 0.02);
+    MKCoordinateRegion region = MKCoordinateRegionMake(monkCoordinate, span);
+    [[self mapMonk] setRegion:region animated:YES];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated

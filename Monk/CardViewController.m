@@ -55,9 +55,41 @@
 }
 
 #pragma mark TableView Delegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.arrayCards count];
+    switch(section)
+    {
+        case 0:
+            return 1;
+            break;
+        case 1:
+            return [self.arrayCards count];
+            break;
+        default:
+            break;
+    }
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch(section)
+    {
+        case 0:
+            return @"Tu saldo acumulado en MonK con los cupones de promoción";
+            break;
+        case 1:
+            return @"Tus tarjetas";
+        default:
+            break;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -67,10 +99,21 @@
     if(!cell)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
     
-    NSDictionary *dictionary = [self.arrayCards objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictionary objectForKey:@"digitos"]];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"ID: %@", [dictionary objectForKey:@"id"]];
-    
+    switch(indexPath.section)
+    {
+        case 0:
+            cell.textLabel.text = @"Tu saldo MonK: ";
+            break;
+        case 1:
+        {
+            NSDictionary *dictionary = [self.arrayCards objectAtIndex:indexPath.row];
+            cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictionary objectForKey:@"digitos"]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"ID: %@", [dictionary objectForKey:@"id"]];
+        }
+        break;
+        default:
+            break;
+    }
     return cell;
 }
 
