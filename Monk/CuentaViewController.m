@@ -25,7 +25,6 @@
 {
     UIButton *buttonStart;
     
-    NSURL *cuponURL;
     NSString *monkURL;
 }
 
@@ -38,7 +37,6 @@
     [self setFirstViewInterface];
     
     monkURL = @"https://monkapp.herokuapp.com";
-    cuponURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar", monkURL]];
 }
 
 
@@ -155,6 +153,8 @@
 
 - (void)verifyPromoCode:(NSString *)promoCode
 {
+    PFUser *user = [PFUser currentUser];
+    NSURL *cuponURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar?objectId=%@", monkURL, user.objectId]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:cuponURL];
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
@@ -165,6 +165,7 @@
         if(!error){
             NSError *jsonError;
             NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+            NSLog(@"dictResponse: %@", dictResponse);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if([[dictResponse objectForKey:@"status"] isEqualToString:@"ok"])
                 {

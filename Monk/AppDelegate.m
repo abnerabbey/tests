@@ -58,7 +58,11 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     //Verify what kind of notification is. We've got to have pushCode notifications
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushCode" object:nil userInfo:userInfo];
+    NSLog(@"userInfo %@", userInfo);
+    NSString *kindNotif = [userInfo objectForKey:@"tipo"];
+    NSLog(@"tipo: %@", kindNotif);
+    if([kindNotif isEqualToString:@"cupon"])
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushCode" object:nil userInfo:userInfo];
     [PFPush handlePush:userInfo];
 }
 

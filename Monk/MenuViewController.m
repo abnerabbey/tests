@@ -17,7 +17,6 @@
 {
     NSURLSession *session;
     NSURL *menuURL;
-    NSURL *cuponURL;
     
     dispatch_queue_t imageQue;
     
@@ -48,7 +47,6 @@
     monkURL = @"https://monkapp.herokuapp.com";
     
     menuURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/menus", monkURL]];
-    cuponURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar", monkURL]];
     session = [NSURLSession sharedSession];
     imageQue = dispatch_queue_create("Image Que", NULL);
     
@@ -252,6 +250,8 @@
 
 - (void)verifyPromoCode:(NSString *)promoCode
 {
+    PFUser *user = [PFUser currentUser];
+    NSURL *cuponURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar?objectId=%@", monkURL, user.objectId]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:cuponURL];
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
