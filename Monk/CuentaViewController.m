@@ -119,6 +119,7 @@
     self.tableAccount.hidden = NO;
     self.buttonPay.hidden = NO;
     self.buttonRefresh.enabled = YES;
+    [self callMesera];
 }
 
 - (void)showFeedbackView
@@ -182,6 +183,22 @@
                     [self presentViewController:secondAlert animated:YES completion:nil];
                 }
             });
+        }
+    }];
+    [task resume];
+}
+
+- (void)callMesera
+{
+    PFUser *user = [PFUser currentUser];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/meseras/llamar?objectId=%@", monkURL, user.objectId]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"POST"];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"response: %@", dictionary);
         }
     }];
     [task resume];

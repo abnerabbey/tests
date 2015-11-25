@@ -26,6 +26,8 @@
     int rowCount;
     
     NSString *monkURL;
+    
+    dispatch_queue_t urlQ;
 }
 
 - (void)viewDidLoad
@@ -48,6 +50,8 @@
     rowCount = 0;
     
     monkURL = @"https://monkapp.herokuapp.com";
+    
+    urlQ = dispatch_queue_create("urls", NULL);
     
     
     //Interface customization
@@ -189,7 +193,13 @@
 
 - (void)createFeedBackToUpload
 {
-    NSDictionary *dicServicio = @{@"preguntum_id":@"0",@"secciones":self.servicioArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};
+    NSLog(@"array: %@", self.servicioArrayFeed);
+    for (int i = 0; i < self.servicioArrayFeed.count; i++) {
+        NSString *strFeed = [NSString stringWithFormat:@"&calificacions[pregunta]=servicio&calificacions[estrellas]=%d&calificacions[secciones]=%@", self.numberOfStars, self.servicioArrayFeed[i]];
+        [NSThread detachNewThreadSelector:@selector(postToServer:) toTarget:self withObject:strFeed];
+    }
+    
+    /*NSDictionary *dicServicio = @{@"preguntum_id":@"0",@"secciones":self.servicioArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};
     NSDictionary *dicComida = @{@"preguntum_id":@"1",@"secciones":self.comidaArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d",self.numberOfStars]};
     NSDictionary *dicLugar = @{@"preguntum_id":@"2",@"secciones":self.lugarArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};
     NSArray *arrayFeed = [NSArray arrayWithObjects:dicServicio,dicComida,dicLugar,nil];
@@ -197,31 +207,27 @@
     NSDictionary *dicFeed = [NSDictionary dictionaryWithObject:arrayFeed forKey:@"calificacions"];
     PFUser *user = [PFUser currentUser];
     NSURL *URLFeed = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback?objectId=%@", monkURL, user.objectId]];
-    [self postJSONToServer:dicFeed withURL:URLFeed];
+    [self postJSONToServer:dicFeed withURL:URLFeed];*/
 }
 
-- (void)postJSONToServer:(NSDictionary *)dictionary withURL:(NSURL *)url
+- (void)postToServer:(NSString *)str
 {
+    NSLog(@"Entra");
+    PFUser *user = [PFUser currentUser];
+    NSString *monkappURL = [NSString stringWithFormat:@"http://monkapp.herokuapp.com/feedback?objectId=%@", user.objectId];
+    NSString *strLog = [NSString stringWithFormat:@"%@%@", monkappURL, str];
+    NSLog(@"strLog: %@", strLog);
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", monkappURL, str]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
-    
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:kNilOptions error:nil];
-    
-    NSError *error;
-    [request setHTTPBody:jsonData];
-    if(!error){
-        NSURLSessionDataTask *task = [sessionPost dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            if(!error){
-                NSError *errorJSON;
-                NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&errorJSON];
-                NSLog(@"dictResponse: %@", dictResponse);
-            }
-        }];
-        [task resume];
-    }
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"response: %@", response);
+        }
+    }];
+    [task resume];
     
 }
 @end

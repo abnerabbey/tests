@@ -686,6 +686,37 @@
             </objects>
             <point key="canvasLocation" x="-1098" y="433"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="ZjT-qn-beL">
+            <objects>
+                <viewController id="TIB-O4-aSD" customClass="TestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Q7d-P8-6fo"/>
+                        <viewControllerLayoutGuide type="bottom" id="lTR-8c-uD8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tYk-Vm-K6P">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gl-GE-9UY">
+                                <rect key="frame" x="230" y="285" width="140" height="30"/>
+                                <state key="normal" title="Make HTTP Request"/>
+                                <connections>
+                                    <action selector="makePostRequest:" destination="TIB-O4-aSD" eventType="touchUpInside" id="YFD-Hb-vCr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8gl-GE-9UY" firstAttribute="centerX" secondItem="tYk-Vm-K6P" secondAttribute="centerX" id="6dp-tl-Vnm"/>
+                            <constraint firstItem="8gl-GE-9UY" firstAttribute="centerY" secondItem="tYk-Vm-K6P" secondAttribute="centerY" id="Yh7-63-cfZ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KTX-EG-w8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1098" y="1095"/>
+        </scene>
         <!--Menú-->
         <scene sceneID="hyf-dK-A4H">
             <objects>

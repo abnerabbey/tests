@@ -23,30 +23,27 @@
 - (IBAction)makePostRequest:(UIButton *)sender
 {
     NSString *monkURL = @"https://monkapp.herokuapp.com";
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cupon/registrar", monkURL]];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback?objectId=WgJZpYb2RR", monkURL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
     
-    NSDictionary *cuponDictionary = @{@"cupon": @"4332jwe9"};
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:cuponDictionary options:NSJSONWritingPrettyPrinted error:nil];
+    NSDictionary *dictionary = @{@"calificaciones": @"prueba"};
+    NSData *dataDictionary = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:nil];
+    NSString *jsonStr1 = [[NSString alloc] initWithData:dataDictionary encoding:NSUTF8StringEncoding];
+    [jsonStr1 stringByReplacingOccurrencesOfString:@"\\/" withString:@""];
+    NSData *jsonData2 = [jsonStr1 dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSString *cupon = @"cupon=23423fj";
-    NSLog(@"String: %@", cupon);
-    [request setHTTPBody:[cupon dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPBody:jsonData2];
     
-    //[request setHTTPBody:jsonData];
-    
+    NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
-            NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"Response: %@", dicData);
+            NSDictionary *dicResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"Response: %@", dicResponse);
         }
-        else
-            NSLog(@"error description: %@", error.description);
     }];
     [task resume];
+    
 }
 @end
 
