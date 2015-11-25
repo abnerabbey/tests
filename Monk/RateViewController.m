@@ -9,6 +9,7 @@
 #import "RateViewController.h"
 #import "DXStarRatingView.h"
 #import "FeedbackViewController.h"
+#import <Parse/Parse.h>
 
 @interface RateViewController ()
 
@@ -85,12 +86,13 @@
 
 - (void)sendFeedBackToServer
 {
-    NSURL *feedbackURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback", monkURL]];
+    PFUser *user = [PFUser currentUser];
+    NSURL *feedbackURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback?objectId=%@", monkURL, user.objectId]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:feedbackURL];
     [request setHTTPMethod:@"POST"];
     NSURLSession *session = [NSURLSession sharedSession];
     
-    NSString *stringfFeedback = [NSString stringWithFormat:@"preguntum_id=1&secciones=general&estrellas=%d", rating];
+    NSString *stringfFeedback = [NSString stringWithFormat:@"ranking=%d", rating];
     NSData *dataFeedback = [stringfFeedback dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:dataFeedback];
     

@@ -7,6 +7,7 @@
 //
 
 #import "FeedbackViewController.h"
+#import <Parse/Parse.h>
 
 @interface FeedbackViewController ()
 
@@ -25,7 +26,6 @@
     int rowCount;
     
     NSString *monkURL;
-    NSURL *URLFeed;
 }
 
 - (void)viewDidLoad
@@ -48,7 +48,6 @@
     rowCount = 0;
     
     monkURL = @"https://monkapp.herokuapp.com";
-    URLFeed = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback", monkURL]];
     
     
     //Interface customization
@@ -190,24 +189,26 @@
 
 - (void)createFeedBackToUpload
 {
-    NSDictionary *dicServicio = @{@"preguntum_id": @"0", @"secciones": self.servicioArrayFeed, @"estrellas": [NSString stringWithFormat:@"%d", self.numberOfStars]};
-    NSDictionary *dicComida = @{@"preguntum_id": @"1", @"secciones": self.comidaArrayFeed, @"estrellas": [NSString stringWithFormat:@"%d", self.numberOfStars]};
-    NSDictionary *dicLugar = @{@"preguntum_id": @"2", @"secciones": self.lugarArrayFeed, @"estrellas": [NSString stringWithFormat:@"%d", self.numberOfStars]};
-    NSArray *arrayFeed = @[dicServicio, dicComida, dicLugar];
+    NSDictionary *dicServicio = @{@"preguntum_id":@"0",@"secciones":self.servicioArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};
+    NSDictionary *dicComida = @{@"preguntum_id":@"1",@"secciones":self.comidaArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d",self.numberOfStars]};
+    NSDictionary *dicLugar = @{@"preguntum_id":@"2",@"secciones":self.lugarArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};
+    NSArray *arrayFeed = [NSArray arrayWithObjects:dicServicio,dicComida,dicLugar,nil];
     
-    NSDictionary *dicFeed = @{@"calificacions": arrayFeed};
+    NSDictionary *dicFeed = [NSDictionary dictionaryWithObject:arrayFeed forKey:@"calificacions"];
+    PFUser *user = [PFUser currentUser];
+    NSURL *URLFeed = [NSURL URLWithString:[NSString stringWithFormat:@"%@/feedback?objectId=%@", monkURL, user.objectId]];
     [self postJSONToServer:dicFeed withURL:URLFeed];
 }
 
 - (void)postJSONToServer:(NSDictionary *)dictionary withURL:(NSURL *)url
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
     
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:nil];
-    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary options:kNilOptions error:nil];
     
     NSError *error;
     [request setHTTPBody:jsonData];

@@ -137,7 +137,7 @@
     buttonStart = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     buttonStart.frame = CGRectMake(self.view.frame.size.width/2 - self.view.frame.size.width/2 + 10.0, self.view.frame.size.height/2 - 22.0, self.view.frame.size.width - 20.0, 44.0);
     [buttonStart addTarget:self action:@selector(openAccount) forControlEvents:UIControlEventAllTouchEvents];
-    [buttonStart setTitle:@"Llamar a mesaro/a" forState:UIControlStateNormal];
+    [buttonStart setTitle:@"Llamar a mesero/a" forState:UIControlStateNormal];
     [buttonStart setTintColor:[UIColor whiteColor]];
     [buttonStart setBackgroundColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     buttonStart.layer.cornerRadius = 3.0;

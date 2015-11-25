@@ -19,6 +19,8 @@
 @implementation CardViewController
 {
     NSString *monkURL;
+    
+    NSDictionary *dictResponse;
 }
 
 - (void)viewDidLoad
@@ -102,7 +104,7 @@
     switch(indexPath.section)
     {
         case 0:
-            cell.textLabel.text = @"Tu saldo MonK: ";
+            cell.textLabel.text = [NSString stringWithFormat:@"Tu Saldo MonK: %@", [[dictResponse objectForKey:@"saldo"] stringValue]];
             break;
         case 1:
         {
@@ -132,18 +134,22 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
-            NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             self.arrayCards = [[NSMutableArray alloc] init];
             self.arrayCards = (NSMutableArray *)[dictResponse objectForKey:@"tarjetas"];
             if(self.arrayCards.count == 0)
-                [self showLabelFeedback:@"Aún no tienes Tarjetas. Agrega alguna con el botón +"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self showLabelFeedback:@"Aún no tienes Tarjetas. Agrega alguna con el botón +"];
+                });
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[self tableViewCards] reloadData];
             });
         }
         else{
-            [self showLabelFeedback:@"No hay conexión a Internet. Inténtalo más tarde"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showLabelFeedback:@"No hay conexión a Internet. Inténtalo más tarde"];
+            });
         }
     }];
     [task resume];
@@ -151,7 +157,7 @@
 
 - (void)showLabelFeedback:(NSString *)feedbackString
 {
-    UILabel *labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
+    UILabel *labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 200.0, self.view.frame.size.width - 44.0, 44.0)];
     labelFeedback.textColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
     labelFeedback.text = feedbackString;
     labelFeedback.textAlignment = NSTextAlignmentCenter;
