@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/ParseFacebookUtilsV4.h>
+#import "TutorialRootViewController.h"
 
 #define kMonkRegistrationDirection @"https://monkapp.herokuapp.com/user/registrar"
 
@@ -18,10 +19,15 @@
 @end
 
 @implementation InitialViewController
+{
+    NSUserDefaults *defaults;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    defaults = [NSUserDefaults standardUserDefaults];
 
     //Interface customization
     self.buttonLogin.layer.borderWidth = 1.0;
@@ -36,7 +42,11 @@
     PFUser *user = [PFUser currentUser];
     if(user)
         [self performSegueWithIdentifier:@"logedIn" sender:self];
-    
+    else if(![defaults objectForKey:@"showTutorial"]){
+        [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showTutorial"];
+        [defaults synchronize];
+        [self showTutorial];
+    }
 }
 
 - (IBAction)logInWithFacebook:(UIButton *)sender
@@ -104,6 +114,13 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+}
+
+- (void)showTutorial
+{
+    TutorialRootViewController *tutorialView = [[self storyboard] instantiateViewControllerWithIdentifier:@"tutorialView"];
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:tutorialView];
+    [self presentViewController:nv animated:YES completion:nil];
 }
 
 - (void)animateInitialImages

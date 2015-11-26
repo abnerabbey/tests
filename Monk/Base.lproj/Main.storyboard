@@ -462,6 +462,7 @@
                         <outlet property="textFieldExpiration" destination="cwb-WX-hOp" id="vml-k0-k01"/>
                         <outlet property="textFieldNombre" destination="BIk-Fa-1fU" id="EEL-tE-ZDv"/>
                         <outlet property="textFieldTarjeta" destination="zGo-kT-lCc" id="SHn-7V-UBm"/>
+                        <segue destination="YP6-Bh-7Hp" kind="show" id="iON-Qp-sOE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brZ-e6-heU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -471,7 +472,25 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2630" y="1446"/>
+            <point key="canvasLocation" x="2636" y="1446"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="iJc-xf-MTY">
+            <objects>
+                <viewController id="YP6-Bh-7Hp" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EUr-zP-Y9H"/>
+                        <viewControllerLayoutGuide type="bottom" id="VUa-Me-DOW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ta2-Fa-wzt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gaT-7K-4gy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="1446"/>
         </scene>
         <!--Menú del día-->
         <scene sceneID="MKh-mD-RFb">
@@ -722,6 +741,83 @@
             </objects>
             <point key="canvasLocation" x="-1098" y="433"/>
         </scene>
+        <!--Page Content View Controller-->
+        <scene sceneID="g5s-Ag-jpA">
+            <objects>
+                <viewController storyboardIdentifier="PageContentViewControler" id="sBX-e3-mQa" customClass="PageContentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PGw-xe-mOv"/>
+                        <viewControllerLayoutGuide type="bottom" id="if0-DY-ZLY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gGu-0d-fTG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7qc-51-XFY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYS-6V-Lcz">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bI1-Up-wi1">
+                                <rect key="frame" x="20" y="329" width="560" height="100"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="7qc-51-XFY" secondAttribute="trailing" id="69S-XZ-Sur"/>
+                            <constraint firstItem="wYS-6V-Lcz" firstAttribute="trailing" secondItem="7qc-51-XFY" secondAttribute="trailing" id="8Ki-el-5If"/>
+                            <constraint firstItem="bI1-Up-wi1" firstAttribute="centerX" secondItem="7qc-51-XFY" secondAttribute="centerX" id="FdX-Rm-TJK"/>
+                            <constraint firstItem="wYS-6V-Lcz" firstAttribute="leading" secondItem="7qc-51-XFY" secondAttribute="leading" id="GHl-oe-iv4"/>
+                            <constraint firstItem="7qc-51-XFY" firstAttribute="bottom" secondItem="if0-DY-ZLY" secondAttribute="top" id="crh-QK-8kG"/>
+                            <constraint firstItem="wYS-6V-Lcz" firstAttribute="bottom" secondItem="if0-DY-ZLY" secondAttribute="top" id="mgZ-8g-iNk"/>
+                            <constraint firstItem="bI1-Up-wi1" firstAttribute="top" secondItem="PGw-xe-mOv" secondAttribute="bottom" constant="309" id="nik-Og-qBq"/>
+                            <constraint firstItem="wYS-6V-Lcz" firstAttribute="top" secondItem="7qc-51-XFY" secondAttribute="top" id="qjS-So-0dP"/>
+                            <constraint firstItem="bI1-Up-wi1" firstAttribute="leading" secondItem="gGu-0d-fTG" secondAttribute="leadingMargin" id="ule-qr-shV"/>
+                            <constraint firstItem="7qc-51-XFY" firstAttribute="leading" secondItem="gGu-0d-fTG" secondAttribute="leading" id="vQL-Yh-Mg5"/>
+                            <constraint firstItem="if0-DY-ZLY" firstAttribute="top" secondItem="bI1-Up-wi1" secondAttribute="bottom" constant="171" id="yyD-X7-xLs"/>
+                            <constraint firstItem="7qc-51-XFY" firstAttribute="top" secondItem="gGu-0d-fTG" secondAttribute="top" id="zG7-h0-FCa"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundImage" destination="7qc-51-XFY" id="q7K-4T-xxo"/>
+                        <outlet property="titleLabel" destination="bI1-Up-wi1" id="IQG-JH-Yuc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iab-vM-AWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1298" y="1198"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="jD4-FW-XSx">
+            <objects>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="KAz-WA-Qzf" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fiA-u7-n4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-648" y="1198"/>
+        </scene>
+        <!--Tutorial Root View Controller-->
+        <scene sceneID="a41-DF-uPn">
+            <objects>
+                <viewController storyboardIdentifier="tutorialView" id="9L1-GW-U6R" customClass="TutorialRootViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pdR-AI-pwy"/>
+                        <viewControllerLayoutGuide type="bottom" id="eau-la-ZIU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4by-1g-lYK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NG7-qs-aVn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-648" y="1880"/>
+        </scene>
         <!--Test View Controller-->
         <scene sceneID="ZjT-qn-beL">
             <objects>
@@ -751,7 +847,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KTX-EG-w8f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1098" y="1095"/>
+            <point key="canvasLocation" x="-1098" y="-331"/>
         </scene>
         <!--Menú-->
         <scene sceneID="hyf-dK-A4H">

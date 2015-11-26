@@ -26,6 +26,9 @@
     
     [[UITabBar appearance] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [[UIPageControl appearance] setTintColor:[UIColor blackColor]];
+    [[UIPageControl appearance] setCurrentPageIndicatorTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    
     
     return YES;
 }

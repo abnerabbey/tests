@@ -300,15 +300,19 @@
         [[self arrayMenuNames] addObject:[dictionary objectForKey:@"nombre"]];
         [arrayForPlatillos addObject:[dictionary objectForKey:@"platillos"]];
     }
-    for(int i = 0; i < arrayForPlatillos.count; i++){
-        NSArray *array = [arrayForPlatillos objectAtIndex:i];
-        NSDictionary *diction = [array objectAtIndex:0];
-        [self.arrayPlatillos addObject:diction];
+    NSArray *try = [arrayForPlatillos objectAtIndex:0];
+    if(try.count > 0){
+        for(int i = 0; i < arrayForPlatillos.count; i++){
+            NSArray *array = [arrayForPlatillos objectAtIndex:i];
+            NSDictionary *diction = [array objectAtIndex:0];
+            [self.arrayPlatillos addObject:diction];
+        }
+        [self determineRowsPerSection:arrayForPlatillos];
+        //Let's load images asynchrounously
+        [self getImageMenu:self.arrayPlatillos];
     }
-    [self determineRowsPerSection:arrayForPlatillos];
-    //Let's load images asynchrounously
-    [self getImageMenu:self.arrayPlatillos];
-    //[[self tableMenu] reloadData];
+    else
+        [self showLabelFeedback:@"Aún no está listo el menú del día"];
 }
 
 - (void)showLabelFeedback:(NSString *)feedbackString

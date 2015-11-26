@@ -33,6 +33,13 @@
 		0765130E1BF4FA050077F6BE /* monkP2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130B1BF4FA050077F6BE /* monkP2.jpg */; };
 		0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0765130C1BF4FA050077F6BE /* monkP3.jpg */; };
 		076532051C06AC6E002666A9 /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 076532041C06AC6E002666A9 /* PayViewController.m */; };
+		0770D0F41C074CF000DA13A4 /* FiscalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0770D0F31C074CF000DA13A4 /* FiscalViewController.m */; };
+		0770D0F81C0751F700DA13A4 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0770D0F71C0751F700DA13A4 /* PageContentViewController.m */; };
+		0770D0FE1C0753DA00DA13A4 /* come.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0770D0FA1C0753DA00DA13A4 /* come.jpg */; };
+		0770D0FF1C0753DA00DA13A4 /* cuida.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0770D0FB1C0753DA00DA13A4 /* cuida.jpg */; };
+		0770D1001C0753DA00DA13A4 /* sentidos.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0770D0FC1C0753DA00DA13A4 /* sentidos.jpg */; };
+		0770D1011C0753DA00DA13A4 /* conecta.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0770D0FD1C0753DA00DA13A4 /* conecta.jpg */; };
+		0770D1041C075BEC00DA13A4 /* TutorialRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0770D1031C075BEC00DA13A4 /* TutorialRootViewController.m */; };
 		079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079D3EAD1BF9989A00E3DC09 /* TestViewController.m */; };
 		07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A61BE7077600F3977D /* pinMonk@2x.png */; };
 		07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A81BE70D6200F3977D /* invitacion@2x.png */; };
@@ -110,6 +117,16 @@
 		0765130C1BF4FA050077F6BE /* monkP3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = monkP3.jpg; sourceTree = "<group>"; };
 		076532031C06AC6E002666A9 /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
 		076532041C06AC6E002666A9 /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		0770D0F21C074CF000DA13A4 /* FiscalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiscalViewController.h; sourceTree = "<group>"; };
+		0770D0F31C074CF000DA13A4 /* FiscalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiscalViewController.m; sourceTree = "<group>"; };
+		0770D0F61C0751F700DA13A4 /* PageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageContentViewController.h; sourceTree = "<group>"; };
+		0770D0F71C0751F700DA13A4 /* PageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageContentViewController.m; sourceTree = "<group>"; };
+		0770D0FA1C0753DA00DA13A4 /* come.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = come.jpg; sourceTree = "<group>"; };
+		0770D0FB1C0753DA00DA13A4 /* cuida.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cuida.jpg; sourceTree = "<group>"; };
+		0770D0FC1C0753DA00DA13A4 /* sentidos.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sentidos.jpg; sourceTree = "<group>"; };
+		0770D0FD1C0753DA00DA13A4 /* conecta.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = conecta.jpg; sourceTree = "<group>"; };
+		0770D1021C075BEC00DA13A4 /* TutorialRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialRootViewController.h; sourceTree = "<group>"; };
+		0770D1031C075BEC00DA13A4 /* TutorialRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialRootViewController.m; sourceTree = "<group>"; };
 		079D3EAC1BF9989A00E3DC09 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		079D3EAD1BF9989A00E3DC09 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		07A519A61BE7077600F3977D /* pinMonk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinMonk@2x.png"; sourceTree = "<group>"; };
@@ -222,6 +239,29 @@
 			name = "Initial View";
 			sourceTree = "<group>";
 		};
+		0770D0F51C0751D700DA13A4 /* Tutorial Views */ = {
+			isa = PBXGroup;
+			children = (
+				0770D0F91C0753AD00DA13A4 /* Image Assets */,
+				0770D0F61C0751F700DA13A4 /* PageContentViewController.h */,
+				0770D0F71C0751F700DA13A4 /* PageContentViewController.m */,
+				0770D1021C075BEC00DA13A4 /* TutorialRootViewController.h */,
+				0770D1031C075BEC00DA13A4 /* TutorialRootViewController.m */,
+			);
+			name = "Tutorial Views";
+			sourceTree = "<group>";
+		};
+		0770D0F91C0753AD00DA13A4 /* Image Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0770D0FA1C0753DA00DA13A4 /* come.jpg */,
+				0770D0FB1C0753DA00DA13A4 /* cuida.jpg */,
+				0770D0FC1C0753DA00DA13A4 /* sentidos.jpg */,
+				0770D0FD1C0753DA00DA13A4 /* conecta.jpg */,
+			);
+			name = "Image Assets";
+			sourceTree = "<group>";
+		};
 		07A519A31BE7071A00F3977D /* Image Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,11 +336,12 @@
 			isa = PBXGroup;
 			children = (
 				07A519AA1BE722D700F3977D /* Image Assets */,
+				0770D0F51C0751D700DA13A4 /* Tutorial Views */,
+				079D3EAC1BF9989A00E3DC09 /* TestViewController.h */,
+				079D3EAD1BF9989A00E3DC09 /* TestViewController.m */,
 				07E336A41BE43FBF0040CC90 /* AppDelegate.h */,
 				07E336A51BE43FBF0040CC90 /* AppDelegate.m */,
 				07E336AA1BE43FBF0040CC90 /* Main.storyboard */,
-				079D3EAC1BF9989A00E3DC09 /* TestViewController.h */,
-				079D3EAD1BF9989A00E3DC09 /* TestViewController.m */,
 				07E336D41BE442920040CC90 /* InitialViewController.h */,
 				07E336D51BE442920040CC90 /* InitialViewController.m */,
 				07E336DA1BE457590040CC90 /* Menu Section */,
@@ -403,6 +444,8 @@
 				0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */,
 				07A519B11BE7302F00F3977D /* AddCardViewController.h */,
 				07A519B21BE7302F00F3977D /* AddCardViewController.m */,
+				0770D0F21C074CF000DA13A4 /* FiscalViewController.h */,
+				0770D0F31C074CF000DA13A4 /* FiscalViewController.m */,
 			);
 			name = "Cuenta Section";
 			sourceTree = "<group>";
@@ -517,16 +560,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				0765130D1BF4FA050077F6BE /* monkP1.jpg in Resources */,
+				0770D1011C0753DA00DA13A4 /* conecta.jpg in Resources */,
 				0765130F1BF4FA050077F6BE /* monkP3.jpg in Resources */,
 				07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */,
+				0770D0FE1C0753DA00DA13A4 /* come.jpg in Resources */,
 				07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */,
 				0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */,
 				0765130E1BF4FA050077F6BE /* monkP2.jpg in Resources */,
 				07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */,
 				0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */,
+				0770D0FF1C0753DA00DA13A4 /* cuida.jpg in Resources */,
 				07E336B11BE43FBF0040CC90 /* LaunchScreen.storyboard in Resources */,
 				07E336AE1BE43FBF0040CC90 /* Assets.xcassets in Resources */,
 				07A519B01BE7230E00F3977D /* Location@2x.png in Resources */,
+				0770D1001C0753DA00DA13A4 /* sentidos.jpg in Resources */,
 				07A519AF1BE7230E00F3977D /* Food@2x.png in Resources */,
 				07E336AC1BE43FBF0040CC90 /* Main.storyboard in Resources */,
 			);
@@ -565,12 +612,15 @@
 				07D45A6C1BF7D1CD00E9D8C5 /* Token.m in Sources */,
 				07D45A6A1BF7D1CD00E9D8C5 /* Conekta.m in Sources */,
 				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
+				0770D0F41C074CF000DA13A4 /* FiscalViewController.m in Sources */,
+				0770D0F81C0751F700DA13A4 /* PageContentViewController.m in Sources */,
 				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
 				079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */,
 				07D45A691BF7D1CD00E9D8C5 /* Card.m in Sources */,
 				07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */,
 				07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */,
+				0770D1041C075BEC00DA13A4 /* TutorialRootViewController.m in Sources */,
 				07E336E21BE457B10040CC90 /* UbicacionViewController.m in Sources */,
 				0753B6E41BECF22300B18C4F /* RateViewController.m in Sources */,
 			);
