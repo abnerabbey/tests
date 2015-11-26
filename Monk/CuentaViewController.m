@@ -15,17 +15,17 @@
 @interface CuentaViewController ()
 
 - (void)showAlertPromoCode;
-- (BOOL)accountIsOpen;
 - (void)openAccount;
-- (void)showFeedbackView;
 
 @end
 
 @implementation CuentaViewController
 {
     UIButton *buttonStart;
+    UILabel *labelFeedback;
     
     NSString *monkURL;
+    NSString *totalToPay;
 }
 
 - (void)viewDidLoad
@@ -33,10 +33,63 @@
     [super viewDidLoad];
     self.buttonPay.layer.cornerRadius = 3.0;
     
+    self.tableAccount.delegate = self;
+    self.tableAccount.dataSource = self;
+    
     //Verificar primero si la cuenta está abierta
     [self setFirstViewInterface];
     
     monkURL = @"https://monkapp.herokuapp.com";
+}
+
+#pragma mark TableView Delegates
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    switch(section)
+    {
+        case 0:
+            return [[self arrayAccount] count];
+            break;
+        case 1:
+            return 1;
+            break;
+        default:
+            break;
+    }
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *idCell = @"idCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:idCell];
+    if(!cell)
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:idCell];
+    
+    switch(indexPath.section)
+    {
+        case 0:
+        {
+            NSDictionary *dictionary = [[self arrayAccount] objectAtIndex:indexPath.row];
+            NSLog(@"dictionary: %@", dictionary);
+            
+            cell.textLabel.text = [NSString stringWithFormat:@"Elemento: %@", [dictionary objectForKey:@"nombre"]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"Precio: %@", [[dictionary objectForKey:@"precio"] stringValue]];
+        }
+        break;
+        case 1:
+            if(totalToPay)//Para evitar que salga esta sección antes de que aparezca la cuenta
+                cell.textLabel.text = [NSString stringWithFormat:@"Total a Pagar: %@", totalToPay];
+            break;
+        default:
+            break;
+    }
+    return cell;
 }
 
 
@@ -66,11 +119,16 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (IBAction)refreshAccount:(UIBarButtonItem *)sender
+{
+    [self getAccountStatus];
+}
+
 - (IBAction)payBill:(UIButton *)sender
 {
     UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
     [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [self showFeedbackView];
+        [self showPayView];
         [self setFirstViewInterface];
     }]];
     [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
@@ -105,13 +163,6 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-
-
-- (BOOL)accountIsOpen
-{
-    return YES;
-}
-
 - (void)openAccount
 {
     //Verificar primero si hay tarjeta asociada
@@ -120,13 +171,73 @@
     self.buttonPay.hidden = NO;
     self.buttonRefresh.enabled = YES;
     [self callMesera];
+    [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
 }
 
-- (void)showFeedbackView
+- (void)callMesera
 {
-    RateViewController *rateView = [[self storyboard] instantiateViewControllerWithIdentifier:@"rateView"];
-    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:rateView];
+    PFUser *user = [PFUser currentUser];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/meseras/llamar?objectId=%@", monkURL, user.objectId]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"POST"];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"response: %@", dictionary);
+        }
+    }];
+    [task resume];
+}
+
+- (void)getAccountStatus
+{
+    self.navigationItem.title = @"Actualizando Cuenta...";
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+    [activityIndicator startAnimating];
+    [[self view] addSubview:activityIndicator];
+    
+    PFUser *user = [PFUser currentUser];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/cuenta?objectId=%@", monkURL, user.objectId]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"GET"];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+            self.navigationItem.title = @"Tu Cuenta";
+        });
+        if(!error){
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSDictionary *dictionaryCuenta = [dictionary objectForKey:@"cuenta"];
+            totalToPay = [[dictionaryCuenta objectForKey:@"cantidad"] stringValue];
+            self.arrayAccount = [dictionaryCuenta objectForKey:@"complementos"];
+            if(self.arrayAccount.count > 0)
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [labelFeedback removeFromSuperview];
+                });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[self tableAccount] reloadData];
+            });
+        }
+    }];
+    [task resume];
+}
+
+- (void)showPayView
+{
+    PayViewController *payView = [[self storyboard] instantiateViewControllerWithIdentifier:@"payView"];
+    payView.delegate = self;
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:payView];
     [self presentViewController:nv animated:YES completion:nil];
+}
+
+//PayView Delegate
+- (void)didPayAccount
+{
+    [self showFeedbackView];
 }
 
 #pragma mark Auxiliar Methods
@@ -137,19 +248,13 @@
     
     buttonStart = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     buttonStart.frame = CGRectMake(self.view.frame.size.width/2 - self.view.frame.size.width/2 + 10.0, self.view.frame.size.height/2 - 22.0, self.view.frame.size.width - 20.0, 44.0);
-    [buttonStart addTarget:self action:@selector(openAccount) forControlEvents:UIControlEventAllTouchEvents];
+    [buttonStart addTarget:self action:@selector(openAccount) forControlEvents:UIControlEventTouchUpInside];
     [buttonStart setTitle:@"Llamar a mesero/a" forState:UIControlStateNormal];
     [buttonStart setTintColor:[UIColor whiteColor]];
     [buttonStart setBackgroundColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     buttonStart.layer.cornerRadius = 3.0;
     [self.view addSubview:buttonStart];
     
-}
-
-- (BOOL)isPromoCodeValid:(NSString *)promoCode
-{
-    NSLog(@"Pasó con el promo code: %@", promoCode);
-    return YES;
 }
 
 - (void)verifyPromoCode:(NSString *)promoCode
@@ -188,21 +293,25 @@
     [task resume];
 }
 
-- (void)callMesera
+- (void)showLabelFeedback:(NSString *)feedbackString
 {
-    PFUser *user = [PFUser currentUser];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/meseras/llamar?objectId=%@", monkURL, user.objectId]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSURLSession *session = [NSURLSession sharedSession];
-    [request setHTTPMethod:@"POST"];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(!error){
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"response: %@", dictionary);
-        }
-    }];
-    [task resume];
+    labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
+    labelFeedback.textColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
+    labelFeedback.text = feedbackString;
+    labelFeedback.textAlignment = NSTextAlignmentCenter;
+    labelFeedback.font = [UIFont systemFontOfSize:14.0];
+    labelFeedback.numberOfLines = 2;
+    labelFeedback.alpha = 1.0;
+    [[self tableAccount] addSubview:labelFeedback];
 }
+
+- (void)showFeedbackView
+{
+    RateViewController *rateView = [[self storyboard] instantiateViewControllerWithIdentifier:@"rateView"];
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:rateView];
+    [self presentViewController:nv animated:YES completion:nil];
+}
+
 
 @end
 

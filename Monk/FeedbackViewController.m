@@ -196,9 +196,16 @@
     NSLog(@"array: %@", self.servicioArrayFeed);
     for (int i = 0; i < self.servicioArrayFeed.count; i++) {
         NSString *strFeed = [NSString stringWithFormat:@"&calificacions[pregunta]=servicio&calificacions[estrellas]=%d&calificacions[secciones]=%@", self.numberOfStars, self.servicioArrayFeed[i]];
-        [NSThread detachNewThreadSelector:@selector(postToServer:) toTarget:self withObject:strFeed];
+        [self postToServer:strFeed];
     }
-    
+    for(int i = 0; i < self.comidaArrayFeed.count; i++){
+        NSString *strFeed = [NSString stringWithFormat:@"&calificacions[pregunta]=comida&calificacions[estrellas]=%dcalificacions[secciones]=%@", self.numberOfStars, [self.comidaArrayFeed objectAtIndex:i]];
+        [self postToServer:strFeed];
+    }
+    for(int i = 0; i < self.lugarArrayFeed.count; i++){
+        NSString *strFeed = [NSString stringWithFormat:@"&calificacions[pregunta]=lugar&calificacions[estrellas]=%dcalificacions[secciones]=%@", self.numberOfStars, [self.lugarArrayFeed objectAtIndex:i]];
+        [self postToServer:strFeed];
+    }
     /*NSDictionary *dicServicio = @{@"preguntum_id":@"0",@"secciones":self.servicioArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};
     NSDictionary *dicComida = @{@"preguntum_id":@"1",@"secciones":self.comidaArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d",self.numberOfStars]};
     NSDictionary *dicLugar = @{@"preguntum_id":@"2",@"secciones":self.lugarArrayFeed,@"estrellas":[NSString stringWithFormat:@"%d", self.numberOfStars]};

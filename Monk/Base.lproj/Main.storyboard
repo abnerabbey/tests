@@ -95,6 +95,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="HAr-Wm-kSC">
                             <color key="tintColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="refreshAccount:" destination="cLH-eD-Yod" id="0Lx-aE-6Ls"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -190,6 +193,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="umS-G4-Hyn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1273" y="2134"/>
+        </scene>
+        <!--Pay View Controller-->
+        <scene sceneID="7Ee-KM-ZGM">
+            <objects>
+                <viewController storyboardIdentifier="payView" id="lFw-0b-knp" customClass="PayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IdY-VJ-xTP"/>
+                        <viewControllerLayoutGuide type="bottom" id="m0q-K9-DPG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2JS-CJ-Kwh">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Usg-MC-KZf">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Usg-MC-KZf" firstAttribute="bottom" secondItem="m0q-K9-DPG" secondAttribute="top" id="6IP-Vh-8qU"/>
+                            <constraint firstItem="Usg-MC-KZf" firstAttribute="leading" secondItem="2JS-CJ-Kwh" secondAttribute="leading" id="TnJ-mN-RGd"/>
+                            <constraint firstItem="Usg-MC-KZf" firstAttribute="top" secondItem="2JS-CJ-Kwh" secondAttribute="top" id="Y3X-ct-F9C"/>
+                            <constraint firstAttribute="trailing" secondItem="Usg-MC-KZf" secondAttribute="trailing" id="m44-m1-tSE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableViewSetup" destination="Usg-MC-KZf" id="jGt-0p-1QZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nPI-aI-hZ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1273" y="2810"/>
         </scene>
         <!--Card View Controller-->
         <scene sceneID="Lbt-KR-4PG">
