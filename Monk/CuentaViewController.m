@@ -212,8 +212,9 @@
         if(!error){
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             NSDictionary *dictionaryCuenta = [dictionary objectForKey:@"cuenta"];
+            NSLog(@"dicCuenta:%@", dictionaryCuenta);
             totalToPay = [[dictionaryCuenta objectForKey:@"cantidad"] stringValue];
-            self.arrayAccount = [dictionaryCuenta objectForKey:@"complementos"];
+            self.arrayAccount = [dictionaryCuenta objectForKey:@"platillos"];
             if(self.arrayAccount.count > 0)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [labelFeedback removeFromSuperview];
