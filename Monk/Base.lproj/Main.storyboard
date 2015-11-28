@@ -347,6 +347,35 @@
             </objects>
             <point key="canvasLocation" x="2636" y="2130"/>
         </scene>
+        <!--Coment View Controller-->
+        <scene sceneID="QPU-sN-2mI">
+            <objects>
+                <viewController storyboardIdentifier="commentView" id="Cml-AI-mgo" customClass="ComentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fa1-8h-0cK"/>
+                        <viewControllerLayoutGuide type="bottom" id="mwg-sz-VNm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vIb-NC-gt5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Comenta aquí... " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="AIi-03-o1d">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="commentTextView" destination="AIi-03-o1d" id="7v3-Y6-K8P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t8y-74-h6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3300" y="2130"/>
+        </scene>
         <!--Add Card View Controller-->
         <scene sceneID="5z6-VA-q13">
             <objects>
@@ -551,9 +580,8 @@
                                     <constraint firstAttribute="width" constant="300" id="8UL-KI-rOO"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="No Asistiré"/>
+                                    <segment title="Tal Vez Asista"/>
                                     <segment title="Asistiré"/>
-                                    <segment title="Tal Vez Asistiré"/>
                                 </segments>
                                 <color key="tintColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>

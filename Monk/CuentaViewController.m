@@ -44,7 +44,7 @@
     self.tableAccount.dataSource = self;
     
     //Verificar primero si la cuenta está abierta
-    if(![defaults boolForKey:@"accountOpen"]){
+    if([defaults boolForKey:@"accountOpen"] == NO){
         [self setFirstViewInterface];
         [defaults setBool:YES forKey:@"accountOpen"];
         [defaults synchronize];

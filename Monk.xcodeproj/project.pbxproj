@@ -47,6 +47,7 @@
 		07A519AF1BE7230E00F3977D /* Food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AC1BE7230E00F3977D /* Food@2x.png */; };
 		07A519B01BE7230E00F3977D /* Location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AD1BE7230E00F3977D /* Location@2x.png */; };
 		07A519B31BE7302F00F3977D /* AddCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A519B21BE7302F00F3977D /* AddCardViewController.m */; };
+		07CFC33B1C0A0ADC00106EA2 /* ComentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CFC33A1C0A0ADC00106EA2 /* ComentViewController.m */; };
 		07D45A691BF7D1CD00E9D8C5 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A5F1BF7D1CD00E9D8C5 /* Card.m */; };
 		07D45A6A1BF7D1CD00E9D8C5 /* Conekta.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A611BF7D1CD00E9D8C5 /* Conekta.m */; };
 		07D45A6B1BF7D1CD00E9D8C5 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D45A661BF7D1CD00E9D8C5 /* Connection.m */; };
@@ -136,6 +137,8 @@
 		07A519AD1BE7230E00F3977D /* Location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Location@2x.png"; sourceTree = "<group>"; };
 		07A519B11BE7302F00F3977D /* AddCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCardViewController.h; sourceTree = "<group>"; };
 		07A519B21BE7302F00F3977D /* AddCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCardViewController.m; sourceTree = "<group>"; };
+		07CFC3391C0A0ADC00106EA2 /* ComentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComentViewController.h; sourceTree = "<group>"; };
+		07CFC33A1C0A0ADC00106EA2 /* ComentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComentViewController.m; sourceTree = "<group>"; };
 		07D45A5E1BF7D1CD00E9D8C5 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
 		07D45A5F1BF7D1CD00E9D8C5 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
 		07D45A601BF7D1CD00E9D8C5 /* Conekta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conekta.h; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				0753B6E31BECF22300B18C4F /* RateViewController.m */,
 				0753B6E51BECFC7700B18C4F /* FeedbackViewController.h */,
 				0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */,
+				07CFC3391C0A0ADC00106EA2 /* ComentViewController.h */,
+				07CFC33A1C0A0ADC00106EA2 /* ComentViewController.m */,
 			);
 			name = FeedbackViews;
 			sourceTree = "<group>";
@@ -614,6 +619,7 @@
 				07E336EB1BE468860040CC90 /* FriendsViewController.m in Sources */,
 				0770D0F41C074CF000DA13A4 /* FiscalViewController.m in Sources */,
 				0770D0F81C0751F700DA13A4 /* PageContentViewController.m in Sources */,
+				07CFC33B1C0A0ADC00106EA2 /* ComentViewController.m in Sources */,
 				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
 				079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */,

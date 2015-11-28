@@ -49,6 +49,7 @@
     NSString *texto = [NSString stringWithFormat:@"Ven, conoce el restaurante MonK y obtén un descuento como primer usuario con mi código de promoción: %@", codigo];
     NSArray *array = [NSArray arrayWithObject:texto];
     UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:array applicationActivities:nil];
+    [activityView setValue:@"Prueba MonK. Aquí tienes una comida gratis..." forKey:@"subject"];
     NSArray *excludeActivities = @[UIActivityTypeAirDrop,
                                    UIActivityTypePrint,
                                    UIActivityTypeAssignToContact,

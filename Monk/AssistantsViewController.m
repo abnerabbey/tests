@@ -148,9 +148,9 @@
             for (PFUser *user in objects) {
                 [query whereKey:@"user" equalTo:user];
                 PFObject *object = [query getFirstObject];
-                if([[object objectForKey:@"response"] integerValue] == 1)
+                if([[object objectForKey:@"response"] integerValue] == 0)
                     [arrayAttending addObject:user.username];
-                else if([[object objectForKey:@"response"] integerValue] == 2)
+                else if([[object objectForKey:@"response"] integerValue] == 1)
                     [arrayMaybe addObject:user.username];
             }
             [[self tableAssistants] reloadData];

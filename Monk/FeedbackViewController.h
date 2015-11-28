@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ComentViewController.h"
 
-@interface FeedbackViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface FeedbackViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, CommentViewDelgate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewFeed;
 

@@ -140,6 +140,8 @@
     UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
     [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:YES completion:^{
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"accountOpen"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             [[self delegate] didPayAccount];
         }];
     }]];

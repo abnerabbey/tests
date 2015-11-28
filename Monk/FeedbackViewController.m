@@ -56,7 +56,7 @@
     
     //Interface customization
     self.navigationItem.title = @"Tu Feedback";
-    doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Listo" style:UIBarButtonItemStyleDone target:self action:@selector(okView)];
+    doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Listo" style:UIBarButtonItemStyleDone target:self action:@selector(moreOptions)];
     [doneButton setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [doneButton setEnabled:NO];
     self.navigationItem.rightBarButtonItem = doneButton;
@@ -137,6 +137,20 @@
 }
 
 #pragma mark Other Methods
+- (void)moreOptions
+{
+    UIAlertController *doneAlert = [UIAlertController alertControllerWithTitle:@"Casi Listo" message:@"Añade un comentario si así lo prefieres" preferredStyle:UIAlertControllerStyleActionSheet];
+    [doneAlert addAction:[UIAlertAction actionWithTitle:@"Listo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self okView];
+    }]];
+    [doneAlert addAction:[UIAlertAction actionWithTitle:@"Comentar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self addComment];
+    }]];
+    [doneAlert addAction: [UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [doneAlert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:doneAlert animated:YES completion:nil];
+}
+
 - (void)okView
 {
     [self createFeedBackToUpload];
@@ -237,6 +251,21 @@
     [task resume];
     
 }
+
+- (void)addComment
+{
+    ComentViewController *commentView = [[self storyboard] instantiateViewControllerWithIdentifier:@"commentView"];
+    commentView.delegate = self;
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:commentView];
+    [self presentViewController:nv animated:YES completion:nil];
+}
+
+#pragma mark CommentView Delegate
+- (void)didComment:(NSString *)comment
+{
+    [self showAbonoAlert];
+}
+
 @end
 
 

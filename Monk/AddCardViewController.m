@@ -8,6 +8,7 @@
 
 #import "AddCardViewController.h"
 #import "Conekta.h"
+#import <Parse/Parse.h>
 
 @interface AddCardViewController ()
 
@@ -92,7 +93,8 @@
 
 - (void)sendTokenToServer:(NSString *)token
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/tarjeta/registrar", monkURL]];
+    PFUser *user = [PFUser currentUser];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/tarjeta/registrar?objectId=%@", monkURL, user.objectId]];
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];

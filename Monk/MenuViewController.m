@@ -142,7 +142,7 @@
         [self presentViewController:nv animated:YES completion:nil];
     }]];
     [controller addAction:[UIAlertAction actionWithTitle:@"Amigos en las redes sociales" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *texto = @"Échale un ojo al menú de MonK :)\nhttps://www.facebook.com/MonkPolanco";
+        NSString *texto = @"Vamos a comer a MonK hoy...! mira el menú en\nhttps://www.facebook.com/MonkPolanco";
         NSArray *array = [NSArray arrayWithObject:texto];
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:array applicationActivities:nil];
         NSArray *excludeActivities = @[UIActivityTypeAirDrop,

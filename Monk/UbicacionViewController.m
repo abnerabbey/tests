@@ -36,12 +36,13 @@
     [[self mapMonk] setDelegate:self];
     
     //Monk coordinates and its pin on map
-    monkCoordinate.latitude = 19.4314067;
-    monkCoordinate.longitude = -99.1984317;
+    monkCoordinate.latitude = 19.4309935;
+    monkCoordinate.longitude = -99.1987999;
     
     MKPointAnnotation *pinMonk = [[MKPointAnnotation alloc] init];
     pinMonk.coordinate = monkCoordinate;
     pinMonk.title = @"MonK";
+    pinMonk.subtitle = @"Juan de la Fontaine 78, Polanco, México DF";
     [[self mapMonk] addAnnotation:pinMonk];
     
     //Monk region
