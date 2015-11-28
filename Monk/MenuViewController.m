@@ -226,11 +226,12 @@
         if(!error){
             NSError *jsonError;
             NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            NSLog(@"Menu Response: %@", jsonDictionary);
             //If there's no error while parsing the data to json format,
             if(!jsonError){
                 NSArray *jsonArray = (NSArray *)[jsonDictionary objectForKey:@"menus"];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self prepareInfoToShow:jsonArray];
+                    //[self prepareInfoToShow:jsonArray];
                 });
             }
             //If there's an error with the json downloaded, we show a label to feedback the user
