@@ -15,9 +15,8 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedAssitance;
 
 //arraysMenus
-@property (nonatomic, strong)NSMutableArray *arrayMenuNames;
-@property (nonatomic, strong)NSMutableArray *arrayPlatillos;
 @property (nonatomic, strong)NSMutableArray *imagesData;
+@property (nonatomic, strong)NSArray *arrayMenus;
 
 //IBActions
 - (IBAction)assistanceControl:(UISegmentedControl *)sender;
