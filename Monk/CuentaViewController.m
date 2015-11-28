@@ -26,6 +26,8 @@
     
     NSString *monkURL;
     NSString *totalToPay;
+    
+    NSUserDefaults *defaults;
 }
 
 - (void)viewDidLoad
@@ -33,13 +35,23 @@
     [super viewDidLoad];
     self.buttonPay.layer.cornerRadius = 3.0;
     
+    defaults = [NSUserDefaults standardUserDefaults];
+    
+    monkURL = @"https://monkapp.herokuapp.com";
+    self.arrayAccount = [[NSMutableArray alloc] init];
+    
     self.tableAccount.delegate = self;
     self.tableAccount.dataSource = self;
     
     //Verificar primero si la cuenta está abierta
-    [self setFirstViewInterface];
-    
-    monkURL = @"https://monkapp.herokuapp.com";
+    if(![defaults boolForKey:@"accountOpen"]){
+        [self setFirstViewInterface];
+        [defaults setBool:YES forKey:@"accountOpen"];
+        [defaults synchronize];
+    }
+    else{
+        [self getAccountStatus];
+    }
 }
 
 #pragma mark TableView Delegates
@@ -67,9 +79,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *idCell = @"idCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:idCell];
-    if(!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:idCell];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:idCell];
     
     switch(indexPath.section)
     {
@@ -77,7 +87,6 @@
         {
             NSDictionary *dictionary = [[self arrayAccount] objectAtIndex:indexPath.row];
             NSLog(@"dictionary: %@", dictionary);
-            
             cell.textLabel.text = [NSString stringWithFormat:@"Elemento: %@", [dictionary objectForKey:@"nombre"]];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Precio: %@", [[dictionary objectForKey:@"precio"] stringValue]];
         }
@@ -126,14 +135,7 @@
 
 - (IBAction)payBill:(UIButton *)sender
 {
-    UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [self showPayView];
-        [self setFirstViewInterface];
-    }]];
-    [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
-    [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-    [self presentViewController:alertPay animated:YES completion:nil];
+    [self showPayView];
 }
 
 #pragma mark Other Methods
@@ -170,6 +172,9 @@
     self.tableAccount.hidden = NO;
     self.buttonPay.hidden = NO;
     self.buttonRefresh.enabled = YES;
+    self.tableAccount.delegate =self;
+    self.tableAccount.dataSource = self;
+    
     [self callMesera];
     [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
 }
@@ -192,6 +197,7 @@
 
 - (void)getAccountStatus
 {
+    self.arrayAccount = [[NSMutableArray alloc] init];
     self.navigationItem.title = @"Actualizando Cuenta...";
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
@@ -235,10 +241,18 @@
     [self presentViewController:nv animated:YES completion:nil];
 }
 
+#pragma mark PayView Delegate
 //PayView Delegate
 - (void)didPayAccount
 {
+    self.arrayAccount = nil;
+    totalToPay = nil;
+    [self.tableAccount reloadData];
+    [self setFirstViewInterface];
     [self showFeedbackView];
+    NSLog(@"arrayAccount: %@", self.arrayAccount);
+    [defaults setBool:NO forKey:@"accountOpen"];
+    [defaults synchronize];
 }
 
 #pragma mark Auxiliar Methods

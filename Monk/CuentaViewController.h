@@ -19,6 +19,6 @@
 - (IBAction)refreshAccount:(UIBarButtonItem *)sender;
 - (IBAction)payBill:(UIButton *)sender;
 
-@property (nonatomic, strong)NSArray *arrayAccount;
+@property (nonatomic, strong)NSMutableArray *arrayAccount;
 
 @end

@@ -273,11 +273,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Qué tal te pareció el servicio en MonK?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIr-ox-FZJ">
-                                <rect key="frame" x="140" y="40" width="320" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¿Qué tal te pareció el servicio en MonK en lugar, servicio y comida?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIr-ox-FZJ">
+                                <rect key="frame" x="20" y="40" width="560" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="Mye-mC-F7N"/>
-                                    <constraint firstAttribute="height" constant="21" id="kWh-Kz-8YG"/>
+                                    <constraint firstAttribute="height" constant="80" id="TW0-vE-7ab"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -286,8 +285,8 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHo-Qb-3Lx">
                                 <rect key="frame" x="200" y="390" width="200" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="jG7-z8-L8I"/>
-                                    <constraint firstAttribute="width" constant="200" id="yDL-ME-eFx"/>
+                                    <constraint firstAttribute="height" constant="44" id="XPx-ZB-LP1"/>
+                                    <constraint firstAttribute="width" constant="200" id="abe-ao-hFh"/>
                                 </constraints>
                                 <state key="normal" title="Calificar">
                                     <color key="titleColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -299,10 +298,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QHo-Qb-3Lx" firstAttribute="centerX" secondItem="jIr-ox-FZJ" secondAttribute="centerX" id="A4e-q9-5Ae"/>
-                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="centerX" secondItem="8JD-7g-00m" secondAttribute="centerX" id="AAp-m9-wns"/>
-                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="top" secondItem="9oc-09-gUE" secondAttribute="bottom" constant="20" id="jFo-QU-Qsw"/>
-                            <constraint firstItem="am1-zr-Kyg" firstAttribute="top" secondItem="QHo-Qb-3Lx" secondAttribute="bottom" constant="166" id="l28-G5-bWx"/>
+                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="centerX" secondItem="QHo-Qb-3Lx" secondAttribute="centerX" id="6KI-XJ-0hd"/>
+                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="top" secondItem="9oc-09-gUE" secondAttribute="bottom" constant="20" id="FnI-BY-Af4"/>
+                            <constraint firstItem="am1-zr-Kyg" firstAttribute="top" secondItem="QHo-Qb-3Lx" secondAttribute="bottom" constant="166" id="YaY-5r-siC"/>
+                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="leading" secondItem="8JD-7g-00m" secondAttribute="leadingMargin" id="kgc-Z8-ab5"/>
+                            <constraint firstItem="jIr-ox-FZJ" firstAttribute="trailing" secondItem="8JD-7g-00m" secondAttribute="trailingMargin" id="uY6-kd-GU1"/>
                         </constraints>
                     </view>
                     <connections>

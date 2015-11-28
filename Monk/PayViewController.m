@@ -32,6 +32,8 @@
     self.navigationItem.title = @"Pagar la cuenta";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Pagar" style:UIBarButtonItemStyleDone target:self action:@selector(pay)];
     self.navigationItem.rightBarButtonItem = barButton;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancelar" style:UIBarButtonItemStylePlain target:self action:@selector(cancelPay)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
     
     self.tableViewSetup.dataSource = self;
     self.tableViewSetup.delegate = self;
@@ -135,9 +137,20 @@
 
 - (void)pay
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        [[self delegate] didPayAccount];
-    }];
+    UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
+    [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [[self delegate] didPayAccount];
+        }];
+    }]];
+    [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+    [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:alertPay animated:YES completion:nil];
+}
+
+- (void)cancelPay
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

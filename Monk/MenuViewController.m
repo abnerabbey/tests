@@ -84,6 +84,7 @@
     NSMutableArray *arrayForSection = [[NSMutableArray alloc] init];
     
     NSDictionary *dictionary = [self.arrayPlatillos objectAtIndex:indexPath.section];
+    NSLog(@"dictionary: %@", dictionary);
     NSArray *arrayComplementos = [dictionary objectForKey:@"complementos"];
     [arrayForSection addObject:[dictionary objectForKey:@"nombre"]];
     if(arrayComplementos.count > 0)
@@ -300,19 +301,30 @@
         [[self arrayMenuNames] addObject:[dictionary objectForKey:@"nombre"]];
         [arrayForPlatillos addObject:[dictionary objectForKey:@"platillos"]];
     }
-    NSArray *try = [arrayForPlatillos objectAtIndex:0];
+    
+    arrayForPlatillos = [arrayForPlatillos objectAtIndex:0];
+    for (NSDictionary *diction in arrayForPlatillos) {
+        [self.arrayPlatillos addObject:diction];
+    }
+    [self determineRowsPerSection:arrayForPlatillos];
+    [self getImageMenu:self.arrayPlatillos];
+    
+    /*NSArray *try = [arrayForPlatillos objectAtIndex:0];
     if(try.count > 0){
         for(int i = 0; i < arrayForPlatillos.count; i++){
             NSArray *array = [arrayForPlatillos objectAtIndex:i];
-            NSDictionary *diction = [array objectAtIndex:0];
-            [self.arrayPlatillos addObject:diction];
+            for (NSDictionary *diction in array) {
+                [self.arrayPlatillos addObject:diction];
+            }
+            NSLog(@"self.arrayPlatillos: %@", self.arrayPlatillos);
         }
+        
         [self determineRowsPerSection:arrayForPlatillos];
         //Let's load images asynchrounously
         [self getImageMenu:self.arrayPlatillos];
     }
     else
-        [self showLabelFeedback:@"Aún no está listo el menú del día"];
+        [self showLabelFeedback:@"Aún no está listo el menú del día"];*/
 }
 
 - (void)showLabelFeedback:(NSString *)feedbackString
@@ -331,10 +343,11 @@
 {
     NSDictionary *dictionary;
     self.arrayRows = [[NSMutableArray alloc] init];
-    for (NSArray *array in arrayPlatillos) {
-        dictionary = [array objectAtIndex:0];
+    for(int i = 0; i < arrayPlatillos.count; i++){
+        dictionary = [arrayPlatillos objectAtIndex:i];
         NSArray *arrayForRows = [dictionary objectForKey:@"complementos"];
         [self.arrayRows addObject:[NSNumber numberWithInteger:1 + arrayForRows.count]];
+        
     }
 }
 
