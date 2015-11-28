@@ -20,6 +20,8 @@
     
     dispatch_queue_t imageQue;
     
+    UIActivityIndicatorView *activityIndicator;
+    
 }
 
 @property (nonatomic, strong)NSMutableArray *arrayRows;
@@ -61,17 +63,17 @@
 #pragma mark Table View Delegates
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.arrayRows objectAtIndex:section]integerValue];
+    return self.arrayMenus.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self arrayMenuNames] count];
+    return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [self.arrayMenuNames objectAtIndex:section];
+    return @"Fecha del día actual";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -81,21 +83,13 @@
     if(!cell)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     
-    NSMutableArray *arrayForSection = [[NSMutableArray alloc] init];
-    
-    NSDictionary *dictionary = [self.arrayPlatillos objectAtIndex:indexPath.section];
-    NSLog(@"dictionary: %@", dictionary);
-    NSArray *arrayComplementos = [dictionary objectForKey:@"complementos"];
-    [arrayForSection addObject:[dictionary objectForKey:@"nombre"]];
-    if(arrayComplementos.count > 0)
-        for (NSDictionary *dictionaryComplentos in arrayComplementos)
-            [arrayForSection addObject:[dictionaryComplentos objectForKey:@"nombre"]];
+    NSDictionary *dictionMenu = [self.arrayMenus objectAtIndex:indexPath.row];
     
     UILabel *labelName = (UILabel *)[cell viewWithTag:2];
-    labelName.text = [arrayForSection objectAtIndex:indexPath.row];
+    labelName.text = [dictionMenu objectForKey:@"nombre"];
     
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
-    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.section]];
+    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.row]];
     
     return cell;
 }
@@ -185,9 +179,9 @@
             UITextField *textField = (UITextField *)alert.textFields[0];
             NSString *textFromTextField = textField.text;
             
-            UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
-            [activityIndicator startAnimating];
+            UIActivityIndicatorView *activityPromoIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            activityPromoIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+            [activityPromoIndicator startAnimating];
             [[self view] addSubview:activityIndicator];
             self.navigationItem.title = @"Verificando código...";
             
@@ -209,7 +203,7 @@
 - (void)getMenu
 {
     self.navigationItem.title = @"Cargando Menú...";
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
     [activityIndicator startAnimating];
     [[self view] addSubview:activityIndicator];
@@ -220,19 +214,23 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [activityIndicator stopAnimating];
             [activityIndicator removeFromSuperview];
-            self.navigationItem.title = @"Menú del día";
+            self.navigationItem.title = @"Menú";
         });
         //If there's no error (Internet connection error) we get the JSON form the data downloaded
         if(!error){
             NSError *jsonError;
             NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-            NSLog(@"Menu Response: %@", jsonDictionary);
             //If there's no error while parsing the data to json format,
             if(!jsonError){
-                NSArray *jsonArray = (NSArray *)[jsonDictionary objectForKey:@"menus"];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //[self prepareInfoToShow:jsonArray];
-                });
+                NSArray *menusArray = (NSArray *)[jsonDictionary objectForKey:@"menus"];
+                if(menusArray.count > 0){
+                    self.arrayMenus = menusArray;
+                    [self getImagesFromJSON:menusArray];
+                }
+                else
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self showLabelFeedback:@"Aún no hay menú del día. Inténtalo más tarde"];
+                    });
             }
             //If there's an error with the json downloaded, we show a label to feedback the user
             else
@@ -286,48 +284,6 @@
 }
 
 #pragma mark Auxiliar Methods
-- (BOOL)isPromoCodeValid:(NSString *)promoCode
-{
-    return YES;
-}
-
--(void)prepareInfoToShow:(NSArray *)result
-{
-    self.arrayMenuNames = [[NSMutableArray alloc] init];
-    self.arrayPlatillos = [[NSMutableArray alloc] init];
-    
-    NSMutableArray *arrayForPlatillos = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary *dictionary in result) {
-        [[self arrayMenuNames] addObject:[dictionary objectForKey:@"nombre"]];
-        [arrayForPlatillos addObject:[dictionary objectForKey:@"platillos"]];
-    }
-    
-    arrayForPlatillos = [arrayForPlatillos objectAtIndex:0];
-    for (NSDictionary *diction in arrayForPlatillos) {
-        [self.arrayPlatillos addObject:diction];
-    }
-    [self determineRowsPerSection:arrayForPlatillos];
-    [self getImageMenu:self.arrayPlatillos];
-    
-    /*NSArray *try = [arrayForPlatillos objectAtIndex:0];
-    if(try.count > 0){
-        for(int i = 0; i < arrayForPlatillos.count; i++){
-            NSArray *array = [arrayForPlatillos objectAtIndex:i];
-            for (NSDictionary *diction in array) {
-                [self.arrayPlatillos addObject:diction];
-            }
-            NSLog(@"self.arrayPlatillos: %@", self.arrayPlatillos);
-        }
-        
-        [self determineRowsPerSection:arrayForPlatillos];
-        //Let's load images asynchrounously
-        [self getImageMenu:self.arrayPlatillos];
-    }
-    else
-        [self showLabelFeedback:@"Aún no está listo el menú del día"];*/
-}
-
 - (void)showLabelFeedback:(NSString *)feedbackString
 {
     UILabel *labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
@@ -340,35 +296,6 @@
     [[self tableMenu] addSubview:labelFeedback];
 }
 
-- (void)determineRowsPerSection:(NSMutableArray *)arrayPlatillos
-{
-    NSDictionary *dictionary;
-    self.arrayRows = [[NSMutableArray alloc] init];
-    for(int i = 0; i < arrayPlatillos.count; i++){
-        dictionary = [arrayPlatillos objectAtIndex:i];
-        NSArray *arrayForRows = [dictionary objectForKey:@"complementos"];
-        [self.arrayRows addObject:[NSNumber numberWithInteger:1 + arrayForRows.count]];
-        
-    }
-}
-
-- (void)getImageMenu:(NSMutableArray *)arrayPlatillos
-{
-    self.imagesData = [[NSMutableArray alloc] init];
-    dispatch_async(imageQue, ^{
-        for (NSDictionary *dictionary in arrayPlatillos) {
-            NSDictionary *photoDict = [dictionary objectForKey:@"photo"];
-            NSURL *url = [NSURL URLWithString:[photoDict objectForKey:@"url"]];
-            NSData *imageData = [NSData dataWithContentsOfURL:url];
-            [[self imagesData] addObject:imageData];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[self tableMenu] reloadData];
-        });
-    });
-    
-}
-
 -(void)pushCodeReceived
 {
     UIAlertController *alertPromoPush = [UIAlertController alertControllerWithTitle:@"Promoción!" message:@"Introduce el código de promoción recibido en la notificación para hacerla válida! :)" preferredStyle:UIAlertControllerStyleAlert];
@@ -376,9 +303,9 @@
         UITextField *textField = (UITextField *)alertPromoPush.textFields[0];
         NSString *textFromTextField = textField.text;
         
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
-        [activityIndicator startAnimating];
+        UIActivityIndicatorView *activityPromoIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityPromoIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+        [activityPromoIndicator startAnimating];
         [[self view] addSubview:activityIndicator];
         self.navigationItem.title = @"Verificando código...";
         
@@ -392,6 +319,35 @@
     [alertPromoPush.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [alertPromoPush addTextFieldWithConfigurationHandler:nil];
     [self presentViewController:alertPromoPush animated:YES completion:nil];
+}
+
+#pragma mark Test Methods
+- (void)getImagesFromJSON:(NSArray *)arrayMenu
+{
+    NSLog(@"arrayMenu: %@", arrayMenu);
+    self.imagesData = [[NSMutableArray alloc] init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.title = @"Cargando Menú...";
+        activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        activityIndicator.frame = CGRectMake(self.view.frame.size.width / 2 - 24.0, self.view.frame.size.height / 2 - 24.0, 24.0, 24.0);
+        [activityIndicator startAnimating];
+        [[self view] addSubview:activityIndicator];
+    });
+    dispatch_async(imageQue, ^{
+        for (NSDictionary *dictionary in arrayMenu) {
+            NSDictionary *imageDictionary = [dictionary objectForKey:@"image"];
+            NSString *imageString = [imageDictionary objectForKey:@"url"];
+            NSURL *urlImage = [NSURL URLWithString:imageString];
+            NSData *imageData = [NSData dataWithContentsOfURL:urlImage];
+            [[self imagesData] addObject:imageData];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+            [activityIndicator removeFromSuperview];
+            self.navigationItem.title = @"Menú";
+            [[self tableMenu] reloadData];
+        });
+    });
 }
 
 @end
