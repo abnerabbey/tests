@@ -29,6 +29,9 @@
     self.buttonAddCard.layer.borderColor = [[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0] CGColor];
     self.buttonAddCard.layer.borderWidth = 1.0;
     
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Más" style:UIBarButtonItemStylePlain target:self action:@selector(moreActions)];
+    self.navigationItem.rightBarButtonItem = rightButton;
+    
     self.textFieldTarjeta.keyboardType = UIKeyboardTypeNumberPad;
     self.textFieldCVV.keyboardType = UIKeyboardTypeNumberPad;
     self.textFieldExpiration.keyboardType = UIKeyboardTypeNumberPad;
@@ -133,6 +136,16 @@
         }
     }];
     [task resume];
+}
+
+- (void)moreActions
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"En MonK portegemos tus datos" message:@"Por favor, sírvase de leer nuestra política de privacidad" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Datos Fiscales" style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Aviso de Privacidad" style:UIAlertActionStyleDefault handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end
