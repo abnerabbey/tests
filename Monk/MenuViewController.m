@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 #import "AssistantsViewController.h"
 #import "FriendsViewController.h"
+#import "DescriptionViewController.h"
 #import <Parse/Parse.h>
 
 
@@ -17,14 +18,18 @@
 {
     NSURLSession *session;
     NSURL *menuURL;
+    NSString *monkURL;
+    
+    NSString *currentDate;
     
     dispatch_queue_t imageQue;
     
     UIActivityIndicatorView *activityIndicator;
     
+    NSDictionary *dictionaryMenuDescription;
+    NSData *dataImage;
+    
 }
-
-@property (nonatomic, strong)NSMutableArray *arrayRows;
 
 - (void)getAssistanceResponse;
 - (void)showContentForNewUser;
@@ -34,15 +39,13 @@
 @end
 
 @implementation MenuViewController
-{
-    NSString *monkURL;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     //Interface customization
+    currentDate = [self getCurrentDate];
     [[self tableMenu] setDelegate:self];
     [[self tableMenu] setDataSource:self];
     
@@ -73,7 +76,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Fecha del día actual";
+    return [NSString stringWithFormat:@"Menú de: %@", currentDate];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -96,7 +99,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    dataImage = [self.imagesData objectAtIndex:indexPath.row];
+    dictionaryMenuDescription = [self.arrayMenus objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"menuSegue" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:@"menuSegue"]){
+        DescriptionViewController *descriptionView = [segue destinationViewController];
+        descriptionView.imageData = dataImage;
+        descriptionView.dictionaryMenuDescription = dictionaryMenuDescription;
+    }
 }
 
 #pragma mark IBActions
@@ -325,7 +340,6 @@
 #pragma mark Test Methods
 - (void)getImagesFromJSON:(NSArray *)arrayMenu
 {
-    NSLog(@"arrayMenu: %@", arrayMenu);
     self.imagesData = [[NSMutableArray alloc] init];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.navigationItem.title = @"Cargando Menú...";
@@ -349,6 +363,17 @@
             [[self tableMenu] reloadData];
         });
     });
+}
+
+- (NSString *)getCurrentDate
+{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateStyle:NSDateFormatterLongStyle];
+    [df setTimeStyle:NSDateFormatterNoStyle];
+    NSString *dateString = [df stringFromDate:date];
+    
+    return dateString;
 }
 
 @end

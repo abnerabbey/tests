@@ -57,7 +57,7 @@
 #pragma mark TableView Delegates
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -68,12 +68,32 @@
             return [[self arrayAccount] count];
             break;
         case 1:
+            return [[self arrayComplementos] count];
+        case 2:
             return 1;
             break;
         default:
             break;
     }
     return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch(section)
+    {
+        case 0:
+            return @"Platillos";
+            break;
+        case 1:
+            return @"Complementos";
+            break;
+        case 2:
+            return @"Total a pagar";
+        default:
+            break;
+    }
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -86,12 +106,18 @@
         case 0:
         {
             NSDictionary *dictionary = [[self arrayAccount] objectAtIndex:indexPath.row];
-            NSLog(@"dictionary: %@", dictionary);
-            cell.textLabel.text = [NSString stringWithFormat:@"Elemento: %@", [dictionary objectForKey:@"nombre"]];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"nombre"]];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Precio: %@", [[dictionary objectForKey:@"precio"] stringValue]];
         }
         break;
         case 1:
+        {
+            NSDictionary *diction = [[self arrayComplementos] objectAtIndex:indexPath.row];
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", [diction objectForKey:@"nombre"]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"Precio: %@", [[diction objectForKey:@"precio"] stringValue]];
+        }
+        break;
+        case 2:
             if(totalToPay)//Para evitar que salga esta sección antes de que aparezca la cuenta
                 cell.textLabel.text = [NSString stringWithFormat:@"Total a Pagar: %@", totalToPay];
             break;
@@ -186,12 +212,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     NSURLSession *session = [NSURLSession sharedSession];
     [request setHTTPMethod:@"POST"];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(!error){
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-            NSLog(@"response: %@", dictionary);
-        }
-    }];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request];
     [task resume];
 }
 
@@ -218,9 +239,9 @@
         if(!error){
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             NSDictionary *dictionaryCuenta = [dictionary objectForKey:@"cuenta"];
-            NSLog(@"dicCuenta:%@", dictionaryCuenta);
             totalToPay = [[dictionaryCuenta objectForKey:@"cantidad"] stringValue];
             self.arrayAccount = [dictionaryCuenta objectForKey:@"platillos"];
+            self.arrayComplementos = [dictionaryCuenta objectForKey:@"complementos"];
             if(self.arrayAccount.count > 0)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [labelFeedback removeFromSuperview];
@@ -242,7 +263,6 @@
 }
 
 #pragma mark PayView Delegate
-//PayView Delegate
 - (void)didPayAccount
 {
     self.arrayAccount = nil;
@@ -250,7 +270,6 @@
     [self.tableAccount reloadData];
     [self setFirstViewInterface];
     [self showFeedbackView];
-    NSLog(@"arrayAccount: %@", self.arrayAccount);
     [defaults setBool:NO forKey:@"accountOpen"];
     [defaults synchronize];
 }
@@ -286,7 +305,6 @@
         if(!error){
             NSError *jsonError;
             NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
-            NSLog(@"dictResponse: %@", dictResponse);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if([[dictResponse objectForKey:@"status"] isEqualToString:@"ok"])
                 {

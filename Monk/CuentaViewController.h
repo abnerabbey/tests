@@ -20,5 +20,6 @@
 - (IBAction)payBill:(UIButton *)sender;
 
 @property (nonatomic, strong)NSMutableArray *arrayAccount;
+@property (nonatomic, strong)NSArray *arrayComplementos;
 
 @end

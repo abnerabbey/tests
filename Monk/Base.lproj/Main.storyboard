@@ -547,7 +547,7 @@
                                                 <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BnR-lf-aBG">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="139"/>
                                                 </imageView>
-                                                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJL-5a-p16">
+                                                <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HJL-5a-p16">
                                                     <rect key="frame" x="0.0" y="110" width="600" height="29"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Nombre del platillo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Afn-cW-sbd">
@@ -557,7 +557,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -580,8 +580,8 @@
                                     <constraint firstAttribute="width" constant="300" id="8UL-KI-rOO"/>
                                 </constraints>
                                 <segments>
-                                    <segment title="Tal Vez Asista"/>
                                     <segment title="Asistiré"/>
+                                    <segment title="Tal Vez Asista"/>
                                 </segments>
                                 <color key="tintColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -616,11 +616,57 @@
                     <connections>
                         <outlet property="segmentedAssitance" destination="FD9-8L-kEy" id="BJ0-o3-QtR"/>
                         <outlet property="tableMenu" destination="FGk-GI-ipd" id="ytp-on-C0y"/>
+                        <segue destination="0q1-7X-Biq" kind="show" identifier="menuSegue" id="NZ4-j4-U69"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4o-wh-dNP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1274" y="105"/>
+        </scene>
+        <!--Description View Controller-->
+        <scene sceneID="lvn-Ul-aAj">
+            <objects>
+                <viewController id="0q1-7X-Biq" customClass="DescriptionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eiE-DB-hn4"/>
+                        <viewControllerLayoutGuide type="bottom" id="7D9-6Z-zlC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vZs-U9-gdW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RQG-0L-ShR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="eUT-TA-1uD"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Menu Description..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="iEw-k3-RnU">
+                                <rect key="frame" x="0.0" y="200" width="600" height="400"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iEw-k3-RnU" secondAttribute="bottom" id="305-z4-7La"/>
+                            <constraint firstItem="RQG-0L-ShR" firstAttribute="top" secondItem="vZs-U9-gdW" secondAttribute="top" id="6k4-J2-wmM"/>
+                            <constraint firstItem="iEw-k3-RnU" firstAttribute="top" secondItem="RQG-0L-ShR" secondAttribute="bottom" id="JIW-Lc-Xcf"/>
+                            <constraint firstItem="RQG-0L-ShR" firstAttribute="trailing" secondItem="iEw-k3-RnU" secondAttribute="trailing" id="Na4-6v-ElU"/>
+                            <constraint firstAttribute="trailing" secondItem="iEw-k3-RnU" secondAttribute="trailing" id="aSp-t4-um8"/>
+                            <constraint firstItem="RQG-0L-ShR" firstAttribute="leading" secondItem="iEw-k3-RnU" secondAttribute="leading" id="apo-Eq-IDN"/>
+                            <constraint firstItem="RQG-0L-ShR" firstAttribute="leading" secondItem="vZs-U9-gdW" secondAttribute="leading" id="cUQ-wr-x67"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageMenu" destination="RQG-0L-ShR" id="YHf-yS-At7"/>
+                        <outlet property="textMenuDescription" destination="iEw-k3-RnU" id="CHF-nH-f5U"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="icA-Rl-Cut" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1914" y="105"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="pBx-ru-i9m">
@@ -653,7 +699,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4n-lY-3sr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1914" y="105"/>
+            <point key="canvasLocation" x="1268" y="-639"/>
         </scene>
         <!--Assistants View Controller-->
         <scene sceneID="qNm-zl-ATO">
@@ -784,9 +830,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7qc-51-XFY">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYS-6V-Lcz">
+                            <view alpha="0.34999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wYS-6V-Lcz">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bI1-Up-wi1">
                                 <rect key="frame" x="20" y="329" width="560" height="100"/>
@@ -823,7 +869,7 @@
         <!--Page View Controller-->
         <scene sceneID="jD4-FW-XSx">
             <objects>
-                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="KAz-WA-Qzf" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="KAz-WA-Qzf" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fiA-u7-n4S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-648" y="1198"/>

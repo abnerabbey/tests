@@ -18,7 +18,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSetup;
 
-@property (nonatomic, strong)NSArray *arrayAccounts;
 @property (nonatomic, strong)NSArray *arrayCards;
 
 @property (retain)id <PayViewDelegate> delegate;

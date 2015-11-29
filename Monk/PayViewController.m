@@ -8,6 +8,7 @@
 
 #import "PayViewController.h"
 #import "RateViewController.h"
+#import <Parse/Parse.h>
 
 @interface PayViewController ()
 
@@ -26,6 +27,8 @@
 {
     [super viewDidLoad];
     
+    [self getCreditCards];
+    
     arrayPropinas = [NSArray arrayWithObjects:@"15", @"20", @"25", @"30", @"35", @"40", @"45", @"50", nil];
     billPercent = 0.15;
     
@@ -42,7 +45,7 @@
 #pragma mark TableView Delegates
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -50,12 +53,9 @@
     switch(section)
     {
         case 0:
-            return [self.arrayAccounts count];
-            break;
-        case 1:
             return [self.arrayCards count];
             break;
-        case 2:
+        case 1:
             return [arrayPropinas count];
             break;
         default:
@@ -69,12 +69,9 @@
     switch(section)
     {
         case 0:
-            return @"Elige si quieres pagar tu cuenta y la de alguien más";
-            break;
-        case 1:
             return @"Selecciona la tarjeta con la que deseas pagar";
             break;
-        case 2:
+        case 1:
             return @"Selecciona la propina. Por default es el 15%";
             break;
         default:
@@ -94,8 +91,6 @@
         case 0:
             break;
         case 1:
-            break;
-        case 2:
             cell.textLabel.text = [NSString stringWithFormat:@"%@%%", [arrayPropinas objectAtIndex:indexPath.row]];
             if(indexPath.row == 0){
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
@@ -115,8 +110,6 @@
         case 0:
             break;
         case 1:
-            break;
-        case 2:
         {
             [[tableView cellForRowAtIndexPath:previousIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
             if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryNone){
@@ -133,7 +126,22 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
+- (void)getCreditCards
+{
+    PFUser *user = [PFUser currentUser];
+    NSString *monkString = @"https://monkapp.herokuapp.com";
+    NSURL *monkURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/tarjetas?objectId=%@", monkString, user.objectId]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:monkURL];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"GET"];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dicResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"response: %@", dicResponse);
+        }
+    }];
+    [task resume];
+}
 
 - (void)pay
 {
