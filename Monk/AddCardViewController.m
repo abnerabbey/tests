@@ -105,6 +105,31 @@
         if(!error){
             NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             NSLog(@"dictResponse: %@", dictResponse);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[self navigationController] popViewControllerAnimated:YES];
+            });
+        }
+    }];
+    [task resume];
+}
+
+- (void)sendTest
+{
+    PFUser *user = [PFUser currentUser];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/tarjeta/registrar?objectId=%@", monkURL, user.objectId]];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    NSString *stringToken = [NSString stringWithFormat:@"conektaTokenId=tok_test_amex_8431&nombre=JuanPerez&telefono="""];
+    NSData *tokenData = [stringToken dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:tokenData];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"dictResponse: %@", dictResponse);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
         }
     }];
     [task resume];

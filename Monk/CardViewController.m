@@ -43,6 +43,10 @@
     self.tableViewCards.delegate = self;
     self.tableViewCards.dataSource = self;
     
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
     [self getCards];
 }
 

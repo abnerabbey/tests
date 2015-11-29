@@ -19,6 +19,7 @@
     NSArray *arrayPropinas;
     
     NSIndexPath *previousIndexPath;
+    NSIndexPath *previousCardIndexPath;
     
     float billPercent;
 }
@@ -29,7 +30,7 @@
     
     [self getCreditCards];
     
-    arrayPropinas = [NSArray arrayWithObjects:@"15", @"20", @"25", @"30", @"35", @"40", @"45", @"50", nil];
+    arrayPropinas = [NSArray arrayWithObjects:@"0", @"10", @"15", @"20", nil];
     billPercent = 0.15;
     
     self.navigationItem.title = @"Pagar la cuenta";
@@ -83,20 +84,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *IDCell = @"cellId";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:IDCell];
-    if(!cell)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:IDCell];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:IDCell];
     switch(indexPath.section)
     {
         case 0:
-            break;
+        {
+            NSDictionary *dictCard = [self.arrayCards objectAtIndex:indexPath.row];
+            cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictCard objectForKey:@"digitos"]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"ID: %@", [dictCard objectForKey:@"id"]];
+        }
+        break;
         case 1:
+        {
             cell.textLabel.text = [NSString stringWithFormat:@"%@%%", [arrayPropinas objectAtIndex:indexPath.row]];
-            if(indexPath.row == 0){
+            if(indexPath.row == 2){
                 [cell setAccessoryType:UITableViewCellAccessoryCheckmark];
                 previousIndexPath = indexPath;
             }
-            break;
+        }
+        break;
         default:
             break;
     }
@@ -108,7 +114,10 @@
     switch(indexPath.section)
     {
         case 0:
-            break;
+        {
+            
+        }
+        break;
         case 1:
         {
             [[tableView cellForRowAtIndexPath:previousIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
@@ -137,6 +146,10 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
             NSDictionary *dicResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            self.arrayCards = [dicResponse objectForKey:@"tarjetas"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableViewSetup reloadData];
+            });
             NSLog(@"response: %@", dicResponse);
         }
     }];
