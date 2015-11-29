@@ -35,6 +35,8 @@
     [super viewDidLoad];
     self.buttonPay.layer.cornerRadius = 3.0;
     
+    [self checkCreditCards];
+    
     defaults = [NSUserDefaults standardUserDefaults];
     
     monkURL = @"https://monkapp.herokuapp.com";
@@ -193,16 +195,24 @@
 
 - (void)openAccount
 {
-    //Verificar primero si hay tarjeta asociada
-    buttonStart.hidden = YES;
-    self.tableAccount.hidden = NO;
-    self.buttonPay.hidden = NO;
-    self.buttonRefresh.enabled = YES;
-    self.tableAccount.delegate =self;
-    self.tableAccount.dataSource = self;
-    
-    [self callMesera];
-    [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
+    if(self.creditCards.count > 0){
+        //Verificar primero si hay tarjeta asociada
+        buttonStart.hidden = YES;
+        self.tableAccount.hidden = NO;
+        self.buttonPay.hidden = NO;
+        self.buttonRefresh.enabled = YES;
+        self.tableAccount.delegate =self;
+        self.tableAccount.dataSource = self;
+        
+        [self callMesera];
+        [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
+    }
+    else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sin tarjeta" message:@"Aún no tienes una tarjeta asociada. Introduce una en más y verifica la política de privacidad." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)callMesera
@@ -267,6 +277,7 @@
 {
     self.arrayAccount = nil;
     totalToPay = nil;
+    self.arrayComplementos = nil;
     [self.tableAccount reloadData];
     [self setFirstViewInterface];
     [self showFeedbackView];
@@ -345,6 +356,23 @@
     [self presentViewController:nv animated:YES completion:nil];
 }
 
+
+- (void)checkCreditCards
+{
+    PFUser *user = [PFUser currentUser];
+    NSString *monkString = @"https://monkapp.herokuapp.com";
+    NSURL *monkWeb = [NSURL URLWithString:[NSString stringWithFormat:@"%@/tarjetas?objectId=%@", monkString, user.objectId]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:monkWeb];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"GET"];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *dicResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            self.creditCards = [dicResponse objectForKey:@"tarjetas"];
+        }
+    }];
+    [task resume];
+}
 
 @end
 

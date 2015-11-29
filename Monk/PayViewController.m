@@ -22,6 +22,7 @@
     NSIndexPath *previousCardIndexPath;
     
     float billPercent;
+    NSDictionary *dicCard;
 }
 
 - (void)viewDidLoad
@@ -115,7 +116,16 @@
     {
         case 0:
         {
-            
+            [[tableView cellForRowAtIndexPath:previousCardIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
+            if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryNone){
+                [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+                previousCardIndexPath = indexPath;
+                dicCard = [self.arrayCards objectAtIndex:indexPath.row];
+                NSLog(@"dicCard: %@", dicCard);
+            }
+            else if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryCheckmark){
+                [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryNone];
+            }
         }
         break;
         case 1:
@@ -150,7 +160,6 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableViewSetup reloadData];
             });
-            NSLog(@"response: %@", dicResponse);
         }
     }];
     [task resume];
@@ -158,17 +167,25 @@
 
 - (void)pay
 {
-    UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"accountOpen"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [[self delegate] didPayAccount];
-        }];
-    }]];
-    [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
-    [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-    [self presentViewController:alertPay animated:YES completion:nil];
+    if(dicCard != nil){//Osea si el usuario no ha escogido una tarjeta
+        UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
+        [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"accountOpen"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [[self delegate] didPayAccount];
+            }];
+        }]];
+        [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+        [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [self presentViewController:alertPay animated:YES completion:nil];
+    }
+    else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Selecciona una tarjeta" message:@"Selecciona una tarjeta para poder pagar" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 - (void)cancelPay

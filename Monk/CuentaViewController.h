@@ -21,5 +21,6 @@
 
 @property (nonatomic, strong)NSMutableArray *arrayAccount;
 @property (nonatomic, strong)NSArray *arrayComplementos;
+@property (nonatomic, strong)NSArray *creditCards;
 
 @end
