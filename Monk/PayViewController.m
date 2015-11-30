@@ -31,7 +31,7 @@
     
     [self getCreditCards];
     
-    arrayPropinas = [NSArray arrayWithObjects:@"0", @"10", @"15", @"20", nil];
+    arrayPropinas = [NSArray arrayWithObjects:@"0", @"10", @"15", @"20", @"otro ", nil];
     billPercent = 0.15;
     
     self.navigationItem.title = @"Pagar la cuenta";
@@ -137,6 +137,9 @@
                 NSLog(@"porcentaje de propina: %.2f", billPercent);
                 previousIndexPath = indexPath;
             }
+            if(indexPath.row == 4){
+                [self selectOtherBill];
+            }
         }
         break;
         default:
@@ -168,17 +171,26 @@
 - (void)pay
 {
     if(dicCard != nil){//Osea si el usuario no ha escogido una tarjeta
-        UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
-        [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"accountOpen"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [[self delegate] didPayAccount];
-            }];
-        }]];
-        [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
-        [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-        [self presentViewController:alertPay animated:YES completion:nil];
+        NSIndexPath *checkIndex = [NSIndexPath indexPathForRow:4 inSection:1];
+        if(billPercent == 0.0 && [[self.tableViewSetup cellForRowAtIndexPath:checkIndex] accessoryType] == UITableViewCellAccessoryCheckmark){
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Propina Inválida" message:@"Introduce una propina válida para continuar" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+            [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+        else{
+            UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
+            [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"accountOpen"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [[self delegate] didPayAccount];
+                }];
+            }]];
+            [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+            [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+            [self presentViewController:alertPay animated:YES completion:nil];
+        }
     }
     else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Selecciona una tarjeta" message:@"Selecciona una tarjeta para poder pagar" preferredStyle:UIAlertControllerStyleAlert];
@@ -191,6 +203,24 @@
 - (void)cancelPay
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)selectOtherBill
+{
+    OtherBillViewController *otherView = [[self storyboard] instantiateViewControllerWithIdentifier:@"otherBill"];
+    otherView.delegate = self;
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:otherView];
+    [self presentViewController:nv animated:YES completion:nil];
+}
+#pragma mark OtherBill Delegate
+-(void)didSelectOtherBill:(float)bill
+{
+    billPercent = bill / 100;
+    UITableViewCell *cell = [self.tableViewSetup cellForRowAtIndexPath:previousIndexPath];
+    if(billPercent > 0)
+        cell.textLabel.text = [NSString stringWithFormat:@"otro: %g%%", billPercent * 100];
+    else
+        cell.textLabel.text = @"otro:";
 }
 
 @end

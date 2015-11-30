@@ -227,6 +227,41 @@
             </objects>
             <point key="canvasLocation" x="1273" y="2810"/>
         </scene>
+        <!--Other Bill View Controller-->
+        <scene sceneID="JYE-t5-EcS">
+            <objects>
+                <viewController storyboardIdentifier="otherBill" id="vjq-RA-G1m" customClass="OtherBillViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LLz-Si-u3L"/>
+                        <viewControllerLayoutGuide type="bottom" id="gQS-kK-d2u"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="brH-lc-CQn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Escribe aquí..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="x93-Oc-w1b">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="x93-Oc-w1b" firstAttribute="leading" secondItem="brH-lc-CQn" secondAttribute="leading" id="F9M-vM-OxP"/>
+                            <constraint firstItem="x93-Oc-w1b" firstAttribute="top" secondItem="brH-lc-CQn" secondAttribute="top" id="H5T-gv-mim"/>
+                            <constraint firstItem="gQS-kK-d2u" firstAttribute="top" secondItem="x93-Oc-w1b" secondAttribute="bottom" constant="450" id="XLu-MP-lqy"/>
+                            <constraint firstAttribute="trailing" secondItem="x93-Oc-w1b" secondAttribute="trailing" id="v1P-oK-WI8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textOtherView" destination="x93-Oc-w1b" id="5GM-cb-Fgo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qj5-fp-5YL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1978" y="2810"/>
+        </scene>
         <!--Card View Controller-->
         <scene sceneID="Lbt-KR-4PG">
             <objects>

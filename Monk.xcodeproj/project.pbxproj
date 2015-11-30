@@ -21,6 +21,7 @@
 		070002681BE5C5FF00CD7F21 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */; };
 		0700026A1BE5C69C00CD7F21 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */; };
 		0700026E1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */; };
+		074547191C0BE3CC0017FD7A /* OtherBillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 074547181C0BE3CC0017FD7A /* OtherBillViewController.m */; };
 		0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */; };
 		0753B6E01BECF1F900B18C4F /* rating-star-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */; };
 		0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */; };
@@ -101,6 +102,8 @@
 		070002671BE5C5FF00CD7F21 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		070002691BE5C69C00CD7F21 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		0700026D1BE5CB9D00CD7F21 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		074547171C0BE3CC0017FD7A /* OtherBillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherBillViewController.h; sourceTree = "<group>"; };
+		074547181C0BE3CC0017FD7A /* OtherBillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherBillViewController.m; sourceTree = "<group>"; };
 		0753B6DB1BECF1F900B18C4F /* DXStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXStarRatingView.h; sourceTree = "<group>"; };
 		0753B6DC1BECF1F900B18C4F /* DXStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXStarRatingView.m; sourceTree = "<group>"; };
 		0753B6DD1BECF1F900B18C4F /* rating-star-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rating-star-off@2x.png"; sourceTree = "<group>"; };
@@ -448,6 +451,8 @@
 				07E336E41BE457B90040CC90 /* CuentaViewController.m */,
 				076532031C06AC6E002666A9 /* PayViewController.h */,
 				076532041C06AC6E002666A9 /* PayViewController.m */,
+				074547171C0BE3CC0017FD7A /* OtherBillViewController.h */,
+				074547181C0BE3CC0017FD7A /* OtherBillViewController.m */,
 				0754E2A91BE57BD100D369BE /* CardViewController.h */,
 				0754E2AA1BE57BD200D369BE /* CardViewController.m */,
 				0754E2AC1BE57C0A00D369BE /* ProfileViewController.h */,
@@ -626,6 +631,7 @@
 				0770D0F81C0751F700DA13A4 /* PageContentViewController.m in Sources */,
 				07CFC33B1C0A0ADC00106EA2 /* ComentViewController.m in Sources */,
 				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
+				074547191C0BE3CC0017FD7A /* OtherBillViewController.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
 				079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */,
 				07D45A691BF7D1CD00E9D8C5 /* Card.m in Sources */,
