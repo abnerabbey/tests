@@ -236,7 +236,7 @@
     [[self view] addSubview:activityIndicator];
     
     PFUser *user = [PFUser currentUser];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/cuenta?objectId=%@", monkURL, user.objectId]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/usuario/cuenta?objectId=%@", monkURL, user.objectId]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
     NSURLSession *session = [NSURLSession sharedSession];

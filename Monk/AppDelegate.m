@@ -115,7 +115,7 @@
     
     NSURLSession *sessionPost = [NSURLSession sharedSession];
     //NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar", monkURL]]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/user/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[device_token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/usuario/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[device_token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token]]];
     NSString *string = [NSString stringWithFormat:@"%@/user/registrar?user[nombre]=%@&user[email]=%@&user[password]=%@&user[objectId]=%@&user[device_token]=%@&user[device]=iOS", monkURL, nombre, email, password, objectId, token];
     NSLog(@"%@", string);
     [request setHTTPMethod:@"POST"];
