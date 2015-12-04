@@ -86,14 +86,21 @@
         [activityIndicator removeFromSuperview];
         if(!error)
         {
+            NSMutableArray *arrayWithFriends = [[NSMutableArray alloc] init];
+            PFUser *user = [PFUser currentUser];
+            NSString *userFBID = [user objectForKey:@"facebookId"];
+            
             NSDictionary *dictionary = (NSDictionary *)result;
             NSArray *arrayData = [dictionary objectForKey:@"data"];
-            NSDictionary *dataDict = [arrayData objectAtIndex:0];
-            NSDictionary *friendsDictionary = [dataDict objectForKey:@"friends"];
-            NSArray *lastArray = [friendsDictionary objectForKey:@"data"];
-            NSMutableArray *arrayWithFriends = [[NSMutableArray alloc] initWithCapacity:lastArray.count];
-            for (NSDictionary *dict in lastArray) {
-                [arrayWithFriends addObject:[dict objectForKey:@"id"]];
+            
+            for (NSDictionary *dic in arrayData) {
+                NSDictionary *dicFriends = [dic objectForKey:@"friends"];
+                NSArray *array = [dicFriends objectForKey:@"data"];
+                for (NSDictionary *dicData in array) {
+                    NSString *friendId = [dicData objectForKey:@"id"];
+                    if(![friendId isEqualToString:userFBID])
+                        [arrayWithFriends addObject:friendId];
+                }
             }
             NSArray *friendsData = [NSArray arrayWithArray:(NSArray *)arrayWithFriends];
             [self filterFriends:friendsData];
@@ -134,14 +141,19 @@
 
 - (void)filterFriends:(NSArray *)friends
 {
+    NSLog(@"friends: %@", friends);
     PFQuery *friendQuery = [PFUser query];
     [friendQuery whereKey:@"facebookId" containedIn:friends];
     [friendQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if(!error){
+            NSLog(@"objects: %@", objects);
             for (PFUser *user in objects) {
                 [arrayFriends addObject:user.username];
             }
             [[self tableFriends] reloadData];
+        }
+        else{
+            NSLog(@"error description: %@", error.description);
         }
     }];
 }

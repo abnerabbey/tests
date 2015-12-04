@@ -101,14 +101,21 @@
         [activityIndicator removeFromSuperview];
         if(!error)
         {
+            NSMutableArray *arrayWithFriends = [[NSMutableArray alloc] init];
+            PFUser *user = [PFUser currentUser];
+            NSString *userFBID = [user objectForKey:@"facebookId"];
+            
             NSDictionary *dictionary = (NSDictionary *)result;
             NSArray *arrayData = [dictionary objectForKey:@"data"];
-            NSDictionary *dataDict = [arrayData objectAtIndex:0];
-            NSDictionary *friendsDictionary = [dataDict objectForKey:@"friends"];
-            NSArray *lastArray = [friendsDictionary objectForKey:@"data"];
-            NSMutableArray *arrayWithFriends = [[NSMutableArray alloc] initWithCapacity:lastArray.count];
-            for (NSDictionary *dict in lastArray) {
-                [arrayWithFriends addObject:[dict objectForKey:@"id"]];
+            
+            for (NSDictionary *dic in arrayData) {
+                NSDictionary *dicFriends = [dic objectForKey:@"friends"];
+                NSArray *arrayFriends = [dicFriends objectForKey:@"data"];
+                for (NSDictionary *dicData in arrayFriends) {
+                    NSString *friendId = [dicData objectForKey:@"id"];
+                    if(![friendId isEqualToString:userFBID])
+                        [arrayWithFriends addObject:friendId];
+                }
             }
             NSArray *friendsData = [NSArray arrayWithArray:(NSArray *)arrayWithFriends];
             [self filterFriends:friendsData];
@@ -136,6 +143,7 @@
 
 - (void)filterFriends:(NSArray *)friends
 {
+    NSLog(@"friends: %@\\n\n\n\n\n\n", friends);
     [arrayAttending removeAllObjects];
     [arrayMaybe removeAllObjects];
     
@@ -143,7 +151,6 @@
     [friendQuery whereKey:@"facebookId" containedIn:friends];
     [friendQuery findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error){
         if(!error){
-            
             PFQuery *query = [PFQuery queryWithClassName:@"Asistencia"];
             for (PFUser *user in objects) {
                 [query whereKey:@"user" equalTo:user];
@@ -154,12 +161,13 @@
                     [arrayMaybe addObject:user.username];
             }
             [[self tableAssistants] reloadData];
-            if(arrayAttending.count == 0 && arrayMaybe.count == 0)
-            {
-                [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
-            }
         }
-        
+        else{
+        }
+        if(arrayAttending.count == 0 && arrayMaybe.count == 0)
+        {
+            [self showLabelFeedback:@"Aún no tienes amigos que puedan asistir a MonK. Invítalos a la app por redes sociales :)"];
+        }
     }];
     
     
