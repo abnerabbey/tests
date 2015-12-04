@@ -66,7 +66,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tsZ-O1-rmO">
                                 <rect key="frame" x="20" y="499" width="560" height="44"/>
                                 <color key="backgroundColor" red="0.73725490196078436" green="0.63529411764705879" blue="0.50588235294117645" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Pagar Cuenta">
+                                <state key="normal" title="Pedir Cuenta">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -93,7 +93,7 @@
                                 <action selector="showMoreOptions:" destination="cLH-eD-Yod" id="VMZ-kh-92Y"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="HAr-Wm-kSC">
+                        <barButtonItem key="rightBarButtonItem" title="Más" id="HAr-Wm-kSC">
                             <color key="tintColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="refreshAccount:" destination="cLH-eD-Yod" id="0Lx-aE-6Ls"/>

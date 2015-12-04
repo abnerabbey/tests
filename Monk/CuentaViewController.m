@@ -46,7 +46,7 @@
     self.tableAccount.dataSource = self;
     
     //Verificar primero si la cuenta está abierta
-    if([defaults boolForKey:@"accountOpen"] == NO){
+    if([defaults boolForKey:@"accountOpen"] || ([defaults boolForKey:@"accountOpen"] == NO)){
         [self setFirstViewInterface];
         [defaults setBool:YES forKey:@"accountOpen"];
         [defaults synchronize];
@@ -59,7 +59,7 @@
 #pragma mark TableView Delegates
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -67,12 +67,12 @@
     switch(section)
     {
         case 0:
-            return [[self arrayAccount] count];
+            return 1;
             break;
         case 1:
-            return [[self arrayComplementos] count];
+            return [[self arrayAccount] count];
         case 2:
-            return 1;
+            return [[self arrayComplementos] count];
             break;
         default:
             break;
@@ -85,13 +85,13 @@
     switch(section)
     {
         case 0:
-            return @"Platillos";
+            return @"Total a pagar";
             break;
         case 1:
-            return @"Complementos";
+            return @"Platillos";
             break;
         case 2:
-            return @"Total a pagar";
+            return @"Complementos";
         default:
             break;
     }
@@ -107,22 +107,24 @@
     {
         case 0:
         {
+            if(totalToPay)//Para evitar que salga esta sección antes de que aparezca la cuenta
+                cell.textLabel.text = [NSString stringWithFormat:@"Total a Pagar: %@", totalToPay];
+        }
+        break;
+        case 1:
+        {
             NSDictionary *dictionary = [[self arrayAccount] objectAtIndex:indexPath.row];
             cell.textLabel.text = [NSString stringWithFormat:@"%@", [dictionary objectForKey:@"nombre"]];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Precio: %@", [[dictionary objectForKey:@"precio"] stringValue]];
         }
         break;
-        case 1:
+        case 2:
         {
             NSDictionary *diction = [[self arrayComplementos] objectAtIndex:indexPath.row];
             cell.textLabel.text = [NSString stringWithFormat:@"%@", [diction objectForKey:@"nombre"]];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Precio: %@", [[diction objectForKey:@"precio"] stringValue]];
         }
         break;
-        case 2:
-            if(totalToPay)//Para evitar que salga esta sección antes de que aparezca la cuenta
-                cell.textLabel.text = [NSString stringWithFormat:@"Total a Pagar: %@", totalToPay];
-            break;
         default:
             break;
     }
@@ -158,7 +160,15 @@
 
 - (IBAction)refreshAccount:(UIBarButtonItem *)sender
 {
-    [self getAccountStatus];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Actualizar Cuenta" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getAccountStatus];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Llamar a mesera/o" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self callMesera];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)payBill:(UIButton *)sender
@@ -204,7 +214,7 @@
         self.tableAccount.delegate =self;
         self.tableAccount.dataSource = self;
         
-        [self callMesera];
+        [self userArrivedMonk];
         [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
     }
     else{
@@ -215,7 +225,7 @@
     }
 }
 
-- (void)callMesera
+- (void)userArrivedMonk
 {
     PFUser *user = [PFUser currentUser];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/meseras/llamar?objectId=%@", monkURL, user.objectId]];
@@ -372,6 +382,11 @@
         }
     }];
     [task resume];
+}
+
+- (void)callMesera
+{
+    
 }
 
 @end
