@@ -46,7 +46,7 @@
     self.tableAccount.dataSource = self;
     
     //Verificar primero si la cuenta está abierta
-    if([defaults boolForKey:@"accountOpen"] || ([defaults boolForKey:@"accountOpen"] == NO)){
+    if(![defaults boolForKey:@"accountOpen"] || ([defaults boolForKey:@"accountOpen"] == NO)){
         [self setFirstViewInterface];
         [defaults setBool:YES forKey:@"accountOpen"];
         [defaults synchronize];
@@ -173,6 +173,7 @@
 
 - (IBAction)payBill:(UIButton *)sender
 {
+    [self pedirCuenta];
     [self showPayView];
 }
 
@@ -214,7 +215,7 @@
         self.tableAccount.delegate =self;
         self.tableAccount.dataSource = self;
         
-        [self userArrivedMonk];
+        [self callMesera];
         [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
     }
     else{
@@ -225,7 +226,7 @@
     }
 }
 
-- (void)userArrivedMonk
+- (void)callMesera
 {
     PFUser *user = [PFUser currentUser];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/meseras/llamar?objectId=%@", monkURL, user.objectId]];
@@ -262,7 +263,7 @@
             totalToPay = [[dictionaryCuenta objectForKey:@"cantidad"] stringValue];
             self.arrayAccount = [dictionaryCuenta objectForKey:@"platillos"];
             self.arrayComplementos = [dictionaryCuenta objectForKey:@"complementos"];
-            if(self.arrayAccount.count > 0)
+            if(totalToPay)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [labelFeedback removeFromSuperview];
                 });
@@ -384,9 +385,15 @@
     [task resume];
 }
 
-- (void)callMesera
+- (void)pedirCuenta
 {
-    
+    PFUser *user = [PFUser currentUser];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/pedir/cuenta?objectId=%@", monkURL, user.objectId]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLSession *session = [NSURLSession sharedSession];
+    [request setHTTPMethod:@"POST"];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request];
+    [task resume];
 }
 
 @end

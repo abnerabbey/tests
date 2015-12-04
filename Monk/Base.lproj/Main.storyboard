@@ -641,7 +641,7 @@
                                 <action selector="viewAssitants:" destination="2US-mR-sGP" id="d6E-hc-dCP"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Invitar" id="RfU-cM-RfI">
+                        <barButtonItem key="rightBarButtonItem" title="Más" id="RfU-cM-RfI">
                             <color key="tintColor" red="0.73725490199999999" green="0.63529411759999999" blue="0.50588235290000005" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="shareMenu:" destination="2US-mR-sGP" id="sX7-D7-qxA"/>

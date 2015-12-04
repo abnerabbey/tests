@@ -91,15 +91,16 @@
     UILabel *labelName = (UILabel *)[cell viewWithTag:2];
     labelName.text = [dictionMenu objectForKey:@"nombre"];
     
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
-    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.row]];
+    /*UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
+    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.row]];*/
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    dataImage = [self.imagesData objectAtIndex:indexPath.row];
+    
+    //dataImage = [self.imagesData objectAtIndex:indexPath.row];
     dictionaryMenuDescription = [self.arrayMenus objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"menuSegue" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -145,12 +146,12 @@
 - (IBAction)shareMenu:(UIBarButtonItem *)sender
 {
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Invita a tus amigos!" message:@"Selecciona una opción" preferredStyle:UIAlertControllerStyleActionSheet];
-    [controller addAction:[UIAlertAction actionWithTitle:@"Amigos en la app" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [controller addAction:[UIAlertAction actionWithTitle:@"Invita a amigos en la app" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         FriendsViewController *friendsView = [[self storyboard] instantiateViewControllerWithIdentifier:@"friendsView"];
         UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:friendsView];
         [self presentViewController:nv animated:YES completion:nil];
     }]];
-    [controller addAction:[UIAlertAction actionWithTitle:@"Amigos en las redes sociales" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [controller addAction:[UIAlertAction actionWithTitle:@"Invitar en las redes sociales" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *texto = @"Vamos a comer a MonK hoy...! mira el menú en\nhttps://www.facebook.com/MonkPolanco";
         NSArray *array = [NSArray arrayWithObject:texto];
         UIActivityViewController *activityView = [[UIActivityViewController alloc] initWithActivityItems:array applicationActivities:nil];
@@ -163,6 +164,9 @@
                                        UIActivityTypePostToVimeo];
         activityView.excludedActivityTypes = excludeActivities;
         [self presentViewController:activityView animated:YES completion:nil];
+    }]];
+    [controller addAction:[UIAlertAction actionWithTitle:@"Actualizar Menú" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self getMenu];
     }]];
     [controller addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
     [[controller view] setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
@@ -350,11 +354,11 @@
     });
     dispatch_async(imageQue, ^{
         for (NSDictionary *dictionary in arrayMenu) {
-            NSDictionary *imageDictionary = [dictionary objectForKey:@"image"];
+            /*NSDictionary *imageDictionary = [dictionary objectForKey:@"image"];
             NSString *imageString = [imageDictionary objectForKey:@"url"];
             NSURL *urlImage = [NSURL URLWithString:imageString];
             NSData *imageData = [NSData dataWithContentsOfURL:urlImage];
-            [[self imagesData] addObject:imageData];
+            [[self imagesData] addObject:imageData];*/
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [activityIndicator stopAnimating];

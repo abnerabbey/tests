@@ -33,12 +33,12 @@
     blurView.frame = self.view.bounds;
     [self.imageBackground addSubview:blurView];
     
-    dispatch_async(imageQue, ^{
+    /*dispatch_async(imageQue, ^{
         UIImage *image = [self getMenuImage];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.imageMenu.image = image;
         });
-    });
+    });*/
     self.textMenuDescription.text = [self getMenuDescription];
     
     //NSLog(@"menu description: %@", self.dictionaryMenuDescription);
