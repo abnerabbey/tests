@@ -27,6 +27,7 @@
 		0753B6E11BECF1F900B18C4F /* rating-star-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0753B6DE1BECF1F900B18C4F /* rating-star-on@2x.png */; };
 		0753B6E41BECF22300B18C4F /* RateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E31BECF22300B18C4F /* RateViewController.m */; };
 		0753B6E71BECFC7700B18C4F /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */; };
+		075437B91C147E72004F61AD /* SelectSaldoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075437B81C147E72004F61AD /* SelectSaldoViewController.m */; };
 		0754E2A71BE5272500D369BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0754E2A61BE5272500D369BE /* CoreLocation.framework */; };
 		0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AA1BE57BD200D369BE /* CardViewController.m */; };
 		0754E2AE1BE57C0A00D369BE /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0754E2AD1BE57C0A00D369BE /* ProfileViewController.m */; };
@@ -112,6 +113,8 @@
 		0753B6E31BECF22300B18C4F /* RateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RateViewController.m; sourceTree = "<group>"; };
 		0753B6E51BECFC7700B18C4F /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		0753B6E61BECFC7700B18C4F /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		075437B71C147E72004F61AD /* SelectSaldoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectSaldoViewController.h; sourceTree = "<group>"; };
+		075437B81C147E72004F61AD /* SelectSaldoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectSaldoViewController.m; sourceTree = "<group>"; };
 		0754E2A61BE5272500D369BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0754E2A91BE57BD100D369BE /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		0754E2AA1BE57BD200D369BE /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
@@ -451,6 +454,8 @@
 				07E336E41BE457B90040CC90 /* CuentaViewController.m */,
 				076532031C06AC6E002666A9 /* PayViewController.h */,
 				076532041C06AC6E002666A9 /* PayViewController.m */,
+				075437B71C147E72004F61AD /* SelectSaldoViewController.h */,
+				075437B81C147E72004F61AD /* SelectSaldoViewController.m */,
 				074547171C0BE3CC0017FD7A /* OtherBillViewController.h */,
 				074547181C0BE3CC0017FD7A /* OtherBillViewController.m */,
 				0754E2A91BE57BD100D369BE /* CardViewController.h */,
@@ -631,6 +636,7 @@
 				0770D0F81C0751F700DA13A4 /* PageContentViewController.m in Sources */,
 				07CFC33B1C0A0ADC00106EA2 /* ComentViewController.m in Sources */,
 				0753B6DF1BECF1F900B18C4F /* DXStarRatingView.m in Sources */,
+				075437B91C147E72004F61AD /* SelectSaldoViewController.m in Sources */,
 				074547191C0BE3CC0017FD7A /* OtherBillViewController.m in Sources */,
 				0754E2AB1BE57BD200D369BE /* CardViewController.m in Sources */,
 				079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */,

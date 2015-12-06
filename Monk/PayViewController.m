@@ -17,11 +17,13 @@
 @implementation PayViewController
 {
     NSArray *arrayPropinas;
+    NSString *saldoString;
     
     NSIndexPath *previousIndexPath;
     NSIndexPath *previousCardIndexPath;
     
     float billPercent;
+    float saldoSelect;
     NSDictionary *dicCard;
 }
 
@@ -33,6 +35,7 @@
     
     arrayPropinas = [NSArray arrayWithObjects:@"0", @"10", @"15", @"20", @"otro ", nil];
     billPercent = 0.15;
+    saldoSelect = 0.0;
     
     self.navigationItem.title = @"Pagar la cuenta";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Pagar" style:UIBarButtonItemStyleDone target:self action:@selector(pay)];
@@ -47,7 +50,7 @@
 #pragma mark TableView Delegates
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -55,9 +58,12 @@
     switch(section)
     {
         case 0:
-            return [self.arrayCards count];
+            return 1;
             break;
         case 1:
+            return [self.arrayCards count];
+            break;
+        case 2:
             return [arrayPropinas count];
             break;
         default:
@@ -71,9 +77,12 @@
     switch(section)
     {
         case 0:
-            return @"Selecciona la tarjeta con la que deseas pagar";
+            return @"Selecciona el saldo monk con el que deseas pagar";
             break;
         case 1:
+            return @"Selecciona la tarjeta con la que deseas pagar";
+            break;
+        case 2:
             return @"Selecciona la propina. Por default es el 15%";
             break;
         default:
@@ -90,12 +99,17 @@
     {
         case 0:
         {
+            cell.textLabel.text = [NSString stringWithFormat:@"Saldo Monk: %@. Saldo elegido:", saldoString];
+        }
+        break;
+        case 1:
+        {
             NSDictionary *dictCard = [self.arrayCards objectAtIndex:indexPath.row];
             cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictCard objectForKey:@"digitos"]];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"ID: %@", [dictCard objectForKey:@"id"]];
         }
         break;
-        case 1:
+        case 2:
         {
             cell.textLabel.text = [NSString stringWithFormat:@"%@%%", [arrayPropinas objectAtIndex:indexPath.row]];
             if(indexPath.row == 2){
@@ -116,6 +130,11 @@
     {
         case 0:
         {
+            [self selectSaldo];
+        }
+        break;
+        case 1:
+        {
             [[tableView cellForRowAtIndexPath:previousCardIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
             if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryNone){
                 [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
@@ -128,7 +147,7 @@
             }
         }
         break;
-        case 1:
+        case 2:
         {
             [[tableView cellForRowAtIndexPath:previousIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
             if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryNone){
@@ -159,6 +178,7 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
             NSDictionary *dicResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            saldoString = [[dicResponse objectForKey:@"saldo"] stringValue];
             self.arrayCards = [dicResponse objectForKey:@"tarjetas"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableViewSetup reloadData];
@@ -222,6 +242,26 @@
     else
         cell.textLabel.text = @"otro:";
 }
+
+- (void)selectSaldo
+{
+    SelectSaldoViewController *saldoView = [[self storyboard] instantiateViewControllerWithIdentifier:@"saldoView"];
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:saldoView];
+    saldoView.delegate = self;
+    [self presentViewController:nv animated:YES completion:nil];
+}
+
+#pragma mark SaldoView Delegate
+- (void)didSelectSaldo:(float)saldoSelected
+{
+    NSIndexPath *indextPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    UITableViewCell *cell = [self.tableViewSetup cellForRowAtIndexPath:indextPath];
+    if(saldoSelected > 0 && saldoSelected <= [saldoString floatValue]){
+        saldoSelect = saldoSelected;
+        cell.textLabel.text = [NSString stringWithFormat:@"Saldo Monk: %@. Saldo elegido: %g", saldoString, saldoSelected];
+    }
+}
+
 
 @end
 

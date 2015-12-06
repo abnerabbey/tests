@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "OtherBillViewController.h"
+#import "SelectSaldoViewController.h"
 
 @protocol PayViewDelegate <NSObject>
 
@@ -15,7 +16,7 @@
 
 @end
 
-@interface PayViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, OtherBillDelegate>
+@interface PayViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, OtherBillDelegate, SaldoViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewSetup;
 

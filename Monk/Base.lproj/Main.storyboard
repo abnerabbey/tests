@@ -227,6 +227,41 @@
             </objects>
             <point key="canvasLocation" x="1273" y="2810"/>
         </scene>
+        <!--Select Saldo View Controller-->
+        <scene sceneID="NOU-uH-Xcs">
+            <objects>
+                <viewController storyboardIdentifier="saldoView" id="Rrc-Nm-Ccd" customClass="SelectSaldoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XR3-1v-36L"/>
+                        <viewControllerLayoutGuide type="bottom" id="iJY-u7-l2a"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="peU-i5-dht">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Escribe aquí..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="CPO-VD-o1s">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CPO-VD-o1s" firstAttribute="leading" secondItem="peU-i5-dht" secondAttribute="leading" id="MAd-wd-hhV"/>
+                            <constraint firstAttribute="trailing" secondItem="CPO-VD-o1s" secondAttribute="trailing" id="MST-DL-a5T"/>
+                            <constraint firstItem="iJY-u7-l2a" firstAttribute="top" secondItem="CPO-VD-o1s" secondAttribute="bottom" constant="450" id="WQS-gU-iWW"/>
+                            <constraint firstItem="CPO-VD-o1s" firstAttribute="top" secondItem="peU-i5-dht" secondAttribute="top" id="ibS-bX-s1l"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="CPO-VD-o1s" id="uT0-W0-c6q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jwA-Af-Pk2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1274" y="3500"/>
+        </scene>
         <!--Other Bill View Controller-->
         <scene sceneID="JYE-t5-EcS">
             <objects>
