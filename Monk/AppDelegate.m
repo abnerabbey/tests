@@ -29,6 +29,15 @@
     [[UIPageControl appearance] setTintColor:[UIColor blackColor]];
     [[UIPageControl appearance] setCurrentPageIndicatorTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     
+    if(launchOptions){
+        NSDictionary *userInfo = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        NSString *kindNotif = [userInfo objectForKey:@"tipo"];
+        NSLog(@"tipo: %@", kindNotif);
+        if([kindNotif isEqualToString:@"cupon"])
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"pushCode" object:nil userInfo:userInfo];
+        [PFPush handlePush:userInfo];
+    }
+    
     
     return YES;
 }

@@ -48,12 +48,16 @@
     //Verificar primero si la cuenta está abierta
     if(![defaults boolForKey:@"accountOpen"] || ([defaults boolForKey:@"accountOpen"] == NO)){
         [self setFirstViewInterface];
-        [defaults setBool:YES forKey:@"accountOpen"];
-        [defaults synchronize];
     }
     else{
         [self getAccountStatus];
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    BOOL accountStatus = [defaults boolForKey:@"accountOpen"];
+    NSLog(accountStatus ? @"account is open" : @"account is closed");
 }
 
 #pragma mark TableView Delegates
@@ -217,6 +221,9 @@
         
         [self callMesera];
         [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
+        
+        [defaults setBool:YES forKey:@"accountOpen"];
+        [defaults synchronize];
     }
     else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sin tarjeta" message:@"Aún no tienes una tarjeta asociada. Introduce una en más y verifica la política de privacidad." preferredStyle:UIAlertControllerStyleAlert];

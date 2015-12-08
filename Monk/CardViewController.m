@@ -63,7 +63,7 @@
 #pragma mark TableView Delegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 
@@ -75,6 +75,9 @@
             return 1;
             break;
         case 1:
+            return 1;
+            break;
+        case 2:
             return [self.arrayCards count];
             break;
         default:
@@ -91,6 +94,9 @@
             return @"Tu saldo acumulado en MonK con los cupones de promoción";
             break;
         case 1:
+            return @"Como usuario de MonK, puedes tener algún convenio.";
+            break;
+        case 2:
             return @"Tus tarjetas";
         default:
             break;
@@ -111,6 +117,9 @@
             cell.textLabel.text = [NSString stringWithFormat:@"Tu Saldo MonK: %@", [[dictResponse objectForKey:@"saldo"] stringValue]];
             break;
         case 1:
+            cell.textLabel.text = [NSString stringWithFormat:@"Tu Convenio: %@", [dictResponse objectForKey:@"compania"]];
+            break;
+        case 2:
         {
             NSDictionary *dictionary = [self.arrayCards objectAtIndex:indexPath.row];
             cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictionary objectForKey:@"digitos"]];
@@ -139,6 +148,7 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if(!error){
             dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"response: %@", dictResponse);
             self.arrayCards = [[NSMutableArray alloc] init];
             self.arrayCards = (NSMutableArray *)[dictResponse objectForKey:@"tarjetas"];
             if(self.arrayCards.count == 0)
