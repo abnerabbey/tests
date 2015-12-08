@@ -77,7 +77,7 @@
     switch(section)
     {
         case 0:
-            return @"Selecciona el saldo monk con el que deseas pagar";
+            return @"Selecciona el saldo monk con el que deseas pagar. Puedes combinar el pago con tu saldo y tu tarjeta";
             break;
         case 1:
             return @"Selecciona la tarjeta con la que deseas pagar";
@@ -99,7 +99,7 @@
     {
         case 0:
         {
-            cell.textLabel.text = [NSString stringWithFormat:@"Saldo Monk: %@. Saldo elegido:", saldoString];
+            cell.textLabel.text = [NSString stringWithFormat:@"Saldo Monk: %@. Saldo elegido: %g", saldoString, saldoSelect];
         }
         break;
         case 1:
@@ -202,9 +202,7 @@
             UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
             [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [self dismissViewControllerAnimated:YES completion:^{
-                    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"accountOpen"];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
-                    [[self delegate] didPayAccount];
+                    [self payEverything];
                 }];
             }]];
             [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
@@ -218,6 +216,33 @@
         [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
         [self presentViewController:alert animated:YES completion:nil];
     }
+}
+
+- (void)payEverything
+{
+    PFUser *user = [PFUser currentUser];
+    NSString *stringURL = [NSString stringWithFormat:@"https://monkapp.herokuapp.com/pagar?objectId=%@", user.objectId];
+    NSURL *urlPayment = [NSURL URLWithString:stringURL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlPayment];
+    [request setHTTPMethod:@"POST"];
+    
+    NSString *paymentStatus = [NSString stringWithFormat:@"saldo=%g&tarjeta_id=%@&propina=%g", saldoSelect, [dicCard objectForKey:@"id"], billPercent];
+    NSData *paymentData = [paymentStatus dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [request setHTTPBody:paymentData];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(!error){
+            NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            NSLog(@"payment response: %@", response);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+               [[self delegate] didPayAccount]; 
+            });
+        }
+    }];
+    [task resume];
 }
 
 - (void)cancelPay

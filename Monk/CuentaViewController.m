@@ -357,7 +357,7 @@
 
 - (void)showLabelFeedback:(NSString *)feedbackString
 {
-    labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 90.0, self.view.frame.size.width - 44.0, 44.0)];
+    labelFeedback = [[UILabel alloc] initWithFrame:CGRectMake(22.0, 100.0, self.view.frame.size.width - 44.0, 44.0)];
     labelFeedback.textColor = [UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0];
     labelFeedback.text = feedbackString;
     labelFeedback.textAlignment = NSTextAlignmentCenter;
