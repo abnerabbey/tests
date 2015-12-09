@@ -57,7 +57,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     BOOL accountStatus = [defaults boolForKey:@"accountOpen"];
-    NSLog(accountStatus ? @"account is open" : @"account is closed");
+    NSLog(accountStatus ? @"account is open. Acoount status." : @"account is closed. FirstInterface");
 }
 
 #pragma mark TableView Delegates
@@ -267,7 +267,7 @@
         if(!error){
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
             NSDictionary *dictionaryCuenta = [dictionary objectForKey:@"cuenta"];
-            totalToPay = [[dictionaryCuenta objectForKey:@"cantidad"] stringValue];
+            totalToPay = [dictionary objectForKey:@"total"];
             self.arrayAccount = [dictionaryCuenta objectForKey:@"platillos"];
             self.arrayComplementos = [dictionaryCuenta objectForKey:@"complementos"];
             if(totalToPay)

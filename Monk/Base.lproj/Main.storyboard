@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
@@ -296,6 +296,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qj5-fp-5YL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1978" y="2810"/>
+        </scene>
+        <!--Saldo Card View Controller-->
+        <scene sceneID="jvv-z0-0J6">
+            <objects>
+                <viewController storyboardIdentifier="saldoCard" id="Idd-Bg-FdJ" customClass="SaldoCardViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mss-Qg-GoR"/>
+                        <viewControllerLayoutGuide type="bottom" id="NEA-rk-sBb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QpU-oK-EKv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Escribe aquí..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Pei-GW-w6V">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NEA-rk-sBb" firstAttribute="top" secondItem="Pei-GW-w6V" secondAttribute="bottom" constant="450" id="5zu-XZ-eye"/>
+                            <constraint firstItem="Pei-GW-w6V" firstAttribute="top" secondItem="QpU-oK-EKv" secondAttribute="top" id="Jmd-lA-p1L"/>
+                            <constraint firstAttribute="trailing" secondItem="Pei-GW-w6V" secondAttribute="trailing" id="fkr-QN-mH7"/>
+                            <constraint firstItem="Pei-GW-w6V" firstAttribute="leading" secondItem="QpU-oK-EKv" secondAttribute="leading" id="u1E-z9-OAF"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="Pei-GW-w6V" id="kGd-Z0-lM2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4xY-u4-7SA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1978" y="3500"/>
         </scene>
         <!--Card View Controller-->
         <scene sceneID="Lbt-KR-4PG">

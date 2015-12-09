@@ -65,7 +65,7 @@
 
 - (IBAction)addCard:(UIButton *)sender
 {
-    /*if([self.textFieldTarjeta.text isEqualToString:@""] || [self.textFieldCVV.text isEqualToString:@""] || ([self.textFieldExpiration.text isEqualToString:@""] || self.textFieldExpiration.text.length < 6) || [self.textFieldNombre.text isEqualToString:@""])
+    if([self.textFieldTarjeta.text isEqualToString:@""] || [self.textFieldCVV.text isEqualToString:@""] || ([self.textFieldExpiration.text isEqualToString:@""] || self.textFieldExpiration.text.length < 6) || [self.textFieldNombre.text isEqualToString:@""])
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Asegúrate de llenar los campos correctamente" preferredStyle:UIAlertControllerStyleAlert];
         [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
@@ -83,8 +83,8 @@
             [self sendTokenToServer:[data objectForKey:@"code"]];
         } andError:^(NSError *error) {
         }];
-    }*/
-    [self sendTest];
+    }
+    //[self sendTest];
 }
 
 - (void)showAlertResponse:(NSString *)message
@@ -124,7 +124,7 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
-    NSString *stringToken = [NSString stringWithFormat:@"conektaTokenId=tok_test_visa_4242&nombre=JuanPerez&telefono="""];
+    NSString *stringToken = [NSString stringWithFormat:@"conektaTokenId=tok_test_visa_1881&nombre=JuanPerez&telefono="""];
     NSData *tokenData = [stringToken dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:tokenData];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {

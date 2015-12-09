@@ -33,7 +33,10 @@
     [[self labelMessage] setText:[NSString stringWithFormat:@"%@, invita a tus nuevos amigos y gana $50 MXN por cada uno que se registre y compre.", user[@"firstName"]]];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.labelCode.text = [defaults objectForKey:@"userCode"];
+    if([defaults objectForKey:@"userCode"])
+        self.labelCode.text = [defaults objectForKey:@"userCode"];
+    else
+        self.labelCode.text = [user objectForKey:@"monkCode"];
     
 }
 

@@ -139,6 +139,9 @@
             NSDictionary *dictResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             [defaults setObject:[dictResponse objectForKey:@"codigo"] forKey:@"userCode"];
+            PFUser *user = [PFUser currentUser];
+            user[@"monkCode"] = [dictResponse objectForKey:@"codigo"];
+            [user saveInBackground];
             [defaults synchronize];
             NSLog(@"Response: %@", dictResponse);
         }

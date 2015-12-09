@@ -44,6 +44,7 @@
 		0770D1041C075BEC00DA13A4 /* TutorialRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0770D1031C075BEC00DA13A4 /* TutorialRootViewController.m */; };
 		078BE0521C0A646600518687 /* DescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078BE0511C0A646600518687 /* DescriptionViewController.m */; };
 		079D3EAE1BF9989A00E3DC09 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079D3EAD1BF9989A00E3DC09 /* TestViewController.m */; };
+		079ED4281C17E22B0023FA67 /* SaldoCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079ED4271C17E22B0023FA67 /* SaldoCardViewController.m */; };
 		07A519A71BE7077600F3977D /* pinMonk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A61BE7077600F3977D /* pinMonk@2x.png */; };
 		07A519A91BE70D6200F3977D /* invitacion@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519A81BE70D6200F3977D /* invitacion@2x.png */; };
 		07A519AE1BE7230E00F3977D /* Cards@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A519AB1BE7230E00F3977D /* Cards@2x.png */; };
@@ -139,6 +140,8 @@
 		078BE0511C0A646600518687 /* DescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionViewController.m; sourceTree = "<group>"; };
 		079D3EAC1BF9989A00E3DC09 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		079D3EAD1BF9989A00E3DC09 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		079ED4261C17E22B0023FA67 /* SaldoCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaldoCardViewController.h; sourceTree = "<group>"; };
+		079ED4271C17E22B0023FA67 /* SaldoCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaldoCardViewController.m; sourceTree = "<group>"; };
 		07A519A61BE7077600F3977D /* pinMonk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pinMonk@2x.png"; sourceTree = "<group>"; };
 		07A519A81BE70D6200F3977D /* invitacion@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "invitacion@2x.png"; sourceTree = "<group>"; };
 		07A519AB1BE7230E00F3977D /* Cards@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Cards@2x.png"; sourceTree = "<group>"; };
@@ -454,6 +457,8 @@
 				07E336E41BE457B90040CC90 /* CuentaViewController.m */,
 				076532031C06AC6E002666A9 /* PayViewController.h */,
 				076532041C06AC6E002666A9 /* PayViewController.m */,
+				079ED4261C17E22B0023FA67 /* SaldoCardViewController.h */,
+				079ED4271C17E22B0023FA67 /* SaldoCardViewController.m */,
 				075437B71C147E72004F61AD /* SelectSaldoViewController.h */,
 				075437B81C147E72004F61AD /* SelectSaldoViewController.m */,
 				074547171C0BE3CC0017FD7A /* OtherBillViewController.h */,
@@ -644,6 +649,7 @@
 				07E336DF1BE457A00040CC90 /* MenuViewController.m in Sources */,
 				078BE0521C0A646600518687 /* DescriptionViewController.m in Sources */,
 				07E336E81BE462CE0040CC90 /* AssistantsViewController.m in Sources */,
+				079ED4281C17E22B0023FA67 /* SaldoCardViewController.m in Sources */,
 				0770D1041C075BEC00DA13A4 /* TutorialRootViewController.m in Sources */,
 				07E336E21BE457B10040CC90 /* UbicacionViewController.m in Sources */,
 				0753B6E41BECF22300B18C4F /* RateViewController.m in Sources */,

@@ -24,6 +24,7 @@
     
     float billPercent;
     float saldoSelect;
+    float saldoCardSelect;
     NSDictionary *dicCard;
 }
 
@@ -36,6 +37,7 @@
     arrayPropinas = [NSArray arrayWithObjects:@"0", @"10", @"15", @"20", @"otro ", nil];
     billPercent = 0.15;
     saldoSelect = 0.0;
+    saldoCardSelect = 0.0;
     
     self.navigationItem.title = @"Pagar la cuenta";
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] initWithTitle:@"Pagar" style:UIBarButtonItemStyleDone target:self action:@selector(pay)];
@@ -61,7 +63,7 @@
             return 1;
             break;
         case 1:
-            return [self.arrayCards count];
+            return [self.arrayCards count] + 1;
             break;
         case 2:
             return [arrayPropinas count];
@@ -80,7 +82,7 @@
             return @"Selecciona el saldo monk con el que deseas pagar. Puedes combinar el pago con tu saldo y tu tarjeta";
             break;
         case 1:
-            return @"Selecciona la tarjeta con la que deseas pagar";
+            return @"Selecciona la tarjeta con la que deseas pagar y el saldo a pagar con la misma";
             break;
         case 2:
             return @"Selecciona la propina. Por default es el 15%";
@@ -104,9 +106,15 @@
         break;
         case 1:
         {
-            NSDictionary *dictCard = [self.arrayCards objectAtIndex:indexPath.row];
-            cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictCard objectForKey:@"digitos"]];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"ID: %@", [dictCard objectForKey:@"id"]];
+            if(indexPath.row < self.arrayCards.count){
+                NSDictionary *dictCard = [self.arrayCards objectAtIndex:indexPath.row];
+                cell.textLabel.text = [NSString stringWithFormat:@"Tarjeta: %@", [dictCard objectForKey:@"digitos"]];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"ID: %@", [dictCard objectForKey:@"id"]];
+            }
+            else{
+                cell.textLabel.text = [NSString stringWithFormat:@"Saldo seleccionado: %g", saldoCardSelect];
+            }
+            
         }
         break;
         case 2:
@@ -135,15 +143,20 @@
         break;
         case 1:
         {
-            [[tableView cellForRowAtIndexPath:previousCardIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
-            if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryNone){
-                [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
-                previousCardIndexPath = indexPath;
-                dicCard = [self.arrayCards objectAtIndex:indexPath.row];
-                NSLog(@"dicCard: %@", dicCard);
+            if(indexPath.row < self.arrayCards.count){
+                [[tableView cellForRowAtIndexPath:previousCardIndexPath] setAccessoryType:UITableViewCellAccessoryNone];
+                if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryNone){
+                    [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryCheckmark];
+                    previousCardIndexPath = indexPath;
+                    dicCard = [self.arrayCards objectAtIndex:indexPath.row];
+                    NSLog(@"dicCard: %@", dicCard);
+                }
+                else if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryCheckmark){
+                    [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryNone];
+                }
             }
-            else if([[tableView cellForRowAtIndexPath:indexPath] accessoryType] == UITableViewCellAccessoryCheckmark){
-                [[tableView cellForRowAtIndexPath:indexPath] setAccessoryType:UITableViewCellAccessoryNone];
+            else{
+                [self selectCardSaldo];
             }
         }
         break;
@@ -199,6 +212,9 @@
             [self presentViewController:alert animated:YES completion:nil];
         }
         else{
+            NSLog(@"saldo monk seleccionado: %g", saldoSelect);
+            NSLog(@"saldo tarjeta seleccionada: %g", saldoCardSelect);
+            NSLog(@"propina seleccionada: %g", billPercent);
             UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
             [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [self dismissViewControllerAnimated:YES completion:^{
@@ -226,7 +242,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:urlPayment];
     [request setHTTPMethod:@"POST"];
     
-    NSString *paymentStatus = [NSString stringWithFormat:@"saldo=%g&tarjeta_id=%@&propina=%g", saldoSelect, [dicCard objectForKey:@"id"], billPercent];
+    NSString *paymentStatus = [NSString stringWithFormat:@"saldo=%g&tarjeta_id=%@&propina=%g&pagoTarjeta=%g", saldoSelect, [dicCard objectForKey:@"id"], billPercent, saldoCardSelect];
     NSData *paymentData = [paymentStatus dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPBody:paymentData];
@@ -281,12 +297,29 @@
 {
     NSIndexPath *indextPath = [NSIndexPath indexPathForRow:0 inSection:0];
     UITableViewCell *cell = [self.tableViewSetup cellForRowAtIndexPath:indextPath];
-    if(saldoSelected > 0 && saldoSelected <= [saldoString floatValue]){
+    if(saldoSelected <= [saldoString floatValue]){
         saldoSelect = saldoSelected;
         cell.textLabel.text = [NSString stringWithFormat:@"Saldo Monk: %@. Saldo elegido: %g", saldoString, saldoSelected];
     }
 }
 
+- (void)selectCardSaldo
+{
+    SaldoCardViewController *saldoCardView = [[self storyboard] instantiateViewControllerWithIdentifier:@"saldoCard"];
+    saldoCardView.delegate = self;
+    UINavigationController *nv = [[UINavigationController alloc] initWithRootViewController:saldoCardView];
+    [self presentViewController:nv animated:YES completion:nil];
+}
+
+#pragma mark SaldoCardView Delegate
+ -(void)didSelectSaldoCard:(float)saldoCard
+{
+    NSLog(@"se llama, saldoCard: %g", saldoCard);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.arrayCards.count inSection:1];
+    UITableViewCell *cell = [self.tableViewSetup cellForRowAtIndexPath:indexPath];
+    saldoCardSelect = saldoCard;
+    cell.textLabel.text = [NSString stringWithFormat:@"Saldo seleccionado: %g", saldoCard];
+}
 
 @end
 
