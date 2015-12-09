@@ -190,6 +190,9 @@
     BOOL exists = [[defaults objectForKey:@"newUser"] boolValue];
     if(!exists)
     {
+        PFUser *user = [PFUser currentUser];
+        [user setObject:[defaults objectForKey:@"userCode"] forKey:@"monkCode"];
+        [user saveInBackground];
         [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"newUser"];
         [defaults synchronize];
         
