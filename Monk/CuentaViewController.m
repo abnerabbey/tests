@@ -172,13 +172,27 @@
         [self callMesera];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleCancel handler:nil]];
+    [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)payBill:(UIButton *)sender
 {
-    [self pedirCuenta];
-    [self showPayView];
+    if(self.creditCards.count == 0){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Tarjeta o Efectivo" message:@"Aún no tienes tarjeta asociada. Agrega una en el menú 'Más' o continuar pagando en efectivo" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Continuar" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self pedirCuenta];
+            [self showPayView];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    else{
+        [self pedirCuenta];
+        [self showPayView];
+    }
+    
 }
 
 #pragma mark Other Methods
@@ -210,27 +224,28 @@
 
 - (void)openAccount
 {
-    if(self.creditCards.count > 0){
+    buttonStart.hidden = YES;
+    self.tableAccount.hidden = NO;
+    self.buttonPay.hidden = NO;
+    self.buttonRefresh.enabled = YES;
+    self.tableAccount.delegate =self;
+    self.tableAccount.dataSource = self;
+    
+    [self callMesera];
+    [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
+    
+    [defaults setBool:YES forKey:@"accountOpen"];
+    [defaults synchronize];
+    /*if(self.creditCards.count > 0){
         //Verificar primero si hay tarjeta asociada
-        buttonStart.hidden = YES;
-        self.tableAccount.hidden = NO;
-        self.buttonPay.hidden = NO;
-        self.buttonRefresh.enabled = YES;
-        self.tableAccount.delegate =self;
-        self.tableAccount.dataSource = self;
-        
-        [self callMesera];
-        [self showLabelFeedback:@"Aquí aparecerá el estado de tu cuenta de consumo"];
-        
-        [defaults setBool:YES forKey:@"accountOpen"];
-        [defaults synchronize];
+     
     }
     else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Sin tarjeta" message:@"Aún no tienes una tarjeta asociada. Introduce una en más y verifica la política de privacidad." preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
         [self presentViewController:alert animated:YES completion:nil];
-    }
+    }*/
 }
 
 - (void)callMesera

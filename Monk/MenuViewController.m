@@ -91,8 +91,8 @@
     UILabel *labelName = (UILabel *)[cell viewWithTag:2];
     labelName.text = [dictionMenu objectForKey:@"nombre"];
     
-    /*UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
-    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.row]];*/
+    UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
+    imageView.image = [UIImage imageWithData:[self.imagesData objectAtIndex:indexPath.row]];
     
     return cell;
 }
@@ -100,7 +100,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    //dataImage = [self.imagesData objectAtIndex:indexPath.row];
+    dataImage = [self.imagesData objectAtIndex:indexPath.row];
     dictionaryMenuDescription = [self.arrayMenus objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"menuSegue" sender:self];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -357,11 +357,11 @@
     });
     dispatch_async(imageQue, ^{
         for (NSDictionary *dictionary in arrayMenu) {
-            /*NSDictionary *imageDictionary = [dictionary objectForKey:@"image"];
+            NSDictionary *imageDictionary = [dictionary objectForKey:@"image"];
             NSString *imageString = [imageDictionary objectForKey:@"url"];
             NSURL *urlImage = [NSURL URLWithString:imageString];
             NSData *imageData = [NSData dataWithContentsOfURL:urlImage];
-            [[self imagesData] addObject:imageData];*/
+            [[self imagesData] addObject:imageData];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [activityIndicator stopAnimating];

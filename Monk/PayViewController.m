@@ -203,38 +203,53 @@
 
 - (void)pay
 {
-    if(dicCard != nil){//Osea si el usuario no ha escogido una tarjeta
-        NSIndexPath *checkIndex = [NSIndexPath indexPathForRow:4 inSection:1];
-        if(billPercent == 0.0 && [[self.tableViewSetup cellForRowAtIndexPath:checkIndex] accessoryType] == UITableViewCellAccessoryCheckmark){
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Propina Inválida" message:@"Introduce una propina válida para continuar" preferredStyle:UIAlertControllerStyleAlert];
+    NSLog(@"saldo monk seleccionado: %g", saldoSelect);
+    NSLog(@"saldo tarjeta seleccionada: %g", saldoCardSelect);
+    NSLog(@"propina seleccionada: %g", billPercent);
+    
+    if(self.arrayCards.count > 0){
+        if(dicCard != nil){//Osea si el usuario no ha escogido una tarjeta
+            NSIndexPath *checkIndex = [NSIndexPath indexPathForRow:4 inSection:1];
+            if(billPercent == 0.0 && [[self.tableViewSetup cellForRowAtIndexPath:checkIndex] accessoryType] == UITableViewCellAccessoryCheckmark){
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Propina Inválida" message:@"Introduce una propina válida para continuar" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+            else{
+                UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
+                [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    [self dismissViewControllerAnimated:YES completion:^{
+                        [self payOnServer];
+                    }];
+                }]];
+                [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+                [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+                [self presentViewController:alertPay animated:YES completion:nil];
+            }
+        }
+        else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Selecciona una tarjeta" message:@"Selecciona una tarjeta para poder pagar" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
             [self presentViewController:alert animated:YES completion:nil];
         }
-        else{
-            NSLog(@"saldo monk seleccionado: %g", saldoSelect);
-            NSLog(@"saldo tarjeta seleccionada: %g", saldoCardSelect);
-            NSLog(@"propina seleccionada: %g", billPercent);
-            UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
-            [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [self dismissViewControllerAnimated:YES completion:^{
-                    [self payEverything];
-                }];
-            }]];
-            [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
-            [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-            [self presentViewController:alertPay animated:YES completion:nil];
-        }
     }
     else{
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Selecciona una tarjeta" message:@"Selecciona una tarjeta para poder pagar" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-        [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
-        [self presentViewController:alert animated:YES completion:nil];
+        UIAlertController *alertPay = [UIAlertController alertControllerWithTitle:@"Pagar la cuenta" message:@"Estás a punto de pagar la cuenta. Tu pago será en efectivo ¿Estás seguro que deseas continuar?" preferredStyle:UIAlertControllerStyleAlert];
+        [alertPay addAction:[UIAlertAction actionWithTitle:@"Pagar" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self payOnServer];
+            }];
+        }]];
+        [alertPay addAction:[UIAlertAction actionWithTitle:@"Cancelar" style:UIAlertActionStyleDefault handler:nil]];
+        [alertPay.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
+        [self presentViewController:alertPay animated:YES completion:nil];
     }
+    
 }
 
-- (void)payEverything
+- (void)payOnServer
 {
     PFUser *user = [PFUser currentUser];
     NSString *stringURL = [NSString stringWithFormat:@"https://monkapp.herokuapp.com/pagar?objectId=%@", user.objectId];

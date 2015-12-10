@@ -65,7 +65,7 @@
 
 - (IBAction)addCard:(UIButton *)sender
 {
-    if([self.textFieldTarjeta.text isEqualToString:@""] || [self.textFieldCVV.text isEqualToString:@""] || ([self.textFieldExpiration.text isEqualToString:@""] || self.textFieldExpiration.text.length < 6) || [self.textFieldNombre.text isEqualToString:@""])
+    /*if([self.textFieldTarjeta.text isEqualToString:@""] || [self.textFieldCVV.text isEqualToString:@""] || ([self.textFieldExpiration.text isEqualToString:@""] || self.textFieldExpiration.text.length < 6) || [self.textFieldNombre.text isEqualToString:@""])
     {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Ups" message:@"Asegúrate de llenar los campos correctamente" preferredStyle:UIAlertControllerStyleAlert];
         [alert.view setTintColor:[UIColor colorWithRed:0.737 green:0.635 blue:0.506 alpha:1.0]];
@@ -83,8 +83,8 @@
             [self sendTokenToServer:[data objectForKey:@"code"]];
         } andError:^(NSError *error) {
         }];
-    }
-    //[self sendTest];
+    }*/
+    [self sendTest];
 }
 
 - (void)showAlertResponse:(NSString *)message
